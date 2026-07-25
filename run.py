@@ -1,18 +1,12 @@
-# Import the Flask class from the flask package
-from flask import Flask
+# Import the application factory function
+from app import create_app
+
 
 # Create the Flask application
-app = Flask(__name__)
+app = create_app()
 
 
-# This route handles the home page of our application
-@app.route("/")
-def home():
-    # Return a simple message to test whether Flask is working
-    return "AI-Powered Intelligent Voting and Election Analysis System"
-
-
-# This block runs the application when we execute: python run.py
+# Run the application only when this file is executed directly
 if __name__ == "__main__":
     # Start the Flask development server
     app.run(debug=True)
