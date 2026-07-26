@@ -4,10 +4,21 @@ from flask import Flask
 # Import SQLAlchemy to connect Flask with our database
 from flask_sqlalchemy import SQLAlchemy
 
+# Import LoginManager to manage user login sessions
+from flask_login import LoginManager
+
 
 # Create the database object
 # We will use this object to create and manage database tables
 db = SQLAlchemy()
+
+
+# Create the login manager object
+# This will manage user login sessions
+login_manager = LoginManager()
+
+# Set the page where unauthenticated users should be redirected
+login_manager.login_view = "auth.login"
 
 
 # This function creates and configures our Flask application
@@ -25,6 +36,10 @@ def create_app():
 
     # Connect the database object to our Flask application
     db.init_app(app)
+
+    # Connect Flask-Login to our Flask application
+    login_manager.init_app(app)
+
     # Import the User model so SQLAlchemy knows about the User table
     from app.models.user import User
 
