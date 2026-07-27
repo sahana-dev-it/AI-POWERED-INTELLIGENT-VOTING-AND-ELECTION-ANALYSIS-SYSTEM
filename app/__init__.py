@@ -19,6 +19,10 @@ login_manager = LoginManager()
 
 # Set the page where unauthenticated users should be redirected
 login_manager.login_view = "auth.login"
+@login_manager.user_loader
+def load_user(user_id):
+    from app.models.user import User
+    return User.query.get(int(user_id))
 
 
 # This function creates and configures our Flask application
@@ -26,6 +30,9 @@ def create_app():
 
     # Create a Flask application instance
     app = Flask(__name__)
+
+    print("Flask template folder:", app.template_folder)
+    print("Flask template path:", app.jinja_loader.searchpath)
 
     # Configure the SQLite database
     # The database file will be created inside the database folder
@@ -48,6 +55,12 @@ def create_app():
 
     # Register the main routes with the application
     app.register_blueprint(main)
+
+    # Import the authentication Blueprint
+    from app.auth.routes import auth
+
+    # Register the authentication Blueprint with the Flask application
+    app.register_blueprint(auth)
 
     # Return the configured Flask application
     return app
