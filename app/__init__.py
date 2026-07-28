@@ -19,9 +19,16 @@ login_manager = LoginManager()
 
 # Set the page where unauthenticated users should be redirected
 login_manager.login_view = "auth.login"
+
+
+# Tell Flask-Login how to load a user from the database
 @login_manager.user_loader
 def load_user(user_id):
+
+    # Import the User model
     from app.models.user import User
+
+    # Find and return the user using their ID
     return User.query.get(int(user_id))
 
 
@@ -31,11 +38,14 @@ def create_app():
     # Create a Flask application instance
     app = Flask(__name__)
 
+    # Secret key used to secure user sessions
+    app.config["SECRET_KEY"] = "VotingSystem@2026"
+
+    # Display template folder information (for debugging)
     print("Flask template folder:", app.template_folder)
     print("Flask template path:", app.jinja_loader.searchpath)
 
     # Configure the SQLite database
-    # The database file will be created inside the database folder
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///../database/voting_system.db"
 
     # Disable unnecessary modification tracking
@@ -50,17 +60,29 @@ def create_app():
     # Import the User model so SQLAlchemy knows about the User table
     from app.models.user import User
 
-    # Import the main routes after creating the application
+    # Import the main Blueprint
     from app.routes import main
 
-    # Register the main routes with the application
+    # Register the main Blueprint
     app.register_blueprint(main)
 
     # Import the authentication Blueprint
     from app.auth.routes import auth
 
-    # Register the authentication Blueprint with the Flask application
+    # Register the authentication Blueprint
     app.register_blueprint(auth)
+
+    # Import the Admin Blueprint
+    from app.admin.routes import admin
+
+    # Register the Admin Blueprint
+    app.register_blueprint(admin)
+
+    # Import the Voter Blueprint
+    from app.voter.routes import voter
+
+    # Register the Voter Blueprint
+    app.register_blueprint(voter)
 
     # Return the configured Flask application
     return app

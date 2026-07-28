@@ -18,7 +18,9 @@
 
     <!-- Main heading of the registration page -->
     <h1>Create Your Account</h1>
-
+    {% if message %}
+    <h3>{{ message }}</h3>
+    {% endif %}
     <!--
         This form sends user data to the /register URL.
         method="POST" is used because we are sending data to the server.

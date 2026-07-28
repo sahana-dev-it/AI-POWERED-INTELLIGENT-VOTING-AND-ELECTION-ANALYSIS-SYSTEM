@@ -1,9 +1,12 @@
-# Import the database object from our Flask application
+# Import the database object
 from app import db
+
+# Import UserMixin for Flask-Login
+from flask_login import UserMixin
 
 
 # Create the User database model
-class User(db.Model):
+class User(UserMixin, db.Model):
 
     # Create a unique ID for every user
     id = db.Column(db.Integer, primary_key=True)
