@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Create Election</title>
+</head>
+
+<body>
+
+    <h1>Create New Election</h1>
+
+    <hr>
+
+    <form method="POST">
+
+        <label>Election Title</label>
+        <br>
+        <input type="text" name="title" required>
+
+        <br><br>
+
+        <label>Description</label>
+        <br>
+        <textarea name="description" rows="5" cols="40" required></textarea>
+
+        <br><br>
+
+        <label>Start Date</label><br>
+        <input type="date" name="start_date" required><br><br>
+
+        <label>Start Time</label><br>
+        <input type="time" name="start_time" required><br><br>
+
+        <label>End Date</label><br>
+        <input type="date" name="end_date" required><br><br>
+
+        <label>End Time</label><br>
+        <input type="time" name="end_time" required><br><br>
+
+        <br><br>
+
+        <label>Status</label>
+        <br>
+
+        <select name="status">
+
+            <option value="Upcoming">Upcoming</option>
+            <option value="Active">Active</option>
+            <option value="Completed">Completed</option>
+
+        </select>
+
+        <br><br>
+
+        <input type="submit" value="Create Election">
+
+    </form>
+
+</body>
+
+</html>

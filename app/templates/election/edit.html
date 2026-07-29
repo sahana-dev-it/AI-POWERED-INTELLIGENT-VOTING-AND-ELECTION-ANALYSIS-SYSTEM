@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Edit Election</title>
+</head>
+
+<body>
+
+<h1>Edit Election</h1>
+
+<hr>
+
+<form method="POST">
+
+<label>Election Title</label><br>
+<input type="text" name="title" value="{{ election.title }}" required>
+
+<br><br>
+
+<label>Description</label><br>
+<textarea name="description" rows="5" cols="40" required>{{ election.description }}</textarea>
+
+<br><br>
+
+<label>Start Date</label><br>
+<input type="date" name="start_date" value="{{ election.start_date }}" required>
+
+<br><br>
+
+<label>Start Time</label><br>
+<input type="time" name="start_time" value="{{ election.start_time }}" required>
+
+<br><br>
+
+<label>End Date</label><br>
+<input type="date" name="end_date" value="{{ election.end_date }}" required>
+
+<br><br>
+
+<label>End Time</label><br>
+<input type="time" name="end_time" value="{{ election.end_time }}" required>
+
+<br><br>
+
+<label>Status</label><br>
+
+<select name="status">
+
+<option value="Upcoming"
+{% if election.status=="Upcoming" %}selected{% endif %}>
+Upcoming
+</option>
+
+<option value="Active"
+{% if election.status=="Active" %}selected{% endif %}>
+Active
+</option>
+
+<option value="Completed"
+{% if election.status=="Completed" %}selected{% endif %}>
+Completed
+</option>
+
+</select>
+
+<br><br>
+
+<input type="submit" value="Update Election">
+
+</form>
+
+</body>
+
+</html>

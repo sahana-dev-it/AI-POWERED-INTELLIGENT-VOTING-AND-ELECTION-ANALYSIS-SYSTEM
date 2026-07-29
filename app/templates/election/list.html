@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>All Elections</title>
+</head>
+
+<body>
+
+<h1>All Elections</h1>
+
+<hr>
+
+<table border="1" cellpadding="8">
+
+<tr>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Start</th>
+    <th>End</th>
+    <th>Status</th>
+    <th>Actions</th>
+</tr>
+
+{% for election in elections %}
+
+<tr>
+
+<td>{{ election.id }}</td>
+
+<td>{{ election.title }}</td>
+
+<td>{{ election.start_date }} {{ election.start_time }}</td>
+
+<td>{{ election.end_date }} {{ election.end_time }}</td>
+
+<td>{{ election.status }}</td>
+
+<td>
+
+    <a href="/election/edit/{{ election.id }}">
+        <button>Edit</button>
+    </a>
+
+    <a href="/election/delete/{{ election.id }}">
+        <button>Delete</button>
+    </a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</body>
+
+</html>
