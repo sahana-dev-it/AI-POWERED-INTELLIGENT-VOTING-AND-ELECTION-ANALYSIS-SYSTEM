@@ -1,8 +1,8 @@
-# Import Blueprint
-from flask import Blueprint
+# Import Blueprint, render_template and abort
+from flask import Blueprint, render_template, abort
 
-# Import login_required
-from flask_login import login_required
+# Import login utilities
+from flask_login import login_required, current_user
 
 
 # Create Admin Blueprint
@@ -13,4 +13,10 @@ admin = Blueprint("admin", __name__, url_prefix="/admin")
 @admin.route("/dashboard")
 @login_required
 def dashboard():
-    return "<h1>Admin Dashboard</h1>"
+
+    # Allow only admins
+    if current_user.role != "admin":
+        abort(403)
+
+    # Display Admin Dashboard page
+    return render_template("admin/dashboard.html")

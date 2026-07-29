@@ -59,6 +59,7 @@ def create_app():
 
     # Import the User model so SQLAlchemy knows about the User table
     from app.models.user import User
+    from app.election.models import Election
 
     # Import the main Blueprint
     from app.routes import main
