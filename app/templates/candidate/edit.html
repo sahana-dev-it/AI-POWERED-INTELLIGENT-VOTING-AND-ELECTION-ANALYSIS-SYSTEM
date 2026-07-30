@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Edit Candidate</title>
+</head>
+
+<body>
+
+<h1>Edit Candidate</h1>
+
+<hr>
+
+<form method="POST">
+
+<label>Select Election</label>
+<br>
+
+<select name="election_id" required>
+
+{% for election in elections %}
+
+<option value="{{ election.id }}"
+{% if election.id == candidate.election_id %}selected{% endif %}>
+{{ election.title }}
+</option>
+
+{% endfor %}
+
+</select>
+
+<br><br>
+
+<label>Candidate Name</label>
+<br>
+<input
+type="text"
+name="name"
+value="{{ candidate.name }}"
+required>
+
+<br><br>
+
+<label>Age</label>
+<br>
+<input
+type="number"
+name="age"
+value="{{ candidate.age }}"
+required>
+
+<br><br>
+
+<label>Gender</label>
+<br>
+
+<select name="gender">
+
+<option value="Male"
+{% if candidate.gender=="Male" %}selected{% endif %}>
+Male
+</option>
+
+<option value="Female"
+{% if candidate.gender=="Female" %}selected{% endif %}>
+Female
+</option>
+
+<option value="Other"
+{% if candidate.gender=="Other" %}selected{% endif %}>
+Other
+</option>
+
+</select>
+
+<br><br>
+
+<label>Party Name</label>
+<br>
+<input
+type="text"
+name="party"
+value="{{ candidate.party }}"
+required>
+
+<br><br>
+
+<label>Education</label>
+<br>
+<input
+type="text"
+name="education"
+value="{{ candidate.education }}"
+required>
+
+<br><br>
+
+<label>Profession</label>
+<br>
+<input
+type="text"
+name="profession"
+value="{{ candidate.profession }}"
+required>
+
+<br><br>
+
+<label>Manifesto</label>
+<br>
+
+<textarea
+name="manifesto"
+rows="5"
+cols="40"
+required>{{ candidate.manifesto }}</textarea>
+
+<br><br>
+
+<input
+type="submit"
+value="Update Candidate">
+
+</form>
+
+</body>
+
+</html>

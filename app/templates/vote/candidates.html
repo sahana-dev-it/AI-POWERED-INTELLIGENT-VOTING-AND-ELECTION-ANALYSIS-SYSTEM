@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Candidates</title>
+</head>
+
+<body>
+
+<h1>{{ election.title }}</h1>
+
+<hr>
+
+<h2>Candidates</h2>
+
+{% if candidates %}
+
+<table border="1" cellpadding="10">
+
+<tr>
+    <th>Name</th>
+    <th>Party</th>
+    <th>Education</th>
+    <th>Profession</th>
+    <th>Manifesto</th>
+    <th>Vote</th>
+</tr>
+
+{% for candidate in candidates %}
+
+<tr>
+
+    <td>{{ candidate.name }}</td>
+    <td>{{ candidate.party }}</td>
+    <td>{{ candidate.education }}</td>
+    <td>{{ candidate.profession }}</td>
+    <td>{{ candidate.manifesto }}</td>
+
+    <td>
+        <button disabled>
+            Vote
+        </button>
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% else %}
+
+<h3>No Candidates Available.</h3>
+
+{% endif %}
+
+<br><br>
+
+<a href="/vote/elections">
+    <button>Back</button>
+</a>
+
+</body>
+
+</html>

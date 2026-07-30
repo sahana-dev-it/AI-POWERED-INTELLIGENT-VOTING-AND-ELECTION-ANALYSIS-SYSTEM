@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Candidate List</title>
+</head>
+
+<body>
+
+<h1>Candidate List</h1>
+
+<hr>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+
+{% for category, message in messages %}
+
+<script>
+alert("{{ message }}");
+</script>
+
+{% endfor %}
+
+{% endif %}
+{% endwith %}
+
+<table border="1" cellpadding="10">
+
+<tr>
+
+    <th>ID</th>
+    <th>Name</th>
+    <th>Party</th>
+    <th>Election ID</th>
+    <th>Age</th>
+    <th>Gender</th>
+    <th>Actions</th>
+
+</tr>
+
+{% for candidate in candidates %}
+
+<tr>
+
+    <td>{{ candidate.id }}</td>
+    <td>{{ candidate.name }}</td>
+    <td>{{ candidate.party }}</td>
+    <td>{{ candidate.election_id }}</td>
+    <td>{{ candidate.age }}</td>
+    <td>{{ candidate.gender }}</td>
+
+    <td>
+
+        <a href="/candidate/edit/{{ candidate.id }}">
+            Edit
+        </a>
+
+        |
+
+        <a
+        href="/candidate/delete/{{ candidate.id }}"
+        onclick="return confirm('Delete this candidate?')">
+            Delete
+        </a>
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+<a href="/candidate/create">
+    Add New Candidate
+</a>
+
+</body>
+
+</html>

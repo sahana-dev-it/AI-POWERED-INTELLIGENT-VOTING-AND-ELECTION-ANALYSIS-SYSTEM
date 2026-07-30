@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add Candidate</title>
+</head>
+
+<body>
+
+<h1>Add Candidate</h1>
+
+<hr>
+
+<form method="POST">
+
+<label>Select Election</label>
+<br>
+
+<select name="election_id" required>
+
+{% for election in elections %}
+
+<option value="{{ election.id }}">
+    {{ election.title }}
+</option>
+
+{% endfor %}
+
+</select>
+
+<br><br>
+
+<label>Candidate Name</label>
+<br>
+<input type="text" name="name" required>
+
+<br><br>
+
+<label>Age</label>
+<br>
+<input type="number" name="age" required>
+
+<br><br>
+
+<label>Gender</label>
+<br>
+
+<select name="gender">
+
+<option>Male</option>
+
+<option>Female</option>
+
+<option>Other</option>
+
+</select>
+
+<br><br>
+
+<label>Party Name</label>
+<br>
+<input type="text" name="party" required>
+
+<br><br>
+
+<label>Education</label>
+<br>
+<input type="text" name="education" required>
+
+<br><br>
+
+<label>Profession</label>
+<br>
+<input type="text" name="profession" required>
+
+<br><br>
+
+<label>Manifesto</label>
+<br>
+
+<textarea
+name="manifesto"
+rows="5"
+cols="40"
+required>
+</textarea>
+
+<br><br>
+
+<input
+type="submit"
+value="Add Candidate">
+
+</form>
+
+</body>
+
+</html>

@@ -49,8 +49,11 @@ def create_app():
     login_manager.init_app(app)
 
     # Import Models
+    # Import Models
     from app.models.user import User
     from app.models.election import Election
+    from app.models.candidate import Candidate
+    from app.models.vote import Vote
 
     # Import Main Blueprint
     from app.routes import main
@@ -72,6 +75,14 @@ def create_app():
     from app.election.routes import election
     app.register_blueprint(election)
 
+    # Import Candidate Blueprint
+    from app.candidate.routes import candidate
+    app.register_blueprint(candidate)
+    # Import Vote Blueprint
+    from app.vote.routes import vote
+
+    # Register Vote Blueprint
+    app.register_blueprint(vote)
     # Create all database tables
     with app.app_context():
         db.create_all()
