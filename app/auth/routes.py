@@ -10,8 +10,11 @@ from werkzeug.security import generate_password_hash, check_password_hash
 # Import SQLAlchemy IntegrityError
 from sqlalchemy.exc import IntegrityError
 
+# Import Flask-Mail
+from flask_mail import Message
+
 # Import database and User model
-from app import db
+from app import db, mail
 from app.models.user import User
 
 # Import OTP tools
@@ -59,7 +62,6 @@ def register():
                 message=message
             )
 
-
         # ----------------------------------
         # Create password hash
         # ----------------------------------
@@ -67,7 +69,6 @@ def register():
         hashed_password = generate_password_hash(
             password
         )
-
 
         # ----------------------------------
         # Generate 6-digit OTP
@@ -77,41 +78,62 @@ def register():
             random.randint(100000, 999999)
         )
 
-
         # OTP valid for 10 minutes
         verification_expiry = (
             datetime.utcnow() + timedelta(minutes=10)
         )
-
 
         # ----------------------------------
         # Create new voter
         # ----------------------------------
 
         new_user = User(
-
             name=name,
-
             email=email,
-
             password=hashed_password,
-
             role="voter",
-
             email_verified=False,
-
             verification_code=verification_code,
-
             verification_expiry=verification_expiry
         )
 
-
         try:
 
+            # Add user to database
             db.session.add(new_user)
 
+            # Save user
             db.session.commit()
 
+            # ----------------------------------
+            # Send OTP to user's email
+            # ----------------------------------
+
+            msg = Message(
+    subject="Voting System - Email Verification OTP",
+    recipients=[email]
+)
+
+            msg.body = f"""
+Hello {name},
+
+Thank you for registering with the
+AI-Powered Intelligent Voting and Election Analysis System.
+
+Your email verification OTP is:
+
+{verification_code}
+
+This OTP is valid for 10 minutes.
+
+Please do not share this OTP with anyone.
+
+Regards,
+Voting System
+"""
+
+            # Send email
+            mail.send(msg)
 
             # ----------------------------------
             # Store email temporarily in session
@@ -119,35 +141,34 @@ def register():
 
             session["verification_email"] = email
 
-
             # ----------------------------------
-            # TEMPORARY TESTING
-            # ----------------------------------
-
-            print("")
-            print("====================================")
-            print("EMAIL VERIFICATION OTP")
-            print("Email:", email)
-            print("OTP:", verification_code)
-            print("====================================")
-            print("")
-
-
             # Redirect to OTP page
+            # ----------------------------------
+
             return redirect(
                 url_for("auth.verify_otp")
             )
 
-
         except IntegrityError:
 
+            # Undo database changes
             db.session.rollback()
 
+            message = "This email is already registered."
+
+        except Exception as e:
+
+            # Undo database changes if email sending fails
+            db.session.rollback()
+
+            print("EMAIL ERROR:", e)
+
             message = (
-                "This email is already registered."
+                "Unable to send verification email. "
+                "Please try again."
             )
 
-
+    # Display registration page
     return render_template(
         "register.html",
         message=message
@@ -161,10 +182,10 @@ def register():
 @auth.route("/verify-otp", methods=["GET", "POST"])
 def verify_otp():
 
+    # Get email stored during registration
     email = session.get(
         "verification_email"
     )
-
 
     # If there is no email in session
     if not email:
@@ -173,12 +194,12 @@ def verify_otp():
             url_for("auth.register")
         )
 
-
+    # Find user
     user = User.query.filter_by(
         email=email
     ).first()
 
-
+    # If user doesn't exist
     if not user:
 
         session.pop(
@@ -190,16 +211,17 @@ def verify_otp():
             url_for("auth.register")
         )
 
-
     message = ""
 
+    # ----------------------------------
+    # Verify OTP
+    # ----------------------------------
 
     if request.method == "POST":
 
         entered_code = request.form[
             "verification_code"
         ].strip()
-
 
         # ----------------------------------
         # Check OTP
@@ -210,8 +232,7 @@ def verify_otp():
             and
             user.verification_expiry
             and
-            datetime.utcnow()
-            <= user.verification_expiry
+            datetime.utcnow() <= user.verification_expiry
         ):
 
             # Mark email as verified
@@ -220,11 +241,11 @@ def verify_otp():
             # Remove OTP
             user.verification_code = None
 
+            # Remove OTP expiry
             user.verification_expiry = None
 
-
+            # Save changes
             db.session.commit()
-
 
             # Remove temporary session
             session.pop(
@@ -232,11 +253,10 @@ def verify_otp():
                 None
             )
 
-
+            # Show success page
             return render_template(
                 "verification_success.html"
             )
-
 
         else:
 
@@ -244,7 +264,7 @@ def verify_otp():
                 "Invalid or expired OTP."
             )
 
-
+    # Display OTP page
     return render_template(
         "verify_otp.html",
         message=message,
@@ -261,9 +281,9 @@ def login():
 
     message = ""
 
-
     if request.method == "POST":
 
+        # Get login details
         email = request.form[
             "email"
         ].strip().lower()
@@ -272,21 +292,24 @@ def login():
             "password"
         ]
 
+        # ----------------------------------
+        # Find user by email
+        # ----------------------------------
 
-        # Find user
         user = User.query.filter_by(
             email=email
         ).first()
 
-
         if user:
 
+            # ----------------------------------
             # Check password
+            # ----------------------------------
+
             if check_password_hash(
                 user.password,
                 password
             ):
-
 
                 # ----------------------------------
                 # Check email verification
@@ -303,10 +326,11 @@ def login():
                         message=message
                     )
 
+                # ----------------------------------
+                # Log user in
+                # ----------------------------------
 
-                # Login user
                 login_user(user)
-
 
                 # ----------------------------------
                 # Admin
@@ -318,7 +342,6 @@ def login():
                         url_for("admin.dashboard")
                     )
 
-
                 # ----------------------------------
                 # Voter
                 # ----------------------------------
@@ -327,13 +350,15 @@ def login():
                     url_for("voter.dashboard")
                 )
 
-
+        # ----------------------------------
         # Invalid login
+        # ----------------------------------
+
         message = (
             "Invalid email or password."
         )
 
-
+    # Display login page
     return render_template(
         "login.html",
         message=message
