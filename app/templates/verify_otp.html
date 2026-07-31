@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Verify Email</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+
+            font-family: Arial, sans-serif;
+
+            background: #f4f6f9;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            min-height: 100vh;
+        }
+
+        .verification-container {
+            width: 420px;
+
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 12px;
+
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+            margin-bottom: 25px;
+        }
+
+        .email {
+            font-weight: bold;
+
+            color: #333;
+        }
+
+        .otp-input {
+            width: 100%;
+
+            padding: 14px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 7px;
+
+            font-size: 22px;
+
+            text-align: center;
+
+            letter-spacing: 8px;
+
+            margin-bottom: 20px;
+        }
+
+        .otp-input:focus {
+            outline: none;
+
+            border-color: #4a90e2;
+        }
+
+        .verify-button {
+            width: 100%;
+
+            padding: 13px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #4a90e2;
+
+            color: white;
+
+            font-size: 16px;
+
+            cursor: pointer;
+        }
+
+        .verify-button:hover {
+            background: #357abd;
+        }
+
+        .message {
+            background: #fff3cd;
+
+            color: #856404;
+
+            padding: 10px;
+
+            border-radius: 6px;
+
+            margin-bottom: 18px;
+
+            font-size: 14px;
+        }
+
+        .info {
+            margin-top: 20px;
+
+            font-size: 13px;
+
+            color: #777;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="verification-container">
+
+
+    <h1>Verify Your Email</h1>
+
+
+    <div class="subtitle">
+
+        A verification code has been generated for:
+
+        <div class="email">
+            {{ email }}
+        </div>
+
+        <br>
+
+        Enter the 6-digit verification code to
+        activate your voter account.
+
+    </div>
+
+
+    {% if message %}
+
+    <div class="message">
+        {{ message }}
+    </div>
+
+    {% endif %}
+
+
+    <form method="POST">
+
+
+        <input
+            type="text"
+            name="verification_code"
+            class="otp-input"
+            placeholder="000000"
+            maxlength="6"
+            pattern="[0-9]{6}"
+            inputmode="numeric"
+            autocomplete="one-time-code"
+            required
+        >
+
+
+        <button
+            type="submit"
+            class="verify-button"
+        >
+            Verify Email
+        </button>
+
+
+    </form>
+
+
+    <div class="info">
+
+        Verification code is valid for
+        <strong>10 minutes</strong>.
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

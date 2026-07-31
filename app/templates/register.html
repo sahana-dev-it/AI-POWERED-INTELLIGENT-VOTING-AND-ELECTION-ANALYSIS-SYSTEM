@@ -1,54 +1,496 @@
-<!-- Tells the browser that this is an HTML5 document -->
 <!DOCTYPE html>
-
-<html lang="en">
+<html>
 
 <head>
-    <!-- Supports characters from different languages -->
-    <meta charset="UTF-8">
 
-    <!-- Makes the page responsive on different screen sizes -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
 
-    <!-- Title displayed in the browser tab -->
-    <title>Register - Voting System</title>
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            min-height: 100vh;
+        }
+
+        .register-container {
+            width: 420px;
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 12px;
+
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .register-container h1 {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+
+            border: 1px solid #ccc;
+            border-radius: 7px;
+
+            font-size: 15px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #4a90e2;
+        }
+
+        /* Password field */
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper input {
+            padding-right: 45px;
+        }
+
+        .toggle-password {
+            position: absolute;
+
+            right: 10px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            border: none;
+            background: transparent;
+
+            cursor: pointer;
+
+            font-size: 18px;
+
+            padding: 4px;
+        }
+
+        /* Password requirements */
+
+        .password-info {
+            margin-top: 10px;
+
+            padding: 12px;
+
+            background: #f7f8fa;
+
+            border-radius: 7px;
+
+            font-size: 13px;
+        }
+
+        .password-info p {
+            margin: 0 0 7px 0;
+            font-weight: bold;
+        }
+
+        .requirement {
+            margin: 5px 0;
+            color: #777;
+        }
+
+        .requirement.valid {
+            color: green;
+        }
+
+        /* Message */
+
+        .message {
+            padding: 10px;
+
+            margin-bottom: 18px;
+
+            border-radius: 6px;
+
+            background: #fff3cd;
+
+            color: #856404;
+
+            font-size: 14px;
+        }
+
+        /* Register button */
+
+        .register-button {
+            width: 100%;
+
+            padding: 13px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #4a90e2;
+
+            color: white;
+
+            font-size: 16px;
+
+            cursor: pointer;
+        }
+
+        .register-button:hover {
+            background: #357abd;
+        }
+
+        /* Login link */
+
+        .login-link {
+            text-align: center;
+
+            margin-top: 20px;
+
+            font-size: 14px;
+        }
+
+        .login-link a {
+            text-decoration: none;
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-    <!-- Main heading of the registration page -->
-    <h1>Create Your Account</h1>
+
+<div class="register-container">
+
+
+    <h1>Create Account</h1>
+
+    <div class="subtitle">
+        Register as a voter
+    </div>
+
+
     {% if message %}
-    <h3>{{ message }}</h3>
+
+    <div class="message">
+        {{ message }}
+    </div>
+
     {% endif %}
-    <!--
-        This form sends user data to the /register URL.
-        method="POST" is used because we are sending data to the server.
-    -->
+
+
     <form method="POST">
 
-        <!-- Full name input -->
-        <label for="name">Full Name:</label>
-        <input type="text" id="name" name="name" required>
 
-        <br><br>
+        <!-- Full Name -->
 
-        <!-- Email input -->
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+        <div class="form-group">
 
-        <br><br>
+            <label for="name">
+                Full Name
+            </label>
 
-        <!-- Password input -->
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Enter your full name"
+                required
+            >
 
-        <br><br>
+        </div>
 
-        <!-- Register button -->
-        <button type="submit">Register</button>
+
+        <!-- Email -->
+
+        <div class="form-group">
+
+            <label for="email">
+                Email Address
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+            >
+
+        </div>
+
+
+        <!-- Password -->
+
+        <div class="form-group">
+
+            <label for="password">
+                Password
+            </label>
+
+
+            <div class="password-wrapper">
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Create a strong password"
+                    required
+                >
+
+                <button
+                    type="button"
+                    class="toggle-password"
+                    onclick="togglePassword()"
+                    aria-label="Show password"
+                >
+                    👁️
+                </button>
+
+            </div>
+
+
+            <!-- Password Requirements -->
+
+            <div class="password-info">
+
+                <p>
+                    Your password must contain:
+                </p>
+
+                <div
+                    id="length"
+                    class="requirement"
+                    data-text="At least 8 characters"
+                >
+                    ○ At least 8 characters
+                </div>
+
+                <div
+                    id="uppercase"
+                    class="requirement"
+                    data-text="One uppercase letter (A-Z)"
+                >
+                    ○ One uppercase letter (A-Z)
+                </div>
+
+                <div
+                    id="lowercase"
+                    class="requirement"
+                    data-text="One lowercase letter (a-z)"
+                >
+                    ○ One lowercase letter (a-z)
+                </div>
+
+                <div
+                    id="number"
+                    class="requirement"
+                    data-text="One number (0-9)"
+                >
+                    ○ One number (0-9)
+                </div>
+
+                <div
+                    id="special"
+                    class="requirement"
+                    data-text="One special character (!@#$...)"
+                >
+                    ○ One special character (!@#$...)
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Register -->
+
+        <button
+            type="submit"
+            class="register-button"
+        >
+            Create Account
+        </button>
+
 
     </form>
+
+
+    <div class="login-link">
+
+        Already have an account?
+
+        <a href="/login">
+            Login
+        </a>
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+    // ----------------------------------
+    // Show / Hide Password
+    // ----------------------------------
+
+    function togglePassword() {
+
+        const password =
+            document.getElementById("password");
+
+        const button =
+            document.querySelector(".toggle-password");
+
+
+        if (password.type === "password") {
+
+            password.type = "text";
+
+            button.textContent = "🙈";
+
+            button.setAttribute(
+                "aria-label",
+                "Hide password"
+            );
+
+        }
+
+        else {
+
+            password.type = "password";
+
+            button.textContent = "👁️";
+
+            button.setAttribute(
+                "aria-label",
+                "Show password"
+            );
+
+        }
+
+    }
+
+
+    // ----------------------------------
+    // Password Requirements
+    // ----------------------------------
+
+    const password =
+        document.getElementById("password");
+
+
+    password.addEventListener(
+        "input",
+        function () {
+
+            const value =
+                password.value;
+
+
+            updateRequirement(
+                "length",
+                value.length >= 8
+            );
+
+
+            updateRequirement(
+                "uppercase",
+                /[A-Z]/.test(value)
+            );
+
+
+            updateRequirement(
+                "lowercase",
+                /[a-z]/.test(value)
+            );
+
+
+            updateRequirement(
+                "number",
+                /[0-9]/.test(value)
+            );
+
+
+            updateRequirement(
+                "special",
+                /[^A-Za-z0-9]/.test(value)
+            );
+
+        }
+    );
+
+
+    // ----------------------------------
+    // Update Requirement
+    // ----------------------------------
+
+    function updateRequirement(
+        id,
+        valid
+    ) {
+
+        const element =
+            document.getElementById(id);
+
+
+        const text =
+            element.getAttribute("data-text");
+
+
+        if (valid) {
+
+            element.classList.add("valid");
+
+            element.textContent =
+                "✓ " + text;
+
+        }
+
+        else {
+
+            element.classList.remove("valid");
+
+            element.textContent =
+                "○ " + text;
+
+        }
+
+    }
+
+</script>
+
 
 </body>
 

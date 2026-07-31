@@ -16,12 +16,45 @@ class User(UserMixin, db.Model):
 
     # Store the user's email address
     # unique=True means two users cannot use the same email
-    email = db.Column(db.String(120), unique=True, nullable=False)
+    email = db.Column(
+        db.String(120),
+        unique=True,
+        nullable=False
+    )
 
-    # Store the user's password
-    # We will later store a securely hashed password here
-    password = db.Column(db.String(200), nullable=False)
+    # Store the user's securely hashed password
+    password = db.Column(
+        db.String(200),
+        nullable=False
+    )
 
     # Store the user's role
     # A user can be either a voter or an admin
-    role = db.Column(db.String(20), nullable=False, default="voter")
+    role = db.Column(
+        db.String(20),
+        nullable=False,
+        default="voter"
+    )
+
+    # ----------------------------------
+    # Email Verification
+    # ----------------------------------
+
+    # Whether the user's email has been verified
+    email_verified = db.Column(
+        db.Boolean,
+        default=False,
+        nullable=False
+    )
+
+    # Temporary OTP verification code
+    verification_code = db.Column(
+        db.String(10),
+        nullable=True
+    )
+
+    # Time until which the OTP is valid
+    verification_expiry = db.Column(
+        db.DateTime,
+        nullable=True
+    )

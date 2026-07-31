@@ -2,8 +2,11 @@
 <html>
 
 <head>
+
     <title>Candidates</title>
+
 </head>
+
 
 <body>
 
@@ -11,54 +14,170 @@
 
 <hr>
 
+
+<!-- Flash Messages -->
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+    {% if messages %}
+
+        {% for category, message in messages %}
+
+            <div style="
+                padding: 12px;
+                margin-bottom: 20px;
+                border: 1px solid black;
+                background-color: #f2f2f2;
+            ">
+
+                {{ message }}
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+{% endwith %}
+
+
+
 <h2>Candidates</h2>
+
+
+<!-- If voter has already voted -->
+
+{% if has_voted %}
+
+    <div style="
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid green;
+        background-color: #e8f5e9;
+    ">
+
+        <strong>✅ Voting Completed</strong>
+
+        <br><br>
+
+        You have already voted in this election.
+
+    </div>
+
+{% endif %}
+
+
 
 {% if candidates %}
 
+
 <table border="1" cellpadding="10">
 
+
 <tr>
+
     <th>Name</th>
+
     <th>Party</th>
+
     <th>Education</th>
+
     <th>Profession</th>
+
     <th>Manifesto</th>
-    <th>Vote</th>
+
+    <th>Status</th>
+
 </tr>
+
+
 
 {% for candidate in candidates %}
 
+
 <tr>
 
-    <td>{{ candidate.name }}</td>
-    <td>{{ candidate.party }}</td>
-    <td>{{ candidate.education }}</td>
-    <td>{{ candidate.profession }}</td>
-    <td>{{ candidate.manifesto }}</td>
+    <td>
+        {{ candidate.name }}
+    </td>
+
 
     <td>
-        <button disabled>
-            Vote
-        </button>
+        {{ candidate.party }}
+    </td>
+
+
+    <td>
+        {{ candidate.education }}
+    </td>
+
+
+    <td>
+        {{ candidate.profession }}
+    </td>
+
+
+    <td>
+        {{ candidate.manifesto }}
+    </td>
+
+
+    <td>
+
+
+        {% if has_voted %}
+
+            <span>
+                Voting Completed
+            </span>
+
+
+        {% else %}
+
+            <form
+                method="POST"
+                action="/vote/cast/{{ election.id }}/{{ candidate.id }}"
+            >
+
+                <button type="submit">
+                    Vote
+                </button>
+
+            </form>
+
+        {% endif %}
+
+
     </td>
 
 </tr>
 
+
 {% endfor %}
+
 
 </table>
 
+
 {% else %}
 
-<h3>No Candidates Available.</h3>
+    <h3>No Candidates Available.</h3>
 
 {% endif %}
 
+
+
 <br><br>
 
+
 <a href="/vote/elections">
-    <button>Back</button>
+
+    <button>
+        Back
+    </button>
+
 </a>
+
 
 </body>
 
