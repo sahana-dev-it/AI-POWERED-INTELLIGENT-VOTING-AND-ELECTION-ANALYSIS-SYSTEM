@@ -7,15 +7,27 @@ from flask_sqlalchemy import SQLAlchemy
 # Import LoginManager to manage user login sessions
 from flask_login import LoginManager
 
+# Import Flask-Mail
 from flask_mail import Mail
 
+# Import operating system tools
 import os
+
+# Import dotenv
 from dotenv import load_dotenv
+
+# Load variables from .env file
 load_dotenv()
 
 
+# --------------------------------------------------
+# CREATE EXTENSION OBJECTS
+# --------------------------------------------------
+
 # Create the database object
 db = SQLAlchemy()
+
+# Create the mail object
 mail = Mail()
 
 # Create the login manager object
@@ -25,7 +37,10 @@ login_manager = LoginManager()
 login_manager.login_view = "auth.login"
 
 
-# Tell Flask-Login how to load a user
+# --------------------------------------------------
+# FLASK-LOGIN USER LOADER
+# --------------------------------------------------
+
 @login_manager.user_loader
 def load_user(user_id):
 
@@ -34,78 +49,181 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-# Create Flask application
+# --------------------------------------------------
+# CREATE FLASK APPLICATION
+# --------------------------------------------------
+
 def create_app():
 
-    app = Flask(__name__)
-    # Gmail configuration
-    app.config["MAIL_SERVER"] = "smtp.gmail.com"
-    app.config["MAIL_PORT"] = 587
-    app.config["MAIL_USE_TLS"] = True
-    app.config["MAIL_USERNAME"] = os.getenv("MAIL_USERNAME")
-    app.config["MAIL_PASSWORD"] = os.getenv("MAIL_PASSWORD")
-    app.config["MAIL_DEFAULT_SENDER"] = os.getenv("MAIL_USERNAME")
-    # Initialize Flask-Mail
-    mail.init_app(app)
+    # Create Flask application
+    #
+    # Our CSS is inside:
+    # app/static/css/style.css
+    #
+    # Therefore Flask will use app/static
+    # as its static folder.
+    app = Flask(
+        __name__,
+        static_folder="static",
+        static_url_path="/static"
+    )
 
-    # Secret key
+
+    # --------------------------------------------------
+    # GMAIL CONFIGURATION
+    # --------------------------------------------------
+
+    app.config["MAIL_SERVER"] = "smtp.gmail.com"
+
+    app.config["MAIL_PORT"] = 587
+
+    app.config["MAIL_USE_TLS"] = True
+
+    app.config["MAIL_USERNAME"] = os.getenv(
+        "MAIL_USERNAME"
+    )
+
+    app.config["MAIL_PASSWORD"] = os.getenv(
+        "MAIL_PASSWORD"
+    )
+
+    app.config["MAIL_DEFAULT_SENDER"] = os.getenv(
+        "MAIL_USERNAME"
+    )
+
+
+    # --------------------------------------------------
+    # SECRET KEY
+    # --------------------------------------------------
+
     app.config["SECRET_KEY"] = "VotingSystem@2026"
 
-    # SQLite Database
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///../database/voting_system.db"
 
-    # Disable modification tracking
+    # --------------------------------------------------
+    # DATABASE CONFIGURATION
+    # --------------------------------------------------
+
+    app.config["SQLALCHEMY_DATABASE_URI"] = (
+        "sqlite:///../database/voting_system.db"
+    )
+
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-    # Initialize database
+
+    # --------------------------------------------------
+    # INITIALIZE DATABASE
+    # --------------------------------------------------
+
     db.init_app(app)
 
-    # Initialize Login Manager
+
+    # --------------------------------------------------
+    # INITIALIZE LOGIN MANAGER
+    # --------------------------------------------------
+
     login_manager.init_app(app)
 
-    # Import Models
-    # Import Models
+
+    # --------------------------------------------------
+    # INITIALIZE MAIL
+    # --------------------------------------------------
+
+    mail.init_app(app)
+
+
+    # --------------------------------------------------
+    # IMPORT MODELS
+    # --------------------------------------------------
+
     from app.models.user import User
     from app.models.election import Election
     from app.models.candidate import Candidate
     from app.models.vote import Vote
 
-    # Import Main Blueprint
+
+    # --------------------------------------------------
+    # MAIN BLUEPRINT
+    # --------------------------------------------------
+
     from app.routes import main
+
     app.register_blueprint(main)
 
-    # Import Authentication Blueprint
+
+    # --------------------------------------------------
+    # AUTHENTICATION BLUEPRINT
+    # --------------------------------------------------
+
     from app.auth.routes import auth
+
     app.register_blueprint(auth)
 
-    # Import Admin Blueprint
+
+    # --------------------------------------------------
+    # ADMIN BLUEPRINT
+    # --------------------------------------------------
+
     from app.admin.routes import admin
+
     app.register_blueprint(admin)
 
-    # Import Voter Blueprint
+
+    # --------------------------------------------------
+    # VOTER BLUEPRINT
+    # --------------------------------------------------
+
     from app.voter.routes import voter
+
     app.register_blueprint(voter)
 
-    # Import Election Blueprint
+
+    # --------------------------------------------------
+    # ELECTION BLUEPRINT
+    # --------------------------------------------------
+
     from app.election.routes import election
+
     app.register_blueprint(election)
 
-    # Import Candidate Blueprint
+
+    # --------------------------------------------------
+    # CANDIDATE BLUEPRINT
+    # --------------------------------------------------
+
     from app.candidate.routes import candidate
+
     app.register_blueprint(candidate)
-    # Import Vote Blueprint
+
+
+    # --------------------------------------------------
+    # VOTE BLUEPRINT
+    # --------------------------------------------------
+
     from app.vote.routes import vote
 
-    # Register Vote Blueprint
     app.register_blueprint(vote)
 
-    # Import Results Blueprint
+
+    # --------------------------------------------------
+    # RESULTS BLUEPRINT
+    # --------------------------------------------------
+
     from app.results.routes import results
 
-    # Register Results Blueprint
     app.register_blueprint(results)
-    # Create all database tables
+
+
+    # --------------------------------------------------
+    # CREATE DATABASE TABLES
+    # --------------------------------------------------
+
     with app.app_context():
+
         db.create_all()
+
+
+    # --------------------------------------------------
+    # RETURN APPLICATION
+    # --------------------------------------------------
 
     return app

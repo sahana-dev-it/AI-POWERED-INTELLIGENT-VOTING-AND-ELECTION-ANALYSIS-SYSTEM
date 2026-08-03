@@ -4,9 +4,6 @@ from flask import Blueprint, render_template, abort
 # Import login_required and current_user
 from flask_login import login_required, current_user
 
-# Import database
-from app import db
-
 # Import models
 from app.models.election import Election
 from app.models.candidate import Candidate
@@ -42,7 +39,7 @@ def dashboard():
 
 
     # ----------------------------------
-    # Basic Statistics
+    # Election Statistics
     # ----------------------------------
 
     total_elections = Election.query.count()
@@ -51,9 +48,31 @@ def dashboard():
         status="Active"
     ).count()
 
-    total_candidates = Candidate.query.count()
 
-    total_votes = Vote.query.count()
+    # ----------------------------------
+    # Candidate and Vote Statistics
+    # ----------------------------------
+    # If there are no elections, these
+    # statistics should not display old
+    # candidate/vote records.
+    # ----------------------------------
+
+    if total_elections > 0:
+
+        total_candidates = Candidate.query.count()
+
+        total_votes = Vote.query.count()
+
+    else:
+
+        total_candidates = None
+
+        total_votes = None
+
+
+    # ----------------------------------
+    # Registered Voters
+    # ----------------------------------
 
     total_voters = User.query.filter_by(
         role="voter"
@@ -64,7 +83,10 @@ def dashboard():
     # Calculate Voter Turnout
     # ----------------------------------
 
-    if total_voters > 0:
+    if (
+        total_voters > 0
+        and total_votes is not None
+    ):
 
         voter_turnout = round(
             (total_votes / total_voters) * 100,
@@ -77,7 +99,7 @@ def dashboard():
 
 
     # ----------------------------------
-    # Send statistics to dashboard
+    # Send Statistics to Dashboard
     # ----------------------------------
 
     return render_template(

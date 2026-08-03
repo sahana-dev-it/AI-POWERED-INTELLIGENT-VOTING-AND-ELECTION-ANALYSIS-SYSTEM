@@ -22,31 +22,44 @@
 
 <body>
 
-
 <div class="page-container">
 
 
-    <!-- HEADER -->
+    <!-- =========================================
+         ADMIN DASHBOARD HEADER
+    ========================================== -->
 
-    <div class="dashboard-header">
+    <header class="dashboard-header">
 
-        <div>
+        <div class="header-content">
 
-            <h1>Admin Dashboard</h1>
+            <p class="dashboard-label">
+                ADMIN CONTROL CENTER
+            </p>
 
-            <p>
-                Election management and monitoring center
+            <h1>
+                Admin Dashboard
+            </h1>
+
+            <p class="dashboard-subtitle">
+                Manage elections, candidates and official
+                results from one centralized control center.
             </p>
 
         </div>
 
-    </div>
+    </header>
 
 
-    <!-- STATISTICS -->
 
-    <div class="stats-grid">
+    <!-- =========================================
+         DASHBOARD STATISTICS
+    ========================================== -->
 
+    <section class="stats-grid">
+
+
+        <!-- TOTAL ELECTIONS -->
 
         <div class="stat-card">
 
@@ -59,11 +72,20 @@
             </div>
 
             <div class="stat-description">
-                Elections created
+
+                {% if total_elections > 0 %}
+                    Elections created
+                {% else %}
+                    No elections yet
+                {% endif %}
+
             </div>
 
         </div>
 
+
+
+        <!-- ACTIVE ELECTIONS -->
 
         <div class="stat-card">
 
@@ -76,11 +98,20 @@
             </div>
 
             <div class="stat-description">
-                Currently running
+
+                {% if active_elections > 0 %}
+                    Currently running
+                {% else %}
+                    No active elections
+                {% endif %}
+
             </div>
 
         </div>
 
+
+
+        <!-- CANDIDATES -->
 
         <div class="stat-card">
 
@@ -88,16 +119,33 @@
                 Candidates
             </div>
 
-            <div class="stat-value">
-                {{ total_candidates }}
-            </div>
+            {% if total_elections > 0 %}
 
-            <div class="stat-description">
-                Registered candidates
-            </div>
+                <div class="stat-value">
+                    {{ total_candidates }}
+                </div>
+
+                <div class="stat-description">
+                    Registered candidates
+                </div>
+
+            {% else %}
+
+                <div class="stat-empty">
+                    No data yet
+                </div>
+
+                <div class="stat-description">
+                    Create an election to add candidates.
+                </div>
+
+            {% endif %}
 
         </div>
 
+
+
+        <!-- VOTES CAST -->
 
         <div class="stat-card">
 
@@ -105,243 +153,280 @@
                 Votes Cast
             </div>
 
-            <div class="stat-value">
-                {{ total_votes }}
-            </div>
+            {% if total_elections > 0 %}
 
-            <div class="stat-description">
-                Total votes recorded
-            </div>
+                <div class="stat-value">
+                    {{ total_votes }}
+                </div>
 
-        </div>
+                <div class="stat-description">
+                    Total votes recorded
+                </div>
 
-    </div>
+            {% else %}
 
+                <div class="stat-empty">
+                    Not started
+                </div>
 
-    <!-- ELECTION MANAGEMENT -->
+                <div class="stat-description">
+                    Voting statistics will appear after
+                    an election begins.
+                </div>
 
-    <div class="dashboard-section">
-
-        <div class="section-title">
-            Election Management
-        </div>
-
-
-        <div class="management-grid">
-
-
-            <div class="management-card">
-
-                <h3>
-                    Create Election
-                </h3>
-
-                <p>
-                    Create a new election and configure its
-                    schedule and details.
-                </p>
-
-                <a
-                    href="/election/create"
-                    class="btn btn-primary"
-                >
-                    Create Election
-                </a>
-
-            </div>
-
-
-            <div class="management-card">
-
-                <h3>
-                    View Elections
-                </h3>
-
-                <p>
-                    View, edit and manage all elections.
-                </p>
-
-                <a
-                    href="/election/list"
-                    class="btn btn-secondary"
-                >
-                    View Elections
-                </a>
-
-            </div>
-
+            {% endif %}
 
         </div>
 
-    </div>
+
+    </section>
 
 
-    <!-- CANDIDATE MANAGEMENT -->
 
-    <div class="dashboard-section">
+    <!-- =========================================
+         ELECTION MANAGEMENT
+    ========================================== -->
 
-        <div class="section-title">
-            Candidate Management
+    <section class="dashboard-section">
+
+        <div class="section-heading">
+
+            <h2>
+                Election Management
+            </h2>
+
+            <p>
+                Create and manage elections throughout
+                their complete lifecycle.
+            </p>
+
         </div>
 
 
         <div class="management-grid">
 
 
-            <div class="management-card">
-
-                <h3>
-                    Add Candidate
-                </h3>
-
-                <p>
-                    Register a candidate for an election
-                    with profile and manifesto information.
-                </p>
-
-                <a
-                    href="/candidate/create"
-                    class="btn btn-primary"
-                >
-                    Add Candidate
-                </a>
-
-            </div>
-
+            <!-- CREATE ELECTION -->
 
             <div class="management-card">
 
-                <h3>
-                    View Candidates
-                </h3>
+                <div class="card-content">
 
-                <p>
-                    View and manage candidates participating
-                    in elections.
-                </p>
+                    <h3>
+                        Create Election
+                    </h3>
 
-                <a
-                    href="/candidate/list"
-                    class="btn btn-secondary"
-                >
-                    View Candidates
-                </a>
+                    <p>
+                        Create a new election and configure
+                        its schedule, description and voting period.
+                    </p>
 
-            </div>
+                    <a
+                        href="{{ url_for('election.create') }}"
+                        class="btn btn-primary"
+                    >
+                        Create Election
+                    </a>
 
-
-        </div>
-
-    </div>
-
-
-    <!-- VOTING -->
-
-    <div class="dashboard-section">
-
-        <div class="section-title">
-            Voting & Monitoring
-        </div>
-
-
-        <div class="management-grid">
-
-
-            <div class="management-card">
-
-                <h3>
-                    Voting Activity
-                </h3>
-
-                <p>
-                    Monitor the number of votes recorded
-                    across the voting system.
-                </p>
-
-                <div
-                    class="status status-active"
-                >
-                    System Monitoring
                 </div>
 
             </div>
 
 
+
+            <!-- VIEW ELECTIONS -->
+
             <div class="management-card">
 
-                <h3>
-                    Voter Turnout
-                </h3>
+                <div class="card-content">
 
-                <p>
-                    Current overall participation based
-                    on registered voters.
-                </p>
+                    <h3>
+                        View Elections
+                    </h3>
 
-                <strong
-                    style="
-                        font-size: 30px;
-                        display: block;
-                        margin-bottom: 12px;
-                    "
-                >
-                    {{ voter_turnout }}%
-                </strong>
+                    <p>
+                        View, edit and manage all elections
+                        registered in the system.
+                    </p>
 
-                <span
-                    style="
-                        color: #64748b;
-                        font-size: 13px;
-                    "
-                >
-                    {{ total_votes }}
-                    votes from
-                    {{ total_voters }}
-                    registered voters
-                </span>
+                    <a
+                        href="{{ url_for('election.list_elections') }}"
+                        class="btn btn-secondary"
+                    >
+                        View Elections
+                    </a>
+
+                </div>
 
             </div>
 
 
         </div>
 
-    </div>
+    </section>
 
 
-    <!-- RESULTS -->
 
-    <div class="dashboard-section">
+    <!-- =========================================
+         CANDIDATE MANAGEMENT
+    ========================================== -->
 
-        <div class="section-title">
-            Results
-        </div>
+    <section class="dashboard-section">
 
+        <div class="section-heading">
 
-        <div class="management-card">
-
-            <h3>
-                Election Results
-            </h3>
+            <h2>
+                Candidate Management
+            </h2>
 
             <p>
-                View results of completed elections,
-                vote counts and winners.
+                Register and manage candidates participating
+                in your elections.
             </p>
-
-            <a
-                href="/results/list"
-                class="btn btn-success"
-            >
-                View Results
-            </a>
 
         </div>
 
-    </div>
+
+        <div class="management-grid">
+
+
+            <!-- ADD CANDIDATE -->
+
+            <div class="management-card">
+
+                <div class="card-content">
+
+                    <h3>
+                        Add Candidate
+                    </h3>
+
+                    <p>
+                        Register a candidate for an election
+                        with profile and manifesto information.
+                    </p>
+
+                    <a
+                        href="{{ url_for('candidate.create') }}"
+                        class="btn btn-primary"
+                    >
+                        Add Candidate
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- VIEW CANDIDATES -->
+
+            <div class="management-card">
+
+                <div class="card-content">
+
+                    <h3>
+                        View Candidates
+                    </h3>
+
+                    <p>
+                        View and manage candidates participating
+                        in registered elections.
+                    </p>
+
+                    <a
+                        href="{{ url_for('candidate.list_candidates') }}"
+                        class="btn btn-secondary"
+                    >
+                        View Candidates
+                    </a>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================
+         ELECTION RESULTS
+    ========================================== -->
+
+    <section class="dashboard-section">
+
+        <div class="section-heading">
+
+            <h2>
+                Election Results
+            </h2>
+
+            <p>
+                Analyze completed elections and view
+                official election results.
+            </p>
+
+        </div>
+
+
+        <div class="results-card">
+
+            <div class="results-content">
+
+                <div class="results-information">
+
+                    <h3>
+                        Official Election Results
+                    </h3>
+
+                    <p>
+                        View candidate vote counts, winning
+                        candidates and final results of
+                        completed elections.
+                    </p>
+
+                </div>
+
+
+                <div class="results-action">
+
+                    <a
+                        href="{{ url_for('results.list_results') }}"
+                        class="btn btn-success"
+                    >
+                        View Results
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+
+    <footer class="dashboard-footer">
+
+        <p>
+            AI-Powered Intelligent Voting & Election Analysis System
+        </p>
+
+        <span>
+            Admin Control Center
+        </span>
+
+    </footer>
 
 
 </div>
-
 
 </body>
 

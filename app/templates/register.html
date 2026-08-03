@@ -1,357 +1,278 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Create Account</title>
 
-    <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f6f9;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            min-height: 100vh;
-        }
-
-        .register-container {
-            width: 420px;
-            background: white;
-
-            padding: 35px;
-
-            border-radius: 12px;
-
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
-        }
-
-        .register-container h1 {
-            text-align: center;
-            margin-bottom: 8px;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 25px;
-        }
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 7px;
-            font-weight: bold;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px;
-
-            border: 1px solid #ccc;
-            border-radius: 7px;
-
-            font-size: 15px;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: #4a90e2;
-        }
-
-        /* Password field */
-
-        .password-wrapper {
-            position: relative;
-        }
-
-        .password-wrapper input {
-            padding-right: 45px;
-        }
-
-        .toggle-password {
-            position: absolute;
-
-            right: 10px;
-            top: 50%;
-
-            transform: translateY(-50%);
-
-            border: none;
-            background: transparent;
-
-            cursor: pointer;
-
-            font-size: 18px;
-
-            padding: 4px;
-        }
-
-        /* Password requirements */
-
-        .password-info {
-            margin-top: 10px;
-
-            padding: 12px;
-
-            background: #f7f8fa;
-
-            border-radius: 7px;
-
-            font-size: 13px;
-        }
-
-        .password-info p {
-            margin: 0 0 7px 0;
-            font-weight: bold;
-        }
-
-        .requirement {
-            margin: 5px 0;
-            color: #777;
-        }
-
-        .requirement.valid {
-            color: green;
-        }
-
-        /* Message */
-
-        .message {
-            padding: 10px;
-
-            margin-bottom: 18px;
-
-            border-radius: 6px;
-
-            background: #fff3cd;
-
-            color: #856404;
-
-            font-size: 14px;
-        }
-
-        /* Register button */
-
-        .register-button {
-            width: 100%;
-
-            padding: 13px;
-
-            border: none;
-
-            border-radius: 7px;
-
-            background: #4a90e2;
-
-            color: white;
-
-            font-size: 16px;
-
-            cursor: pointer;
-        }
-
-        .register-button:hover {
-            background: #357abd;
-        }
-
-        /* Login link */
-
-        .login-link {
-            text-align: center;
-
-            margin-top: 20px;
-
-            font-size: 14px;
-        }
-
-        .login-link a {
-            text-decoration: none;
-        }
-
-    </style>
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
 
 </head>
 
 
-<body>
+<body class="auth-page">
 
 
-<div class="register-container">
+<div class="auth-container">
 
 
-    <h1>Create Account</h1>
+    <!-- =====================================
+         LEFT SIDE
+    ====================================== -->
 
-    <div class="subtitle">
-        Register as a voter
-    </div>
+    <div class="auth-info">
 
+        <div class="auth-info-content">
 
-    {% if message %}
+            <p class="auth-label">
+                SECURE ELECTION PLATFORM
+            </p>
 
-    <div class="message">
-        {{ message }}
-    </div>
+            <h1>
+                Create Your Account
+            </h1>
 
-    {% endif %}
-
-
-    <form method="POST">
-
-
-        <!-- Full Name -->
-
-        <div class="form-group">
-
-            <label for="name">
-                Full Name
-            </label>
-
-            <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Enter your full name"
-                required
-            >
-
-        </div>
+            <p class="auth-description">
+                Register securely to participate in elections
+                and access your voting account.
+            </p>
 
 
-        <!-- Email -->
+            <div class="auth-features">
 
-        <div class="form-group">
+                <div class="auth-feature">
+                    <span></span>
+                    Secure account registration
+                </div>
 
-            <label for="email">
-                Email Address
-            </label>
+                <div class="auth-feature">
+                    <span></span>
+                    Verified user access
+                </div>
 
-            <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Enter your email"
-                required
-            >
+                <div class="auth-feature">
+                    <span></span>
+                    Safe online voting
+                </div>
+
+            </div>
 
         </div>
 
-
-        <!-- Password -->
-
-        <div class="form-group">
-
-            <label for="password">
-                Password
-            </label>
+    </div>
 
 
-            <div class="password-wrapper">
+    <!-- =====================================
+         RIGHT SIDE
+    ====================================== -->
 
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    placeholder="Create a strong password"
-                    required
-                >
+    <div class="auth-form-container">
+
+        <div class="auth-form">
+
+            <h2>
+                Create Account
+            </h2>
+
+            <p class="form-subtitle">
+                Register to continue to the voting platform.
+            </p>
+
+
+            <form
+                method="POST"
+                action="{{ url_for('auth.register') }}"
+            >
+
+
+                <!-- FULL NAME -->
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your full name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Create a password"
+                            minlength="8"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword('password', this)"
+                            aria-label="Show password"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+
+
+                    <!-- PASSWORD REQUIREMENTS -->
+
+                    <div class="password-rules">
+
+                        <p>
+                            Password must contain:
+                        </p>
+
+
+                        <div
+                            class="password-rule"
+                            id="rule-length"
+                        >
+                            <span class="rule-icon">○</span>
+                            At least 8 characters
+                        </div>
+
+
+                        <div
+                            class="password-rule"
+                            id="rule-uppercase"
+                        >
+                            <span class="rule-icon">○</span>
+                            At least one uppercase letter
+                        </div>
+
+
+                        <div
+                            class="password-rule"
+                            id="rule-lowercase"
+                        >
+                            <span class="rule-icon">○</span>
+                            At least one lowercase letter
+                        </div>
+
+
+                        <div
+                            class="password-rule"
+                            id="rule-number"
+                        >
+                            <span class="rule-icon">○</span>
+                            At least one number
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CONFIRM PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="confirm_password">
+                        Confirm Password
+                    </label>
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="confirm_password"
+                            name="confirm_password"
+                            placeholder="Confirm your password"
+                            minlength="8"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword('confirm_password', this)"
+                            aria-label="Show password"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- REGISTER BUTTON -->
 
                 <button
-                    type="button"
-                    class="toggle-password"
-                    onclick="togglePassword()"
-                    aria-label="Show password"
+                    type="submit"
+                    class="auth-button"
                 >
-                    👁️
+                    Create Account
                 </button>
 
-            </div>
+
+            </form>
 
 
-            <!-- Password Requirements -->
+            <!-- LOGIN LINK -->
 
-            <div class="password-info">
+            <p class="auth-switch">
 
-                <p>
-                    Your password must contain:
-                </p>
+                Already have an account?
 
-                <div
-                    id="length"
-                    class="requirement"
-                    data-text="At least 8 characters"
-                >
-                    ○ At least 8 characters
-                </div>
+                <a href="{{ url_for('auth.login') }}">
+                    Login
+                </a>
 
-                <div
-                    id="uppercase"
-                    class="requirement"
-                    data-text="One uppercase letter (A-Z)"
-                >
-                    ○ One uppercase letter (A-Z)
-                </div>
+            </p>
 
-                <div
-                    id="lowercase"
-                    class="requirement"
-                    data-text="One lowercase letter (a-z)"
-                >
-                    ○ One lowercase letter (a-z)
-                </div>
-
-                <div
-                    id="number"
-                    class="requirement"
-                    data-text="One number (0-9)"
-                >
-                    ○ One number (0-9)
-                </div>
-
-                <div
-                    id="special"
-                    class="requirement"
-                    data-text="One special character (!@#$...)"
-                >
-                    ○ One special character (!@#$...)
-                </div>
-
-            </div>
 
         </div>
-
-
-        <!-- Register -->
-
-        <button
-            type="submit"
-            class="register-button"
-        >
-            Create Account
-        </button>
-
-
-    </form>
-
-
-    <div class="login-link">
-
-        Already have an account?
-
-        <a href="/login">
-            Login
-        </a>
 
     </div>
 
@@ -361,133 +282,119 @@
 
 <script>
 
-    // ----------------------------------
-    // Show / Hide Password
-    // ----------------------------------
+/* =========================================
+   SHOW / HIDE PASSWORD
+========================================= */
 
-    function togglePassword() {
+function togglePassword(fieldId, button) {
 
-        const password =
-            document.getElementById("password");
+    const field = document.getElementById(fieldId);
 
-        const button =
-            document.querySelector(".toggle-password");
+    if (field.type === "password") {
 
+        field.type = "text";
 
-        if (password.type === "password") {
+        button.textContent = "🙈";
 
-            password.type = "text";
+        button.setAttribute(
+            "aria-label",
+            "Hide password"
+        );
 
-            button.textContent = "🙈";
+    } else {
 
-            button.setAttribute(
-                "aria-label",
-                "Hide password"
-            );
+        field.type = "password";
 
-        }
+        button.textContent = "👁";
 
-        else {
-
-            password.type = "password";
-
-            button.textContent = "👁️";
-
-            button.setAttribute(
-                "aria-label",
-                "Show password"
-            );
-
-        }
+        button.setAttribute(
+            "aria-label",
+            "Show password"
+        );
 
     }
 
-
-    // ----------------------------------
-    // Password Requirements
-    // ----------------------------------
-
-    const password =
-        document.getElementById("password");
+}
 
 
-    password.addEventListener(
-        "input",
-        function () {
+/* =========================================
+   PASSWORD VALIDATION
+========================================= */
 
-            const value =
-                password.value;
-
-
-            updateRequirement(
-                "length",
-                value.length >= 8
-            );
+const passwordInput =
+    document.getElementById("password");
 
 
-            updateRequirement(
-                "uppercase",
-                /[A-Z]/.test(value)
-            );
+passwordInput.addEventListener(
+    "input",
+    function () {
+
+        const password = this.value;
 
 
-            updateRequirement(
-                "lowercase",
-                /[a-z]/.test(value)
-            );
+        /* 8 CHARACTERS */
+
+        updateRule(
+            "rule-length",
+            password.length >= 8
+        );
 
 
-            updateRequirement(
-                "number",
-                /[0-9]/.test(value)
-            );
+        /* UPPERCASE */
+
+        updateRule(
+            "rule-uppercase",
+            /[A-Z]/.test(password)
+        );
 
 
-            updateRequirement(
-                "special",
-                /[^A-Za-z0-9]/.test(value)
-            );
+        /* LOWERCASE */
 
-        }
-    );
-
-
-    // ----------------------------------
-    // Update Requirement
-    // ----------------------------------
-
-    function updateRequirement(
-        id,
-        valid
-    ) {
-
-        const element =
-            document.getElementById(id);
+        updateRule(
+            "rule-lowercase",
+            /[a-z]/.test(password)
+        );
 
 
-        const text =
-            element.getAttribute("data-text");
+        /* NUMBER */
 
-
-        if (valid) {
-
-            element.classList.add("valid");
-
-            element.textContent =
-                "✓ " + text;
-
-        }
-
-        else {
-
-            element.classList.remove("valid");
-
-            element.textContent =
-                "○ " + text;
-
-        }
+        updateRule(
+            "rule-number",
+            /[0-9]/.test(password)
+        );
 
     }
+);
+
+
+/* =========================================
+   UPDATE PASSWORD RULE
+========================================= */
+
+function updateRule(ruleId, satisfied) {
+
+    const rule =
+        document.getElementById(ruleId);
+
+    const icon =
+        rule.querySelector(".rule-icon");
+
+
+    if (satisfied) {
+
+        rule.classList.add("rule-valid");
+
+        icon.textContent = "✓";
+
+    } else {
+
+        rule.classList.remove("rule-valid");
+
+        icon.textContent = "○";
+
+    }
+
+}
 
 </script>
 
