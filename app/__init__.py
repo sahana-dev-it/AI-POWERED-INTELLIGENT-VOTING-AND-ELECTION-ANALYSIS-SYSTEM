@@ -98,6 +98,12 @@ def create_app():
 
     # Register Vote Blueprint
     app.register_blueprint(vote)
+
+    # Import Results Blueprint
+    from app.results.routes import results
+
+    # Register Results Blueprint
+    app.register_blueprint(results)
     # Create all database tables
     with app.app_context():
         db.create_all()

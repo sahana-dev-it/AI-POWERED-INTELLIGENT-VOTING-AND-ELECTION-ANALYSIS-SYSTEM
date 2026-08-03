@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Election Results</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #f1f3f5;
+        }
+
+        .view-button {
+            display: inline-block;
+            padding: 8px 14px;
+            background: #4a90e2;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .view-button:hover {
+            background: #357abd;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 10px 18px;
+            background: #555;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <h1>Election Results</h1>
+
+    <div class="subtitle">
+        Select a completed election to view its results
+    </div>
+
+
+    {% if elections %}
+
+    <table>
+
+        <tr>
+
+            <th>ID</th>
+
+            <th>Election</th>
+
+            <th>Start Date</th>
+
+            <th>End Date</th>
+
+            <th>Action</th>
+
+        </tr>
+
+
+        {% for election in elections %}
+
+        <tr>
+
+            <td>
+                {{ election.id }}
+            </td>
+
+            <td>
+                {{ election.title }}
+            </td>
+
+            <td>
+                {{ election.start_date }}
+                {{ election.start_time }}
+            </td>
+
+            <td>
+                {{ election.end_date }}
+                {{ election.end_time }}
+            </td>
+
+            <td>
+
+                <a
+                    class="view-button"
+                    href="/results/{{ election.id }}"
+                >
+                    View Results
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+
+    {% else %}
+
+    <div class="no-results">
+
+        <h3>
+            No Completed Elections
+        </h3>
+
+        <p>
+            Results will appear here after an election is completed.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+
+    <a
+        class="back-button"
+        href="/admin/dashboard"
+    >
+        Back to Admin Dashboard
+    </a>
+
+</div>
+
+</body>
+
+</html>
