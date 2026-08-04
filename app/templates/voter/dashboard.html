@@ -1,37 +1,225 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Voter Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
 </head>
 
-<body>
 
-<h1>Voter Dashboard</h1>
+<body class="voter-page">
 
-<hr>
 
-<h2>Voting</h2>
+<div class="voter-container">
 
-<a href="/vote/elections">
-    <button>Active Elections</button>
-</a>
 
-<br><br>
+    <!-- =====================================
+         HEADER
+    ====================================== -->
 
-<h2>My Vote</h2>
+    <header class="voter-header">
 
-<button disabled>
-    Vote Status (Coming Soon)
-</button>
+        <div>
 
-<br><br>
+            <p class="voter-label">
+                VOTER PORTAL
+            </p>
 
-<h2>Results</h2>
+            <h1>
+                Welcome to Your Dashboard
+            </h1>
 
-<button disabled>
-    Election Results (Coming Soon)
-</button>
+            <p>
+                Participate in elections, view candidates
+                and securely cast your vote.
+            </p>
+
+        </div>
+
+
+        <a
+            href="{{ url_for('auth.logout') }}"
+            class="logout-button"
+        >
+            Logout
+        </a>
+
+    </header>
+
+
+    <!-- =====================================
+         QUICK ACCESS
+    ====================================== -->
+
+    <section class="voter-section">
+
+        <div class="voter-section-heading">
+
+            <h2>
+                Election Center
+            </h2>
+
+            <p>
+                View currently available elections and
+                participate securely.
+            </p>
+
+        </div>
+
+
+        <div class="voter-card-grid">
+
+
+            <!-- ACTIVE ELECTIONS -->
+
+            <div class="voter-card">
+
+                <div class="voter-card-content">
+
+                    <span class="voter-card-label">
+                        ELECTIONS
+                    </span>
+
+                    <h3>
+                        Active Elections
+                    </h3>
+
+                    <p>
+                        View elections that are currently
+                        open for voting.
+                    </p>
+
+                    <a
+                        href="{{ url_for('vote.elections') }}"
+                        class="voter-button voter-button-primary"
+                    >
+                        View Elections
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- CANDIDATES -->
+
+            <div class="voter-card">
+
+                <div class="voter-card-content">
+
+                    <span class="voter-card-label">
+                        INFORMATION
+                    </span>
+
+                    <h3>
+                        Candidate Information
+                    </h3>
+
+                    <p>
+                        Explore candidate profiles and
+                        election information before voting.
+                    </p>
+
+                    <a
+                        href="{{ url_for('vote.elections') }}"
+                        class="voter-button voter-button-secondary"
+                    >
+                        Explore Candidates
+                    </a>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================
+         VOTING INFORMATION
+    ====================================== -->
+
+    <section class="voter-info-section">
+
+        <div class="voter-info-card">
+
+            <div>
+
+                <span class="voter-card-label">
+                    SECURE VOTING
+                </span>
+
+                <h2>
+                    Your Vote Matters
+                </h2>
+
+                <p>
+                    Every eligible voter can cast one vote
+                    in an election. Review the candidates
+                    carefully before submitting your choice.
+                </p>
+
+            </div>
+
+
+            <div class="voter-info-points">
+
+                <div>
+                    <span>✓</span>
+                    Secure account access
+                </div>
+
+                <div>
+                    <span>✓</span>
+                    One vote per election
+                </div>
+
+                <div>
+                    <span>✓</span>
+                    Protected voting process
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================
+         FOOTER
+    ====================================== -->
+
+    <footer class="voter-footer">
+
+        <p>
+            AI-Powered Intelligent Voting & Election Analysis System
+        </p>
+
+        <span>
+            Voter Portal
+        </span>
+
+    </footer>
+
+
+</div>
+
 
 </body>
 

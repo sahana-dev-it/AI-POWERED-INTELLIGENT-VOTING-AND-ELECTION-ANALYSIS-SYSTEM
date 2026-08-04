@@ -10,691 +10,84 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Login | Intelligent Voting System</title>
+    <title>Login</title>
 
     <link
         rel="stylesheet"
         href="{{ url_for('static', filename='css/style.css') }}"
     >
 
-    <style>
-
-        /* =====================================================
-           LOGIN PAGE
-        ===================================================== */
-
-        .auth-page {
-
-            min-height: 100vh;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            padding: 35px;
-
-        }
-
-
-        /* =====================================================
-           MAIN LOGIN CONTAINER
-        ===================================================== */
-
-        .auth-wrapper {
-
-            width: 100%;
-
-            max-width: 1050px;
-
-            display: grid;
-
-            grid-template-columns: 1.1fr 0.9fr;
-
-            background: rgba(255, 255, 255, 0.96);
-
-            border-radius: 28px;
-
-            overflow: hidden;
-
-            box-shadow:
-                0 25px 60px
-                rgba(23, 82, 70, 0.16);
-
-            border: 1px solid
-                rgba(23, 63, 55, 0.10);
-
-        }
-
-
-        /* =====================================================
-           LEFT INTRODUCTION PANEL
-        ===================================================== */
-
-        .auth-intro {
-
-            position: relative;
-
-            overflow: hidden;
-
-            padding: 60px 55px;
-
-            color: white;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    #123f38,
-                    #176052,
-                    #23806b
-                );
-
-        }
-
-
-        /* Large decorative circle */
-
-        .auth-intro::before {
-
-            content: "";
-
-            position: absolute;
-
-            width: 390px;
-
-            height: 390px;
-
-            right: -180px;
-
-            top: -180px;
-
-            border-radius: 50%;
-
-            border: 1px solid
-                rgba(255, 255, 255, 0.18);
-
-        }
-
-
-        /* Bottom decorative circle */
-
-        .auth-intro::after {
-
-            content: "";
-
-            position: absolute;
-
-            width: 190px;
-
-            height: 190px;
-
-            right: 50px;
-
-            bottom: -115px;
-
-            border-radius: 50%;
-
-            background:
-                rgba(239, 128, 105, 0.18);
-
-        }
-
-
-        .auth-intro-content {
-
-            position: relative;
-
-            z-index: 2;
-
-        }
-
-
-        /* =====================================================
-           INTRO LABEL
-        ===================================================== */
-
-        .auth-label {
-
-            color: #ffb29f;
-
-            font-size: 13px;
-
-            font-weight: 800;
-
-            letter-spacing: 3px;
-
-            margin-bottom: 20px;
-
-        }
-
-
-        /* =====================================================
-           INTRO HEADING
-        ===================================================== */
-
-        .auth-intro h1 {
-
-            font-size: 50px;
-
-            line-height: 1.12;
-
-            letter-spacing: -1px;
-
-            margin-bottom: 20px;
-
-        }
-
-
-        /* =====================================================
-           INTRO DESCRIPTION
-        ===================================================== */
-
-        .auth-intro p {
-
-            color: #dceee9;
-
-            font-size: 17px;
-
-            line-height: 1.8;
-
-            max-width: 520px;
-
-        }
-
-
-        /* =====================================================
-           FEATURE LIST
-        ===================================================== */
-
-        .auth-feature-list {
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 17px;
-
-            margin-top: 42px;
-
-        }
-
-
-        .auth-feature-item {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 13px;
-
-            color: #e8f4f1;
-
-            font-size: 15px;
-
-            font-weight: 500;
-
-        }
-
-
-        .feature-dot {
-
-            width: 10px;
-
-            height: 10px;
-
-            border-radius: 50%;
-
-            background: #ef8069;
-
-            flex-shrink: 0;
-
-            box-shadow:
-                0 0 0 4px
-                rgba(239, 128, 105, 0.12);
-
-        }
-
-
-        /* =====================================================
-           RIGHT LOGIN PANEL
-        ===================================================== */
-
-        .auth-form-panel {
-
-            padding: 55px 50px;
-
-            background: #ffffff;
-
-        }
-
-
-        .auth-form-panel h2 {
-
-            color: #173c35;
-
-            font-size: 36px;
-
-            margin-bottom: 10px;
-
-        }
-
-
-        .auth-form-subtitle {
-
-            color: #73847f;
-
-            font-size: 15px;
-
-            margin-bottom: 32px;
-
-        }
-
-
-        /* =====================================================
-           FLASH / ERROR MESSAGE
-        ===================================================== */
-
-        .auth-message {
-
-            padding: 13px 15px;
-
-            margin-bottom: 22px;
-
-            border-radius: 10px;
-
-            background: #fff1ed;
-
-            border: 1px solid #f4c0b5;
-
-            color: #a84d3d;
-
-            font-size: 14px;
-
-            line-height: 1.5;
-
-        }
-
-
-        /* =====================================================
-           FORM GROUP
-        ===================================================== */
-
-        .auth-form-group {
-
-            margin-bottom: 21px;
-
-        }
-
-
-        .auth-form-group label {
-
-            display: block;
-
-            color: #344b45;
-
-            font-size: 15px;
-
-            font-weight: 700;
-
-            margin-bottom: 9px;
-
-        }
-
-
-        /* =====================================================
-           INPUTS
-        ===================================================== */
-
-        .auth-form-group input {
-
-            width: 100%;
-
-            padding: 15px 16px;
-
-            border-radius: 11px;
-
-            border: 1px solid #d4dfdb;
-
-            background: #f9fbfa;
-
-            color: #173c35;
-
-            font-size: 16px;
-
-            outline: none;
-
-            transition:
-                border-color 0.2s ease,
-                box-shadow 0.2s ease,
-                background 0.2s ease;
-
-        }
-
-
-        .auth-form-group input::placeholder {
-
-            color: #98a6a2;
-
-        }
-
-
-        .auth-form-group input:focus {
-
-            border-color: #16836e;
-
-            box-shadow:
-                0 0 0 3px
-                rgba(22, 131, 110, 0.12);
-
-            background: white;
-
-        }
-
-
-        /* =====================================================
-           LOGIN BUTTON
-        ===================================================== */
-
-        .auth-submit {
-
-            width: 100%;
-
-            border: none;
-
-            cursor: pointer;
-
-            padding: 16px;
-
-            border-radius: 11px;
-
-            color: white;
-
-            font-size: 16px;
-
-            font-weight: 750;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #16836e,
-                    #116453
-                );
-
-            box-shadow:
-                0 10px 22px
-                rgba(22, 131, 110, 0.23);
-
-            transition:
-                transform 0.2s ease,
-                box-shadow 0.2s ease;
-
-        }
-
-
-        .auth-submit:hover {
-
-            transform: translateY(-2px);
-
-            box-shadow:
-                0 14px 28px
-                rgba(22, 131, 110, 0.30);
-
-        }
-
-
-        /* =====================================================
-           REGISTER LINK
-        ===================================================== */
-
-        .auth-register {
-
-            text-align: center;
-
-            margin-top: 28px;
-
-            color: #7a8985;
-
-            font-size: 15px;
-
-        }
-
-
-        .auth-register a {
-
-            color: #d96754;
-
-            font-weight: 750;
-
-            text-decoration: none;
-
-        }
-
-
-        .auth-register a:hover {
-
-            text-decoration: underline;
-
-        }
-
-
-        /* =====================================================
-           MOBILE
-        ===================================================== */
-
-        @media (max-width: 800px) {
-
-            .auth-page {
-
-                padding: 20px;
-
-            }
-
-
-            .auth-wrapper {
-
-                grid-template-columns: 1fr;
-
-            }
-
-
-            .auth-intro {
-
-                padding: 45px 35px;
-
-            }
-
-
-            .auth-intro h1 {
-
-                font-size: 40px;
-
-            }
-
-
-            .auth-intro p {
-
-                font-size: 16px;
-
-            }
-
-
-            .auth-feature-list {
-
-                margin-top: 30px;
-
-            }
-
-
-            .auth-form-panel {
-
-                padding: 40px 30px;
-
-            }
-
-        }
-
-
-        /* =====================================================
-           SMALL MOBILE
-        ===================================================== */
-
-        @media (max-width: 500px) {
-
-            .auth-intro h1 {
-
-                font-size: 34px;
-
-            }
-
-
-            .auth-form-panel h2 {
-
-                font-size: 30px;
-
-            }
-
-        }
-
-    </style>
-
 </head>
 
 
-<body>
+<body class="auth-page">
 
 
-<div class="auth-page">
+<div class="auth-container">
 
 
-    <div class="auth-wrapper">
+    <!-- =====================================
+         LEFT SIDE
+    ====================================== -->
 
+    <div class="auth-info">
 
-        <!-- =================================================
-             LEFT SIDE
-        ================================================== -->
+        <div class="auth-info-content">
 
-        <section class="auth-intro">
+            <p class="auth-label">
+                SECURE ELECTION PLATFORM
+            </p>
 
+            <h1>
+                Welcome Back
+            </h1>
 
-            <div class="auth-intro-content">
-
-
-                <div class="auth-label">
-
-                    SECURE DIGITAL ELECTION
-
-                </div>
-
-
-                <h1>
-
-                    Your Voice.<br>
-
-                    Your Choice.
-
-                </h1>
-
-
-                <p>
-
-                    A secure and simple platform for
-                    participating in online elections,
-                    viewing candidates and casting your
-                    vote with confidence.
-
-                </p>
-
-
-                <div class="auth-feature-list">
-
-
-                    <div class="auth-feature-item">
-
-                        <span class="feature-dot"></span>
-
-                        Secure user authentication
-
-                    </div>
-
-
-                    <div class="auth-feature-item">
-
-                        <span class="feature-dot"></span>
-
-                        Easy access to elections
-
-                    </div>
-
-
-                    <div class="auth-feature-item">
-
-                        <span class="feature-dot"></span>
-
-                        One person, one vote
-
-                    </div>
-
-
-                </div>
-
-
-            </div>
-
-
-        </section>
-
-
-
-        <!-- =================================================
-             RIGHT SIDE
-        ================================================== -->
-
-        <section class="auth-form-panel">
-
-
-            <h2>
-
-                Login
-
-            </h2>
-
-
-            <p class="auth-form-subtitle">
-
-                Sign in to continue to your account.
-
+            <p class="auth-description">
+                Access your voting account and continue
+                securely to the election platform.
             </p>
 
 
+            <div class="auth-features">
 
-            <!-- =============================================
-                 FLASH MESSAGES
-            ============================================== -->
+                <div class="auth-feature">
+                    <span></span>
+                    Secure user authentication
+                </div>
 
-            {% with messages = get_flashed_messages() %}
+                <div class="auth-feature">
+                    <span></span>
+                    Role-based access control
+                </div>
 
-                {% if messages %}
+                <div class="auth-feature">
+                    <span></span>
+                    Protected online voting
+                </div>
 
-                    {% for message in messages %}
+            </div>
 
-                        <div class="auth-message">
+        </div>
 
-                            {{ message }}
-
-                        </div>
-
-                    {% endfor %}
-
-                {% endif %}
-
-            {% endwith %}
-
+    </div>
 
 
-            <!-- =============================================
-                 LOGIN FORM
-            ============================================== -->
+    <!-- =====================================
+         RIGHT SIDE
+    ====================================== -->
+
+    <div class="auth-form-container">
+
+        <div class="auth-form">
+
+            <h2>
+                Login
+            </h2>
+
+            <p class="form-subtitle">
+                Sign in to continue to your dashboard.
+            </p>
+
 
             <form
                 method="POST"
@@ -704,92 +97,128 @@
 
                 <!-- EMAIL -->
 
-                <div class="auth-form-group">
+                <div class="form-group">
 
                     <label for="email">
-
                         Email Address
-
                     </label>
-
 
                     <input
                         type="email"
                         id="email"
                         name="email"
                         placeholder="Enter your email"
-                        autocomplete="email"
                         required
                     >
 
                 </div>
-
 
 
                 <!-- PASSWORD -->
 
-                <div class="auth-form-group">
+                <div class="form-group">
 
                     <label for="password">
-
                         Password
-
                     </label>
 
 
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="Enter your password"
-                        autocomplete="current-password"
-                        required
-                    >
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword()"
+                            aria-label="Show password"
+                        >
+                            👁
+                        </button>
+
+                    </div>
 
                 </div>
 
 
-
-                <!-- LOGIN -->
+                <!-- LOGIN BUTTON -->
 
                 <button
                     type="submit"
-                    class="auth-submit"
+                    class="auth-button"
                 >
-
                     Login to Dashboard
-
                 </button>
 
 
             </form>
 
 
+            <!-- REGISTER LINK -->
 
-            <!-- REGISTER -->
-
-            <div class="auth-register">
+            <p class="auth-switch">
 
                 Don't have an account?
 
-                <a
-                    href="{{ url_for('auth.register') }}"
-                >
-
+                <a href="{{ url_for('auth.register') }}">
                     Create an account
-
                 </a>
 
-            </div>
+            </p>
 
 
-        </section>
-
+        </div>
 
     </div>
 
 
 </div>
+
+
+<script>
+
+function togglePassword() {
+
+    const password =
+        document.getElementById("password");
+
+    const button =
+        document.querySelector(".password-toggle");
+
+
+    if (password.type === "password") {
+
+        password.type = "text";
+
+        button.textContent = "🙈";
+
+        button.setAttribute(
+            "aria-label",
+            "Hide password"
+        );
+
+    } else {
+
+        password.type = "password";
+
+        button.textContent = "👁";
+
+        button.setAttribute(
+            "aria-label",
+            "Show password"
+        );
+
+    }
+
+}
+
+</script>
 
 
 </body>

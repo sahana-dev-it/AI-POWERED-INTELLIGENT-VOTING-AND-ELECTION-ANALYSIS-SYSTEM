@@ -10,7 +10,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Create Account</title>
+    <title>Create Account | Secure Election Platform</title>
 
     <link
         rel="stylesheet"
@@ -20,17 +20,17 @@
 </head>
 
 
-<body class="auth-page">
+<body class="auth-page register-page">
 
 
 <div class="auth-container">
 
 
-    <!-- =====================================
-         LEFT SIDE
-    ====================================== -->
+    <!-- =========================================
+         LEFT BRANDING PANEL
+    ========================================== -->
 
-    <div class="auth-info">
+    <section class="auth-info register-info">
 
         <div class="auth-info-content">
 
@@ -38,60 +38,154 @@
                 SECURE ELECTION PLATFORM
             </p>
 
+
             <h1>
-                Create Your Account
+                Your voice.
+                <br>
+                Your vote.
+                <br>
+                Your choice.
             </h1>
 
+
             <p class="auth-description">
-                Register securely to participate in elections
-                and access your voting account.
+
+                Create your account and take part in
+                secure, transparent and accessible
+                online elections.
+
             </p>
 
 
+            <!-- FEATURES -->
+
             <div class="auth-features">
 
-                <div class="auth-feature">
-                    <span></span>
-                    Secure account registration
-                </div>
 
                 <div class="auth-feature">
-                    <span></span>
-                    Verified user access
+
+                    <span class="feature-dot"></span>
+
+                    <div>
+
+                        <strong>
+                            Secure Registration
+                        </strong>
+
+                        <small>
+                            Your account is protected.
+                        </small>
+
+                    </div>
+
                 </div>
 
+
                 <div class="auth-feature">
-                    <span></span>
-                    Safe online voting
+
+                    <span class="feature-dot"></span>
+
+                    <div>
+
+                        <strong>
+                            Verified Access
+                        </strong>
+
+                        <small>
+                            Access elections with your account.
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="auth-feature">
+
+                    <span class="feature-dot"></span>
+
+                    <div>
+
+                        <strong>
+                            One Person, One Vote
+                        </strong>
+
+                        <small>
+                            Fair and controlled participation.
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- INFORMATION CARD -->
+
+            <div class="auth-mini-card">
+
+                <span class="mini-icon">
+                    ✓
+                </span>
+
+                <div>
+
+                    <strong>
+                        Built for secure participation
+                    </strong>
+
+                    <small>
+                        Register once and participate
+                        in eligible elections.
+                    </small>
+
                 </div>
 
             </div>
 
+
         </div>
 
-    </div>
+    </section>
 
 
-    <!-- =====================================
-         RIGHT SIDE
-    ====================================== -->
 
-    <div class="auth-form-container">
+    <!-- =========================================
+         RIGHT FORM PANEL
+    ========================================== -->
 
-        <div class="auth-form">
+    <section class="auth-form-container register-form-container">
 
-            <h2>
-                Create Account
-            </h2>
 
-            <p class="form-subtitle">
-                Register to continue to the voting platform.
-            </p>
+        <div class="auth-form register-form">
 
+
+            <!-- FORM HEADER -->
+
+            <div class="form-header">
+
+                <h2>
+                    Create your account
+                </h2>
+
+                <p class="form-subtitle">
+                    Enter your details to get started.
+                </p>
+
+            </div>
+
+
+
+            <!-- =====================================
+                 REGISTRATION FORM
+            ====================================== -->
 
             <form
                 method="POST"
                 action="{{ url_for('auth.register') }}"
+                id="registerForm"
             >
 
 
@@ -108,10 +202,12 @@
                         id="name"
                         name="name"
                         placeholder="Enter your full name"
+                        autocomplete="name"
                         required
                     >
 
                 </div>
+
 
 
                 <!-- EMAIL -->
@@ -126,11 +222,13 @@
                         type="email"
                         id="email"
                         name="email"
-                        placeholder="Enter your email"
+                        placeholder="Enter your email address"
+                        autocomplete="email"
                         required
                     >
 
                 </div>
+
 
 
                 <!-- PASSWORD -->
@@ -141,16 +239,19 @@
                         Password
                     </label>
 
+
                     <div class="password-wrapper">
 
                         <input
                             type="password"
                             id="password"
                             name="password"
-                            placeholder="Create a password"
+                            placeholder="Create a strong password"
                             minlength="8"
+                            autocomplete="new-password"
                             required
                         >
+
 
                         <button
                             type="button"
@@ -158,18 +259,50 @@
                             onclick="togglePassword('password', this)"
                             aria-label="Show password"
                         >
-                            👁
+
+                            <span class="eye-icon">
+                                👁
+                            </span>
+
                         </button>
 
                     </div>
+
+
+
+                    <!-- PASSWORD STRENGTH -->
+
+                    <div
+                        class="password-strength"
+                        id="passwordStrength"
+                    >
+
+                        <div class="strength-bars">
+
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+
+                        </div>
+
+                        <span
+                            class="strength-text"
+                            id="strengthText"
+                        >
+                            Enter a password
+                        </span>
+
+                    </div>
+
 
 
                     <!-- PASSWORD REQUIREMENTS -->
 
                     <div class="password-rules">
 
-                        <p>
-                            Password must contain:
+                        <p class="rules-title">
+                            Your password should contain:
                         </p>
 
 
@@ -177,8 +310,13 @@
                             class="password-rule"
                             id="rule-length"
                         >
-                            <span class="rule-icon">○</span>
+
+                            <span class="rule-icon">
+                                ○
+                            </span>
+
                             At least 8 characters
+
                         </div>
 
 
@@ -186,8 +324,13 @@
                             class="password-rule"
                             id="rule-uppercase"
                         >
-                            <span class="rule-icon">○</span>
-                            At least one uppercase letter
+
+                            <span class="rule-icon">
+                                ○
+                            </span>
+
+                            One uppercase letter
+
                         </div>
 
 
@@ -195,8 +338,13 @@
                             class="password-rule"
                             id="rule-lowercase"
                         >
-                            <span class="rule-icon">○</span>
-                            At least one lowercase letter
+
+                            <span class="rule-icon">
+                                ○
+                            </span>
+
+                            One lowercase letter
+
                         </div>
 
 
@@ -204,13 +352,19 @@
                             class="password-rule"
                             id="rule-number"
                         >
-                            <span class="rule-icon">○</span>
-                            At least one number
+
+                            <span class="rule-icon">
+                                ○
+                            </span>
+
+                            One number
+
                         </div>
 
                     </div>
 
                 </div>
+
 
 
                 <!-- CONFIRM PASSWORD -->
@@ -221,16 +375,19 @@
                         Confirm Password
                     </label>
 
+
                     <div class="password-wrapper">
 
                         <input
                             type="password"
                             id="confirm_password"
                             name="confirm_password"
-                            placeholder="Confirm your password"
+                            placeholder="Re-enter your password"
                             minlength="8"
+                            autocomplete="new-password"
                             required
                         >
+
 
                         <button
                             type="button"
@@ -238,25 +395,45 @@
                             onclick="togglePassword('confirm_password', this)"
                             aria-label="Show password"
                         >
-                            👁
+
+                            <span class="eye-icon">
+                                👁
+                            </span>
+
                         </button>
 
                     </div>
 
+
+                    <div
+                        class="password-match"
+                        id="passwordMatch"
+                    ></div>
+
                 </div>
 
 
-                <!-- REGISTER BUTTON -->
+
+                <!-- CREATE ACCOUNT BUTTON -->
 
                 <button
                     type="submit"
-                    class="auth-button"
+                    class="auth-button register-button"
                 >
-                    Create Account
+
+                    <span>
+                        Create Account
+                    </span>
+
+                    <span class="button-arrow">
+                        →
+                    </span>
+
                 </button>
 
 
             </form>
+
 
 
             <!-- LOGIN LINK -->
@@ -274,13 +451,15 @@
 
         </div>
 
-    </div>
+    </section>
 
 
 </div>
 
 
+
 <script>
+
 
 /* =========================================
    SHOW / HIDE PASSWORD
@@ -288,24 +467,31 @@
 
 function togglePassword(fieldId, button) {
 
-    const field = document.getElementById(fieldId);
+    const field =
+        document.getElementById(fieldId);
+
+    const icon =
+        button.querySelector(".eye-icon");
+
 
     if (field.type === "password") {
 
         field.type = "text";
 
-        button.textContent = "🙈";
+        icon.textContent = "🙈";
 
         button.setAttribute(
             "aria-label",
             "Hide password"
         );
 
-    } else {
+    }
+
+    else {
 
         field.type = "password";
 
-        button.textContent = "👁";
+        icon.textContent = "👁";
 
         button.setAttribute(
             "aria-label",
@@ -317,54 +503,77 @@ function togglePassword(fieldId, button) {
 }
 
 
+
 /* =========================================
-   PASSWORD VALIDATION
+   PASSWORD INPUT
 ========================================= */
 
 const passwordInput =
     document.getElementById("password");
+
+const confirmPasswordInput =
+    document.getElementById("confirm_password");
+
 
 
 passwordInput.addEventListener(
     "input",
     function () {
 
-        const password = this.value;
+        const password =
+            this.value;
 
 
-        /* 8 CHARACTERS */
+        const lengthValid =
+            password.length >= 8;
+
+        const uppercaseValid =
+            /[A-Z]/.test(password);
+
+        const lowercaseValid =
+            /[a-z]/.test(password);
+
+        const numberValid =
+            /[0-9]/.test(password);
+
 
         updateRule(
             "rule-length",
-            password.length >= 8
+            lengthValid
         );
 
-
-        /* UPPERCASE */
 
         updateRule(
             "rule-uppercase",
-            /[A-Z]/.test(password)
+            uppercaseValid
         );
 
-
-        /* LOWERCASE */
 
         updateRule(
             "rule-lowercase",
-            /[a-z]/.test(password)
+            lowercaseValid
         );
 
-
-        /* NUMBER */
 
         updateRule(
             "rule-number",
-            /[0-9]/.test(password)
+            numberValid
         );
+
+
+        updateStrength(
+            lengthValid,
+            uppercaseValid,
+            lowercaseValid,
+            numberValid
+        );
+
+
+        checkPasswordMatch();
 
     }
 );
+
 
 
 /* =========================================
@@ -382,19 +591,241 @@ function updateRule(ruleId, satisfied) {
 
     if (satisfied) {
 
-        rule.classList.add("rule-valid");
+        rule.classList.add(
+            "rule-valid"
+        );
 
         icon.textContent = "✓";
 
-    } else {
+    }
 
-        rule.classList.remove("rule-valid");
+    else {
+
+        rule.classList.remove(
+            "rule-valid"
+        );
 
         icon.textContent = "○";
 
     }
 
 }
+
+
+
+/* =========================================
+   PASSWORD STRENGTH
+========================================= */
+
+function updateStrength(
+    lengthValid,
+    uppercaseValid,
+    lowercaseValid,
+    numberValid
+) {
+
+    const strengthBars =
+        document.querySelectorAll(
+            ".strength-bars span"
+        );
+
+    const strengthText =
+        document.getElementById(
+            "strengthText"
+        );
+
+
+    let score = 0;
+
+
+    if (lengthValid) {
+        score++;
+    }
+
+    if (uppercaseValid) {
+        score++;
+    }
+
+    if (lowercaseValid) {
+        score++;
+    }
+
+    if (numberValid) {
+        score++;
+    }
+
+
+    strengthBars.forEach(
+        function (bar, index) {
+
+            bar.classList.remove(
+                "strength-active"
+            );
+
+
+            if (index < score) {
+
+                bar.classList.add(
+                    "strength-active"
+                );
+
+            }
+
+        }
+    );
+
+
+    if (!passwordInput.value) {
+
+        strengthText.textContent =
+            "Enter a password";
+
+    }
+
+    else if (score <= 1) {
+
+        strengthText.textContent =
+            "Weak password";
+
+    }
+
+    else if (score === 2) {
+
+        strengthText.textContent =
+            "Fair password";
+
+    }
+
+    else if (score === 3) {
+
+        strengthText.textContent =
+            "Good password";
+
+    }
+
+    else {
+
+        strengthText.textContent =
+            "Strong password";
+
+    }
+
+}
+
+
+
+/* =========================================
+   CONFIRM PASSWORD
+========================================= */
+
+confirmPasswordInput.addEventListener(
+    "input",
+    checkPasswordMatch
+);
+
+
+
+function checkPasswordMatch() {
+
+    const password =
+        passwordInput.value;
+
+    const confirmPassword =
+        confirmPasswordInput.value;
+
+    const message =
+        document.getElementById(
+            "passwordMatch"
+        );
+
+
+    if (!confirmPassword) {
+
+        message.textContent = "";
+
+        message.className =
+            "password-match";
+
+        return;
+
+    }
+
+
+    if (password === confirmPassword) {
+
+        message.textContent =
+            "✓ Passwords match";
+
+        message.className =
+            "password-match match-success";
+
+    }
+
+    else {
+
+        message.textContent =
+            "Passwords do not match";
+
+        message.className =
+            "password-match match-error";
+
+    }
+
+}
+
+
+
+/* =========================================
+   FORM VALIDATION
+========================================= */
+
+document
+    .getElementById("registerForm")
+    .addEventListener(
+        "submit",
+        function (event) {
+
+            const password =
+                passwordInput.value;
+
+            const confirmPassword =
+                confirmPasswordInput.value;
+
+
+            const validPassword =
+                password.length >= 8 &&
+                /[A-Z]/.test(password) &&
+                /[a-z]/.test(password) &&
+                /[0-9]/.test(password);
+
+
+            if (!validPassword) {
+
+                event.preventDefault();
+
+                passwordInput.focus();
+
+                return;
+
+            }
+
+
+            if (
+                password !==
+                confirmPassword
+            ) {
+
+                event.preventDefault();
+
+                confirmPasswordInput.focus();
+
+                return;
+
+            }
+
+        }
+    );
+
 
 </script>
 

@@ -1,66 +1,276 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Active Elections</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
 </head>
 
-<body>
 
-<h1>Active Elections</h1>
+<body class="elections-page">
 
-<hr>
 
-{% if elections %}
+<div class="elections-container">
 
-<table border="1" cellpadding="10">
 
-<tr>
+    <!-- =====================================
+         HEADER
+    ====================================== -->
 
-    <th>ID</th>
-    <th>Title</th>
-    <th>Start Date</th>
-    <th>End Date</th>
-    <th>Status</th>
-    <th>Action</th>
+    <header class="elections-header">
 
-</tr>
+        <div>
 
-{% for election in elections %}
+            <p class="elections-label">
+                VOTER PORTAL
+            </p>
 
-<tr>
+            <h1>
+                Active Elections
+            </h1>
 
-    <td>{{ election.id }}</td>
-    <td>{{ election.title }}</td>
-    <td>{{ election.start_date }} {{ election.start_time }}</td>
-    <td>{{ election.end_date }} {{ election.end_time }}</td>
-    <td>{{ election.status }}</td>
+            <p>
+                Explore available elections and review
+                candidates before casting your vote.
+            </p>
 
-    <td>
+        </div>
 
-        <a href="/vote/candidates/{{ election.id }}">
-        <button>View Candidates</button>
-</a>
 
-    </td>
+        <a
+            href="{{ url_for('voter.dashboard') }}"
+            class="elections-back-button"
+        >
+            ← Dashboard
+        </a>
 
-</tr>
+    </header>
 
-{% endfor %}
 
-</table>
 
-{% else %}
+    <!-- =====================================
+         ELECTION LIST
+    ====================================== -->
 
-<h3>No Active Elections Available.</h3>
+    <section class="elections-section">
 
-{% endif %}
 
-<br><br>
+        {% if elections %}
 
-<a href="/voter/dashboard">
-    <button>Back to Dashboard</button>
-</a>
+
+            <div class="elections-list">
+
+
+                {% for election in elections %}
+
+
+                    <article class="election-card">
+
+
+                        <!-- CARD HEADER -->
+
+                        <div class="election-card-header">
+
+                            <div>
+
+                                <span class="election-label">
+                                    ELECTION #{{ election.id }}
+                                </span>
+
+                                <h2>
+                                    {{ election.title }}
+                                </h2>
+
+                            </div>
+
+
+                            <span
+                                class="election-status
+                                {% if election.status == 'Active' %}
+                                    status-active
+                                {% elif election.status == 'Upcoming' %}
+                                    status-upcoming
+                                {% else %}
+                                    status-ended
+                                {% endif %}"
+                            >
+                                {{ election.status }}
+                            </span>
+
+                        </div>
+
+
+
+                        <!-- DESCRIPTION -->
+
+                        {% if election.description %}
+
+                            <p class="election-description">
+                                {{ election.description }}
+                            </p>
+
+                        {% endif %}
+
+
+
+                        <!-- DETAILS -->
+
+                        <div class="election-details-grid">
+
+
+                            <div class="election-detail">
+
+                                <span>
+                                    STARTS
+                                </span>
+
+                                <strong>
+                                    {{ election.start_date }}
+                                </strong>
+
+                                <small>
+                                    {{ election.start_time }}
+                                </small>
+
+                            </div>
+
+
+                            <div class="election-detail">
+
+                                <span>
+                                    ENDS
+                                </span>
+
+                                <strong>
+                                    {{ election.end_date }}
+                                </strong>
+
+                                <small>
+                                    {{ election.end_time }}
+                                </small>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- ACTION -->
+
+                        <div class="election-card-footer">
+
+
+                            {% if election.status == "Active" %}
+
+                                <a
+                                    href="/vote/candidates/{{ election.id }}"
+                                    class="election-action-button"
+                                >
+                                    View Candidates
+                                    <span>→</span>
+                                </a>
+
+
+                            {% elif election.status == "Upcoming" %}
+
+                                <div class="election-notice">
+                                    Voting has not started yet.
+                                </div>
+
+
+                            {% else %}
+
+                                <div class="election-notice">
+                                    This election has ended.
+                                </div>
+
+                            {% endif %}
+
+
+                        </div>
+
+
+                    </article>
+
+
+                {% endfor %}
+
+
+            </div>
+
+
+        {% else %}
+
+
+            <!-- =====================================
+                 EMPTY STATE
+            ====================================== -->
+
+            <div class="elections-empty">
+
+                <div class="empty-election-symbol">
+                    🗳
+                </div>
+
+                <h2>
+                    No Active Elections
+                </h2>
+
+                <p>
+                    There are currently no elections available
+                    for voting. Please check again later.
+                </p>
+
+                <a
+                    href="{{ url_for('voter.dashboard') }}"
+                    class="election-action-button"
+                >
+                    Return to Dashboard
+                </a>
+
+            </div>
+
+
+        {% endif %}
+
+
+    </section>
+
+
+
+    <!-- =====================================
+         FOOTER
+    ====================================== -->
+
+    <footer class="elections-footer">
+
+        <p>
+            AI-Powered Intelligent Voting & Election Analysis System
+        </p>
+
+        <span>
+            Secure • Transparent • Accessible
+        </span>
+
+    </footer>
+
+
+</div>
+
 
 </body>
 

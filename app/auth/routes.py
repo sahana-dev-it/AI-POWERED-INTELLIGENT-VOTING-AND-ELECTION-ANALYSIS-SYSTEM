@@ -2,7 +2,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session
 
 # Import Flask-Login
-from flask_login import login_user
+from flask_login import login_user, logout_user
 
 # Import password hashing
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -110,9 +110,9 @@ def register():
             # ----------------------------------
 
             msg = Message(
-    subject="Voting System - Email Verification OTP",
-    recipients=[email]
-)
+                subject="Voting System - Email Verification OTP",
+                recipients=[email]
+            )
 
             msg.body = f"""
 Hello {name},
@@ -362,4 +362,26 @@ def login():
     return render_template(
         "login.html",
         message=message
+    )
+
+
+# ----------------------------------
+# Logout
+# ----------------------------------
+
+@auth.route("/logout")
+def logout():
+
+    # Log the current user out
+    logout_user()
+
+    # Clear temporary session data
+    session.pop(
+        "verification_email",
+        None
+    )
+
+    # Return to login page
+    return redirect(
+        url_for("auth.login")
     )
