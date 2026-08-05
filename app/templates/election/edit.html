@@ -1,74 +1,291 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Edit Election</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
 </head>
 
-<body>
 
-<h1>Edit Election</h1>
+<body class="form-page">
 
-<hr>
 
-<form method="POST">
+<div class="form-container">
 
-<label>Election Title</label><br>
-<input type="text" name="title" value="{{ election.title }}" required>
 
-<br><br>
+    <!-- ==============================
+         HEADER
+    =============================== -->
 
-<label>Description</label><br>
-<textarea name="description" rows="5" cols="40" required>{{ election.description }}</textarea>
+    <div class="form-header">
 
-<br><br>
+        <div>
 
-<label>Start Date</label><br>
-<input type="date" name="start_date" value="{{ election.start_date }}" required>
+            <span class="form-label">
+                ELECTION MANAGEMENT
+            </span>
 
-<br><br>
+            <h1>
+                Edit Election
+            </h1>
 
-<label>Start Time</label><br>
-<input type="time" name="start_time" value="{{ election.start_time }}" required>
+            <p>
+                Update the election details, schedule and status.
+            </p>
 
-<br><br>
+        </div>
 
-<label>End Date</label><br>
-<input type="date" name="end_date" value="{{ election.end_date }}" required>
 
-<br><br>
+        <a
+            href="/election/list"
+            class="form-back-button"
+        >
+            ← Back to Elections
+        </a>
 
-<label>End Time</label><br>
-<input type="time" name="end_time" value="{{ election.end_time }}" required>
+    </div>
 
-<br><br>
 
-<label>Status</label><br>
 
-<select name="status">
+    <!-- ==============================
+         FORM CARD
+    =============================== -->
 
-<option value="Upcoming"
-{% if election.status=="Upcoming" %}selected{% endif %}>
-Upcoming
-</option>
+    <div class="form-card">
 
-<option value="Active"
-{% if election.status=="Active" %}selected{% endif %}>
-Active
-</option>
 
-<option value="Completed"
-{% if election.status=="Completed" %}selected{% endif %}>
-Completed
-</option>
+        <form method="POST">
 
-</select>
 
-<br><br>
+            <!-- Election Title -->
 
-<input type="submit" value="Update Election">
+            <div class="form-group">
 
-</form>
+                <label for="title">
+                    Election Title
+                </label>
+
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    value="{{ election.title }}"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- Description -->
+
+            <div class="form-group">
+
+                <label for="description">
+                    Description
+                </label>
+
+                <textarea
+                    id="description"
+                    name="description"
+                    rows="5"
+                    required
+                >{{ election.description }}</textarea>
+
+            </div>
+
+
+
+            <!-- Date and Time -->
+
+            <div class="form-row">
+
+
+                <div class="form-group">
+
+                    <label for="start_date">
+                        Start Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="start_date"
+                        name="start_date"
+                        value="{{ election.start_date }}"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="start_time">
+                        Start Time
+                    </label>
+
+                    <input
+                        type="time"
+                        id="start_time"
+                        name="start_time"
+                        value="{{ election.start_time }}"
+                        required
+                    >
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="form-row">
+
+
+                <div class="form-group">
+
+                    <label for="end_date">
+                        End Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="end_date"
+                        name="end_date"
+                        value="{{ election.end_date }}"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="end_time">
+                        End Time
+                    </label>
+
+                    <input
+                        type="time"
+                        id="end_time"
+                        name="end_time"
+                        value="{{ election.end_time }}"
+                        required
+                    >
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- Status -->
+
+            <div class="form-group">
+
+                <label for="status">
+                    Election Status
+                </label>
+
+                <select
+                    id="status"
+                    name="status"
+                >
+
+                    <option
+                        value="Upcoming"
+                        {% if election.status == "Upcoming" %}
+                            selected
+                        {% endif %}
+                    >
+                        Upcoming
+                    </option>
+
+
+                    <option
+                        value="Active"
+                        {% if election.status == "Active" %}
+                            selected
+                        {% endif %}
+                    >
+                        Active
+                    </option>
+
+
+                    <option
+                        value="Completed"
+                        {% if election.status == "Completed" %}
+                            selected
+                        {% endif %}
+                    >
+                        Completed
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- Actions -->
+
+            <div class="form-actions">
+
+
+                <a
+                    href="/election/list"
+                    class="form-cancel-button"
+                >
+                    Cancel
+                </a>
+
+
+                <button
+                    type="submit"
+                    class="form-submit-button"
+                >
+                    Update Election
+                </button>
+
+
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+
+    <!-- ==============================
+         FOOTER
+    =============================== -->
+
+    <footer class="form-footer">
+
+        <p>
+            AI-Powered Intelligent Voting & Election Analysis System
+        </p>
+
+    </footer>
+
+
+</div>
+
 
 </body>
 

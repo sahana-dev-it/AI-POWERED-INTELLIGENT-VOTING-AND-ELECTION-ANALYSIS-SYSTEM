@@ -16,7 +16,10 @@ from app.models.vote import Vote
 from datetime import datetime
 
 
+# ==========================================
 # Create Vote Blueprint
+# ==========================================
+
 vote = Blueprint(
     "vote",
     __name__,
@@ -24,15 +27,14 @@ vote = Blueprint(
 )
 
 
-# ----------------------------------
-# Function to check election status
-# ----------------------------------
+# ==========================================
+# Function to update election status
+# ==========================================
 
 def update_election_status(election):
 
     try:
 
-        # Convert stored date and time into datetime
         start_datetime = datetime.strptime(
             f"{election.start_date} {election.start_time}",
             "%Y-%m-%d %H:%M"
@@ -50,7 +52,7 @@ def update_election_status(election):
 
             election.status = "Upcoming"
 
-        # Election is currently active
+        # Election is active
         elif (
             current_datetime >= start_datetime
             and
@@ -69,9 +71,9 @@ def update_election_status(election):
         pass
 
 
-# ----------------------------------
+# ==========================================
 # Show Active Elections
-# ----------------------------------
+# ==========================================
 
 @vote.route("/elections")
 @login_required
@@ -80,7 +82,7 @@ def elections():
     # Get all elections
     all_elections = Election.query.all()
 
-    # Update their status
+    # Update status
     for election in all_elections:
 
         update_election_status(election)
@@ -88,7 +90,7 @@ def elections():
     # Save updated statuses
     db.session.commit()
 
-    # Only show active elections
+    # Get only active elections
     elections = Election.query.filter_by(
         status="Active"
     ).all()
@@ -99,9 +101,9 @@ def elections():
     )
 
 
-# ----------------------------------
+# ==========================================
 # Show Candidates
-# ----------------------------------
+# ==========================================
 
 @vote.route("/candidates/<int:election_id>")
 @login_required
@@ -117,10 +119,7 @@ def candidates(election_id):
 
     db.session.commit()
 
-    # ----------------------------------
-    # Prevent voting before election
-    # ----------------------------------
-
+    # Prevent voting if election is not active
     if election.status != "Active":
 
         if election.status == "Upcoming":
@@ -137,14 +136,16 @@ def candidates(election_id):
                 "warning"
             )
 
-        return redirect("/vote/elections")
+        return redirect(
+            "/vote/elections"
+        )
 
     # Get candidates
     candidates = Candidate.query.filter_by(
         election_id=election_id
     ).all()
 
-    # Check whether current voter already voted
+    # Check whether voter already voted
     existing_vote = Vote.query.filter_by(
         voter_id=current_user.id,
         election_id=election.id
@@ -158,9 +159,9 @@ def candidates(election_id):
     )
 
 
-# ----------------------------------
+# ==========================================
 # Cast Vote
-# ----------------------------------
+# ==========================================
 
 @vote.route(
     "/cast/<int:election_id>/<int:candidate_id>",
@@ -169,25 +170,25 @@ def candidates(election_id):
 @login_required
 def cast_vote(election_id, candidate_id):
 
-    # ----------------------------------
+    # --------------------------------------
     # Find election
-    # ----------------------------------
+    # --------------------------------------
 
     election = Election.query.get_or_404(
         election_id
     )
 
-    # ----------------------------------
+    # --------------------------------------
     # Update election status
-    # ----------------------------------
+    # --------------------------------------
 
     update_election_status(election)
 
     db.session.commit()
 
-    # ----------------------------------
-    # Check whether election is active
-    # ----------------------------------
+    # --------------------------------------
+    # Check election status
+    # --------------------------------------
 
     if election.status != "Active":
 
@@ -209,18 +210,18 @@ def cast_vote(election_id, candidate_id):
             f"/vote/candidates/{election.id}"
         )
 
-    # ----------------------------------
+    # --------------------------------------
     # Find candidate
-    # ----------------------------------
+    # --------------------------------------
 
     candidate = Candidate.query.get_or_404(
         candidate_id
     )
 
-    # ----------------------------------
+    # --------------------------------------
     # Make sure candidate belongs
     # to this election
-    # ----------------------------------
+    # --------------------------------------
 
     if candidate.election_id != election.id:
 
@@ -229,11 +230,13 @@ def cast_vote(election_id, candidate_id):
             "danger"
         )
 
-        return redirect("/vote/elections")
+        return redirect(
+            "/vote/elections"
+        )
 
-    # ----------------------------------
+    # --------------------------------------
     # Check whether voter already voted
-    # ----------------------------------
+    # --------------------------------------
 
     existing_vote = Vote.query.filter_by(
         voter_id=current_user.id,
@@ -251,9 +254,9 @@ def cast_vote(election_id, candidate_id):
             f"/vote/candidates/{election.id}"
         )
 
-    # ----------------------------------
-    # Create vote
-    # ----------------------------------
+    # --------------------------------------
+    # Create new vote
+    # --------------------------------------
 
     new_vote = Vote(
 
@@ -268,23 +271,20 @@ def cast_vote(election_id, candidate_id):
         )
     )
 
-    # ----------------------------------
+    # --------------------------------------
     # Save vote
-    # ----------------------------------
+    # --------------------------------------
 
     db.session.add(new_vote)
 
     db.session.commit()
 
-    # ----------------------------------
-    # Success message
-    # ----------------------------------
+    # --------------------------------------
+    # Redirect to success page
+    # --------------------------------------
 
-    flash(
-        "Your vote has been successfully recorded!",
-        "success"
-    )
-
-    return redirect(
-        f"/vote/candidates/{election.id}"
+    return render_template(
+        "vote/vote_success.html",
+        election=election,
+        candidate=candidate
     )

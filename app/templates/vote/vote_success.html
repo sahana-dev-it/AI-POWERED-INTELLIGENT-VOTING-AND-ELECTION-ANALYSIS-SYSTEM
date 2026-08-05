@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Vote Successfully Recorded</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+</head>
+
+
+<body class="vote-success-page">
+
+
+<div class="vote-success-container">
+
+
+    <!-- =====================================
+         SUCCESS CARD
+    ====================================== -->
+
+    <main class="vote-success-card">
+
+
+        <!-- SUCCESS ICON -->
+
+        <div class="vote-success-icon">
+
+            <span>✓</span>
+
+        </div>
+
+
+        <!-- LABEL -->
+
+        <p class="vote-success-label">
+            VOTE RECORDED
+        </p>
+
+
+        <!-- TITLE -->
+
+        <h1>
+            Your Vote Has Been<br>
+            Successfully Recorded
+        </h1>
+
+
+        <p class="vote-success-message">
+
+            Thank you for participating in the election.
+            Your vote has been securely recorded in the system.
+
+        </p>
+
+
+        <!-- =================================
+             VOTE DETAILS
+        ================================== -->
+
+        <div class="vote-details">
+
+
+            <div class="vote-detail-item">
+
+                <span>
+                    ELECTION
+                </span>
+
+                <strong>
+                    {{ election.title }}
+                </strong>
+
+            </div>
+
+
+            <div class="vote-detail-item">
+
+                <span>
+                    YOUR CHOICE
+                </span>
+
+                <strong>
+                    {{ candidate.name }}
+                </strong>
+
+            </div>
+
+
+            <div class="vote-detail-item">
+
+                <span>
+                    PARTY
+                </span>
+
+                <strong>
+                    {{ candidate.party }}
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =================================
+             SECURITY MESSAGE
+        ================================== -->
+
+        <div class="vote-security-message">
+
+            <div class="security-icon">
+                ✓
+            </div>
+
+            <div>
+
+                <strong>
+                    Vote Successfully Submitted
+                </strong>
+
+                <p>
+                    You cannot vote again in this election.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================
+             ACTIONS
+        ================================== -->
+
+        <div class="vote-success-actions">
+
+
+            <a
+                href="{{ url_for('voter.dashboard') }}"
+                class="success-dashboard-button"
+            >
+                Return to Dashboard
+            </a>
+
+
+            <a
+                href="{{ url_for('vote.elections') }}"
+                class="success-elections-link"
+            >
+                View Active Elections
+            </a>
+
+
+        </div>
+
+
+    </main>
+
+
+    <!-- =====================================
+         FOOTER
+    ====================================== -->
+
+    <footer class="vote-success-footer">
+
+        <p>
+            AI-Powered Intelligent Voting & Election Analysis System
+        </p>
+
+        <span>
+            Your participation matters.
+        </span>
+
+    </footer>
+
+
+</div>
+
+
+</body>
+
+</html>

@@ -1,182 +1,366 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-    <title>Candidates</title>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>{{ election.title }} - Candidates</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
 
 </head>
 
 
-<body>
-
-<h1>{{ election.title }}</h1>
-
-<hr>
+<body class="candidates-page">
 
 
-<!-- Flash Messages -->
+<div class="candidates-container">
 
-{% with messages = get_flashed_messages(with_categories=true) %}
 
-    {% if messages %}
+    <!-- =====================================
+         HEADER
+    ====================================== -->
 
-        {% for category, message in messages %}
+    <header class="candidates-header">
 
-            <div style="
-                padding: 12px;
-                margin-bottom: 20px;
-                border: 1px solid black;
-                background-color: #f2f2f2;
-            ">
+        <div>
 
-                {{ message }}
+            <p class="candidates-label">
+                ELECTION CANDIDATES
+            </p>
+
+            <h1>
+                {{ election.title }}
+            </h1>
+
+            <p>
+                Review the candidates and their manifestos
+                before making your choice.
+            </p>
+
+        </div>
+
+
+        <a
+            href="{{ url_for('vote.elections') }}"
+            class="candidates-back-button"
+        >
+            ← Elections
+        </a>
+
+    </header>
+
+
+
+    <!-- =====================================
+         FLASH MESSAGES
+    ====================================== -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            <div class="candidate-messages">
+
+                {% for category, message in messages %}
+
+                    <div class="candidate-message">
+
+                        <span class="message-icon">
+                            !
+                        </span>
+
+                        <span>
+                            {{ message }}
+                        </span>
+
+                    </div>
+
+                {% endfor %}
 
             </div>
 
-        {% endfor %}
+        {% endif %}
+
+    {% endwith %}
+
+
+
+    <!-- =====================================
+         VOTING COMPLETED
+    ====================================== -->
+
+    {% if has_voted %}
+
+        <div class="voting-completed">
+
+            <div class="completed-icon">
+                ✓
+            </div>
+
+            <div>
+
+                <strong>
+                    Voting Completed
+                </strong>
+
+                <p>
+                    You have already cast your vote in this election.
+                    Your vote has been recorded successfully.
+                </p>
+
+            </div>
+
+        </div>
 
     {% endif %}
 
-{% endwith %}
 
 
+    <!-- =====================================
+         CANDIDATES
+    ====================================== -->
 
-<h2>Candidates</h2>
-
-
-<!-- If voter has already voted -->
-
-{% if has_voted %}
-
-    <div style="
-        padding: 15px;
-        margin-bottom: 20px;
-        border: 1px solid green;
-        background-color: #e8f5e9;
-    ">
-
-        <strong>✅ Voting Completed</strong>
-
-        <br><br>
-
-        You have already voted in this election.
-
-    </div>
-
-{% endif %}
+    <section class="candidates-section">
 
 
+        <div class="candidates-section-heading">
 
-{% if candidates %}
+            <div>
 
+                <p>
+                    PARTICIPANTS
+                </p>
 
-<table border="1" cellpadding="10">
+                <h2>
+                    Candidates
+                </h2>
 
+            </div>
 
-<tr>
+            <span class="candidate-count">
 
-    <th>Name</th>
+                {% if candidates %}
+                    {{ candidates|length }}
+                {% else %}
+                    0
+                {% endif %}
 
-    <th>Party</th>
+                Candidate{% if not candidates or candidates|length != 1 %}s{% endif %}
 
-    <th>Education</th>
-
-    <th>Profession</th>
-
-    <th>Manifesto</th>
-
-    <th>Status</th>
-
-</tr>
-
-
-
-{% for candidate in candidates %}
-
-
-<tr>
-
-    <td>
-        {{ candidate.name }}
-    </td>
-
-
-    <td>
-        {{ candidate.party }}
-    </td>
-
-
-    <td>
-        {{ candidate.education }}
-    </td>
-
-
-    <td>
-        {{ candidate.profession }}
-    </td>
-
-
-    <td>
-        {{ candidate.manifesto }}
-    </td>
-
-
-    <td>
-
-
-        {% if has_voted %}
-
-            <span>
-                Voting Completed
             </span>
+
+        </div>
+
+
+
+        {% if candidates %}
+
+
+            <div class="candidate-grid">
+
+
+                {% for candidate in candidates %}
+
+
+                    <article class="candidate-card">
+
+
+                        <!-- CARD TOP -->
+
+                        <div class="candidate-card-top">
+
+                            <div class="candidate-avatar">
+
+                                {{ candidate.name[0]|upper }}
+
+                            </div>
+
+
+                            <div class="candidate-name-area">
+
+                                <h3>
+                                    {{ candidate.name }}
+                                </h3>
+
+                                <span>
+                                    {{ candidate.party }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- DETAILS -->
+
+                        <div class="candidate-details">
+
+
+                            <div class="candidate-detail">
+
+                                <span>
+                                    EDUCATION
+                                </span>
+
+                                <strong>
+                                    {{ candidate.education }}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="candidate-detail">
+
+                                <span>
+                                    PROFESSION
+                                </span>
+
+                                <strong>
+                                    {{ candidate.profession }}
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- MANIFESTO -->
+
+                        <div class="candidate-manifesto">
+
+                            <span>
+                                MANIFESTO
+                            </span>
+
+                            <p>
+                                {{ candidate.manifesto }}
+                            </p>
+
+                        </div>
+
+
+
+                        <!-- ACTION -->
+
+                        <div class="candidate-action">
+
+
+                            {% if has_voted %}
+
+                                <div class="vote-completed-label">
+
+                                    <span>
+                                        ✓
+                                    </span>
+
+                                    Vote Submitted
+
+                                </div>
+
+
+                            {% else %}
+
+
+                                <form
+                                    method="POST"
+                                    action="/vote/cast/{{ election.id }}/{{ candidate.id }}"
+                                >
+
+                                    <button
+                                        type="submit"
+                                        class="candidate-vote-button"
+                                        onclick="return confirm('Are you sure you want to vote for {{ candidate.name }}?');"
+                                    >
+
+                                        Vote for {{ candidate.name }}
+
+                                        <span>
+                                            →
+                                        </span>
+
+                                    </button>
+
+                                </form>
+
+
+                            {% endif %}
+
+
+                        </div>
+
+
+                    </article>
+
+
+                {% endfor %}
+
+
+            </div>
 
 
         {% else %}
 
-            <form
-                method="POST"
-                action="/vote/cast/{{ election.id }}/{{ candidate.id }}"
-            >
 
-                <button type="submit">
-                    Vote
-                </button>
+            <!-- =====================================
+                 NO CANDIDATES
+            ====================================== -->
 
-            </form>
+            <div class="no-candidates">
+
+                <div class="no-candidates-icon">
+                    👤
+                </div>
+
+                <h3>
+                    No Candidates Available
+                </h3>
+
+                <p>
+                    Candidates have not been added to this
+                    election yet.
+                </p>
+
+            </div>
+
 
         {% endif %}
 
 
-    </td>
-
-</tr>
-
-
-{% endfor %}
-
-
-</table>
-
-
-{% else %}
-
-    <h3>No Candidates Available.</h3>
-
-{% endif %}
+    </section>
 
 
 
-<br><br>
+    <!-- =====================================
+         FOOTER
+    ====================================== -->
+
+    <footer class="candidates-footer">
+
+        <p>
+            AI-Powered Intelligent Voting & Election Analysis System
+        </p>
+
+        <span>
+            Choose carefully • Vote securely
+        </span>
+
+    </footer>
 
 
-<a href="/vote/elections">
-
-    <button>
-        Back
-    </button>
-
-</a>
+</div>
 
 
 </body>

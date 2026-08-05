@@ -1,184 +1,281 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Election Results</title>
 
-    <style>
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f9;
-            margin: 0;
-            padding: 40px;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.10);
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 30px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            padding: 14px;
-            border-bottom: 1px solid #ddd;
-            text-align: left;
-        }
-
-        th {
-            background: #f1f3f5;
-        }
-
-        .view-button {
-            display: inline-block;
-            padding: 8px 14px;
-            background: #4a90e2;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-        }
-
-        .view-button:hover {
-            background: #357abd;
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 30px;
-            color: #666;
-        }
-
-        .back-button {
-            display: inline-block;
-            margin-top: 25px;
-            padding: 10px 18px;
-            background: #555;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-        }
-
-    </style>
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
 
 </head>
 
 
-<body>
-
-<div class="container">
-
-    <h1>Election Results</h1>
-
-    <div class="subtitle">
-        Select a completed election to view its results
-    </div>
+<body class="results-list-page">
 
 
-    {% if elections %}
-
-    <table>
-
-        <tr>
-
-            <th>ID</th>
-
-            <th>Election</th>
-
-            <th>Start Date</th>
-
-            <th>End Date</th>
-
-            <th>Action</th>
-
-        </tr>
+<div class="results-list-container">
 
 
-        {% for election in elections %}
+    <!-- =====================================
+         HEADER
+    ====================================== -->
 
-        <tr>
+    <header class="results-list-header">
 
-            <td>
-                {{ election.id }}
-            </td>
+        <div>
 
-            <td>
-                {{ election.title }}
-            </td>
+            <p class="results-list-label">
+                RESULTS CENTER
+            </p>
 
-            <td>
-                {{ election.start_date }}
-                {{ election.start_time }}
-            </td>
+            <h1>
+                Election Results
+            </h1>
 
-            <td>
-                {{ election.end_date }}
-                {{ election.end_time }}
-            </td>
+            <p>
+                Review official results from completed elections
+                and examine the final voting outcome.
+            </p>
 
-            <td>
+        </div>
+
+
+        <a
+            href="/admin/dashboard"
+            class="results-dashboard-button"
+        >
+            ← Admin Dashboard
+        </a>
+
+    </header>
+
+
+
+    <!-- =====================================
+         MAIN CONTENT
+    ====================================== -->
+
+    <main class="results-list-content">
+
+
+        <div class="results-list-heading">
+
+            <div>
+
+                <p>
+                    COMPLETED ELECTIONS
+                </p>
+
+                <h2>
+                    Official Results
+                </h2>
+
+            </div>
+
+
+            {% if elections %}
+
+                <span class="results-count">
+
+                    {{ elections|length }}
+
+                    Election{% if elections|length != 1 %}s{% endif %}
+
+                </span>
+
+            {% endif %}
+
+        </div>
+
+
+
+        <!-- =====================================
+             ELECTION LIST
+        ====================================== -->
+
+        {% if elections %}
+
+
+            <div class="completed-election-list">
+
+
+                {% for election in elections %}
+
+
+                    <article class="completed-election-card">
+
+
+                        <!-- Election Icon -->
+
+                        <div class="election-result-icon">
+
+                            <span>
+                                ✓
+                            </span>
+
+                        </div>
+
+
+                        <!-- Election Information -->
+
+                        <div class="completed-election-info">
+
+                            <p class="completed-election-status">
+                                ELECTION COMPLETED
+                            </p>
+
+                            <h3>
+                                {{ election.title }}
+                            </h3>
+
+                            <div class="election-date-range">
+
+                                <div>
+
+                                    <span>
+                                        STARTED
+                                    </span>
+
+                                    <strong>
+                                        {{ election.start_date }}
+                                        {{ election.start_time }}
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="date-arrow">
+                                    →
+                                </div>
+
+
+                                <div>
+
+                                    <span>
+                                        ENDED
+                                    </span>
+
+                                    <strong>
+                                        {{ election.end_date }}
+                                        {{ election.end_time }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- View Results -->
+
+                        <div class="completed-election-action">
+
+                            <a
+                                href="/results/{{ election.id }}"
+                                class="view-results-button"
+                            >
+
+                                View Results
+
+                                <span>
+                                    →
+                                </span>
+
+                            </a>
+
+                        </div>
+
+
+                    </article>
+
+
+                {% endfor %}
+
+
+            </div>
+
+
+        {% else %}
+
+
+            <!-- =====================================
+                 EMPTY STATE
+            ====================================== -->
+
+            <div class="results-empty-state">
+
+
+                <div class="results-empty-icon">
+
+                    ✓
+
+                </div>
+
+
+                <p class="results-empty-label">
+                    RESULTS CENTER
+                </p>
+
+
+                <h3>
+                    No Completed Elections
+                </h3>
+
+
+                <p>
+                    Results will appear here automatically
+                    after an election has been completed.
+                </p>
+
 
                 <a
-                    class="view-button"
-                    href="/results/{{ election.id }}"
+                    href="/admin/dashboard"
+                    class="empty-dashboard-button"
                 >
-                    View Results
+                    Return to Dashboard
                 </a>
 
-            </td>
 
-        </tr>
-
-        {% endfor %}
-
-    </table>
+            </div>
 
 
-    {% else %}
+        {% endif %}
 
-    <div class="no-results">
 
-        <h3>
-            No Completed Elections
-        </h3>
+    </main>
+
+
+
+    <!-- =====================================
+         FOOTER
+    ====================================== -->
+
+    <footer class="results-list-footer">
 
         <p>
-            Results will appear here after an election is completed.
+            AI-Powered Intelligent Voting & Election Analysis System
         </p>
 
-    </div>
+        <span>
+            Official Results Center
+        </span>
 
-    {% endif %}
+    </footer>
 
-
-    <a
-        class="back-button"
-        href="/admin/dashboard"
-    >
-        Back to Admin Dashboard
-    </a>
 
 </div>
+
 
 </body>
 

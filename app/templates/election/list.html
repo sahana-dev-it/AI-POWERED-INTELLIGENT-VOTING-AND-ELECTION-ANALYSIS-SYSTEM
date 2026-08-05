@@ -1,67 +1,918 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>All Elections</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at top left,
+                    #dff5ef 0%,
+                    #f5f8f6 42%,
+                    #eef3f1 100%
+                );
+
+            color: #092f2d;
+
+            padding: 50px 25px;
+        }
+
+
+        /* ==============================
+           MAIN CONTAINER
+        ============================== */
+
+        .page-container {
+
+            width: 100%;
+
+            max-width: 1150px;
+
+            margin: auto;
+
+            background: rgba(255, 255, 255, 0.96);
+
+            border: 1px solid #d9e5e1;
+
+            border-radius: 24px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 20px 50px rgba(13, 70, 62, 0.12);
+        }
+
+
+        /* ==============================
+           HEADER
+        ============================== */
+
+        .page-header {
+
+            position: relative;
+
+            padding: 45px 55px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #075f55,
+                    #14806f
+                );
+
+            color: white;
+
+            overflow: hidden;
+        }
+
+
+        .page-header::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 260px;
+
+            height: 260px;
+
+            border: 1px solid rgba(255,255,255,0.15);
+
+            border-radius: 50%;
+
+            right: -90px;
+
+            top: -130px;
+        }
+
+
+        .page-label {
+
+            margin: 0 0 12px;
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+            letter-spacing: 3px;
+
+            color: #ff8b78;
+
+            text-transform: uppercase;
+        }
+
+
+        .page-header h1 {
+
+            margin: 0;
+
+            font-size: 42px;
+
+            line-height: 1.15;
+
+            font-weight: 800;
+        }
+
+
+        .page-header p {
+
+            margin: 14px 0 0;
+
+            font-size: 17px;
+
+            color: rgba(255,255,255,0.88);
+
+            max-width: 650px;
+
+            line-height: 1.6;
+        }
+
+
+        /* ==============================
+           CONTENT
+        ============================== */
+
+        .content {
+
+            padding: 45px 55px 50px;
+        }
+
+
+        /* ==============================
+           FLASH MESSAGE
+        ============================== */
+
+        .messages {
+
+            margin-bottom: 25px;
+        }
+
+
+        .message {
+
+            padding: 15px 18px;
+
+            border-radius: 12px;
+
+            background: #fff4df;
+
+            border-left: 5px solid #e19b2c;
+
+            color: #684b16;
+
+            font-size: 15px;
+
+            font-weight: 600;
+        }
+
+
+        /* ==============================
+           SECTION TITLE
+        ============================== */
+
+        .section-heading {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: end;
+
+            margin-bottom: 25px;
+
+            gap: 20px;
+        }
+
+
+        .section-heading h2 {
+
+            margin: 0;
+
+            font-size: 26px;
+
+            color: #083d38;
+        }
+
+
+        .section-heading p {
+
+            margin: 6px 0 0;
+
+            color: #6a7d7a;
+
+            font-size: 15px;
+        }
+
+
+        /* ==============================
+           TABLE WRAPPER
+        ============================== */
+
+        .table-wrapper {
+
+            width: 100%;
+
+            overflow-x: auto;
+
+            border: 1px solid #dce7e3;
+
+            border-radius: 16px;
+
+            background: white;
+        }
+
+
+        table {
+
+            width: 100%;
+
+            min-width: 850px;
+
+            border-collapse: collapse;
+        }
+
+
+        th {
+
+            padding: 18px 16px;
+
+            text-align: left;
+
+            background: #edf7f4;
+
+            color: #145c53;
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.6px;
+
+            border-bottom: 1px solid #d7e6e1;
+        }
+
+
+        td {
+
+            padding: 19px 16px;
+
+            border-bottom: 1px solid #edf1f0;
+
+            color: #304d49;
+
+            font-size: 15px;
+
+            vertical-align: middle;
+        }
+
+
+        tbody tr {
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+
+        tbody tr:hover {
+
+            background: #f6fbf9;
+        }
+
+
+        tbody tr:last-child td {
+
+            border-bottom: none;
+        }
+
+
+        /* ==============================
+           ID
+        ============================== */
+
+        .election-id {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            width: 34px;
+
+            height: 34px;
+
+            border-radius: 50%;
+
+            background: #e5f3ef;
+
+            color: #087265;
+
+            font-weight: 800;
+
+            font-size: 14px;
+        }
+
+
+        /* ==============================
+           ELECTION TITLE
+        ============================== */
+
+        .election-title {
+
+            font-weight: 750;
+
+            color: #073f3a;
+
+            font-size: 16px;
+        }
+
+
+        /* ==============================
+           DATE / TIME
+        ============================== */
+
+        .date-time {
+
+            line-height: 1.5;
+
+            color: #536965;
+
+            font-size: 14px;
+        }
+
+
+        /* ==============================
+           STATUS
+        ============================== */
+
+        .status {
+
+            display: inline-block;
+
+            padding: 7px 13px;
+
+            border-radius: 30px;
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+            background: #edf1f0;
+
+            color: #536965;
+        }
+
+
+        /* Different status colors */
+
+        .status[data-status="Active"] {
+
+            background: #dff6ec;
+
+            color: #087354;
+        }
+
+
+        .status[data-status="Upcoming"] {
+
+            background: #fff0d6;
+
+            color: #94621a;
+        }
+
+
+        .status[data-status="Completed"] {
+
+            background: #e9ecef;
+
+            color: #596568;
+        }
+
+
+        /* ==============================
+           ACTION BUTTONS
+        ============================== */
+
+        .actions {
+
+            display: flex;
+
+            gap: 9px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .action-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 9px 15px;
+
+            border-radius: 9px;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: 750;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .action-button:hover {
+
+            transform: translateY(-2px);
+        }
+
+
+        .edit-button {
+
+            background: #147d6c;
+
+            color: white;
+
+            box-shadow:
+                0 6px 14px rgba(20,125,108,0.18);
+        }
+
+
+        .edit-button:hover {
+
+            background: #0d6658;
+        }
+
+
+        .delete-button {
+
+            background: #fff0ed;
+
+            color: #c64e3d;
+
+            border: 1px solid #ffd5ce;
+        }
+
+
+        .delete-button:hover {
+
+            background: #ffe3de;
+
+            box-shadow:
+                0 6px 14px rgba(198,78,61,0.12);
+        }
+
+
+        /* ==============================
+           EMPTY STATE
+        ============================== */
+
+        .empty-state {
+
+            text-align: center;
+
+            padding: 65px 25px;
+
+            border: 1px dashed #cbded9;
+
+            border-radius: 16px;
+
+            background: #f8fcfa;
+        }
+
+
+        .empty-icon {
+
+            width: 58px;
+
+            height: 58px;
+
+            margin: 0 auto 18px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #dff3ed;
+
+            color: #087265;
+
+            font-size: 25px;
+        }
+
+
+        .empty-state h3 {
+
+            margin: 0 0 8px;
+
+            font-size: 22px;
+
+            color: #123f3b;
+        }
+
+
+        .empty-state p {
+
+            margin: 0;
+
+            color: #72817f;
+
+            font-size: 15px;
+        }
+
+
+        /* ==============================
+           FOOTER
+        ============================== */
+
+        .page-footer {
+
+            padding: 20px 55px;
+
+            border-top: 1px solid #e3ebe8;
+
+            background: #f8fbfa;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            color: #70807d;
+
+            font-size: 13px;
+        }
+
+
+        .page-footer strong {
+
+            color: #176b60;
+        }
+
+
+        /* ==============================
+           RESPONSIVE
+        ============================== */
+
+        @media (max-width: 800px) {
+
+            body {
+                padding: 20px 12px;
+            }
+
+            .page-header {
+                padding: 35px 28px;
+            }
+
+            .page-header h1 {
+                font-size: 34px;
+            }
+
+            .content {
+                padding: 30px 22px;
+            }
+
+            .section-heading {
+                display: block;
+            }
+
+            .page-footer {
+                padding: 20px 22px;
+                flex-direction: column;
+            }
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-<h1>All Elections</h1>
-{% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        {% for category, message in messages %}
 
-            <p><strong>{{ message }}</strong></p>
+<div class="page-container">
 
-        {% endfor %}
-    {% endif %}
-{% endwith %}
 
-<hr>
+    <!-- ==============================
+         HEADER
+    =============================== -->
 
-<table border="1" cellpadding="8">
+    <header class="page-header">
 
-<tr>
-    <th>ID</th>
-    <th>Title</th>
-    <th>Start</th>
-    <th>End</th>
-    <th>Status</th>
-    <th>Actions</th>
-</tr>
+        <p class="page-label">
+            ADMIN CONTROL CENTER
+        </p>
 
-{% for election in elections %}
+        <h1>
+            All Elections
+        </h1>
 
-<tr>
+        <p>
+            View, manage and monitor all elections
+            created in the voting system.
+        </p>
 
-<td>{{ election.id }}</td>
+    </header>
 
-<td>{{ election.title }}</td>
 
-<td>{{ election.start_date }} {{ election.start_time }}</td>
+    <!-- ==============================
+         CONTENT
+    =============================== -->
 
-<td>{{ election.end_date }} {{ election.end_time }}</td>
+    <main class="content">
 
-<td>{{ election.status }}</td>
 
-<td>
+        <!-- Flash Messages -->
 
-    <a href="/election/edit/{{ election.id }}">
-        <button>Edit</button>
-    </a>
+        {% with messages = get_flashed_messages(with_categories=true) %}
 
-    <a href="/election/delete/{{ election.id }}">
-        <button>Delete</button>
-    </a>
+            {% if messages %}
 
-</td>
+                <div class="messages">
 
-</tr>
+                    {% for category, message in messages %}
 
-{% endfor %}
+                        <div class="message">
 
-</table>
+                            {{ message }}
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+        {% endwith %}
+
+
+
+        <!-- Section Heading -->
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Election Management
+                </h2>
+
+                <p>
+                    Manage the schedule and status of your elections.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        {% if elections %}
+
+
+        <!-- ==============================
+             ELECTION TABLE
+        =============================== -->
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Election</th>
+
+                        <th>Start</th>
+
+                        <th>End</th>
+
+                        <th>Status</th>
+
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                {% for election in elections %}
+
+                <tr>
+
+
+                    <!-- ID -->
+
+                    <td>
+
+                        <span class="election-id">
+
+                            {{ election.id }}
+
+                        </span>
+
+                    </td>
+
+
+                    <!-- Title -->
+
+                    <td>
+
+                        <span class="election-title">
+
+                            {{ election.title }}
+
+                        </span>
+
+                    </td>
+
+
+                    <!-- Start -->
+
+                    <td>
+
+                        <div class="date-time">
+
+                            {{ election.start_date }}
+
+                            <br>
+
+                            {{ election.start_time }}
+
+                        </div>
+
+                    </td>
+
+
+                    <!-- End -->
+
+                    <td>
+
+                        <div class="date-time">
+
+                            {{ election.end_date }}
+
+                            <br>
+
+                            {{ election.end_time }}
+
+                        </div>
+
+                    </td>
+
+
+                    <!-- Status -->
+
+                    <td>
+
+                        <span
+                            class="status"
+                            data-status="{{ election.status }}"
+                        >
+
+                            {{ election.status }}
+
+                        </span>
+
+                    </td>
+
+
+                    <!-- Actions -->
+
+                    <td>
+
+                        <div class="actions">
+
+
+                            <a
+                                href="/election/edit/{{ election.id }}"
+                                class="action-button edit-button"
+                            >
+                                Edit
+                            </a>
+
+
+                            <a
+                                href="/election/delete/{{ election.id }}"
+                                class="action-button delete-button"
+                            >
+                                Delete
+                            </a>
+
+
+                        </div>
+
+                    </td>
+
+
+                </tr>
+
+                {% endfor %}
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        {% else %}
+
+
+        <!-- ==============================
+             EMPTY STATE
+        =============================== -->
+
+        <div class="empty-state">
+
+            <div class="empty-icon">
+                ✓
+            </div>
+
+            <h3>
+                No Elections Created
+            </h3>
+
+            <p>
+                Create an election from the Admin Dashboard
+                to see it listed here.
+            </p>
+
+        </div>
+
+
+        {% endif %}
+
+
+    </main>
+
+
+    <!-- ==============================
+         FOOTER
+    =============================== -->
+
+    <footer class="page-footer">
+
+        <span>
+            AI-Powered Intelligent Voting & Election Analysis System
+        </span>
+
+        <strong>
+            Election Management
+        </strong>
+
+    </footer>
+
+
+</div>
+
 
 </body>
 

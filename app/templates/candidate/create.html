@@ -1,97 +1,1033 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Add Candidate</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family: Arial, sans-serif;
+
+            background: #eef6f3;
+
+            color: #173b38;
+
+        }
+
+
+        .page {
+
+            min-height: 100vh;
+
+            padding: 45px 30px;
+
+        }
+
+
+        .container {
+
+            width: 100%;
+
+            max-width: 1050px;
+
+            margin: auto;
+
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 28px;
+
+            gap: 20px;
+
+        }
+
+
+        .label {
+
+            color: #e97869;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .header h1 {
+
+            margin: 0;
+
+            font-size: 38px;
+
+            color: #123b37;
+
+        }
+
+
+        .header p {
+
+            margin: 8px 0 0;
+
+            color: #687774;
+
+            font-size: 16px;
+
+        }
+
+
+        .view-button {
+
+            text-decoration: none;
+
+            background: #116f63;
+
+            color: white;
+
+            padding: 13px 20px;
+
+            border-radius: 9px;
+
+            font-weight: bold;
+
+            white-space: nowrap;
+
+        }
+
+
+        .view-button:hover {
+
+            background: #0d5b51;
+
+        }
+
+
+        /* =========================
+           SUCCESS POPUP
+        ========================= */
+
+        .success-popup {
+
+            position: fixed;
+
+            top: 25px;
+
+            right: 30px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 14px 20px;
+
+            background: #ffffff;
+
+            color: #245c4d;
+
+            border-left: 4px solid #168575;
+
+            border-radius: 9px;
+
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            z-index: 9999;
+
+            animation:
+                popupIn 0.35s ease,
+                popupOut 0.5s ease 3.5s forwards;
+
+        }
+
+
+        .success-icon {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            width: 25px;
+
+            height: 25px;
+
+            border-radius: 50%;
+
+            background: #168575;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+        }
+
+
+        @keyframes popupIn {
+
+            from {
+
+                opacity: 0;
+
+                transform: translateX(30px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform: translateX(0);
+
+            }
+
+        }
+
+
+        @keyframes popupOut {
+
+            from {
+
+                opacity: 1;
+
+                transform: translateX(0);
+
+            }
+
+            to {
+
+                opacity: 0;
+
+                transform: translateX(30px);
+
+            }
+
+        }
+
+
+        /* =========================
+           ERROR MESSAGE
+        ========================= */
+
+        .error-popup {
+
+            position: fixed;
+
+            top: 25px;
+
+            right: 30px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 14px 20px;
+
+            background: #ffffff;
+
+            color: #963c3c;
+
+            border-left: 4px solid #d9534f;
+
+            border-radius: 9px;
+
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            z-index: 9999;
+
+            animation:
+                popupIn 0.35s ease,
+                popupOut 0.5s ease 4s forwards;
+
+        }
+
+
+        .error-icon {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            width: 25px;
+
+            height: 25px;
+
+            border-radius: 50%;
+
+            background: #d9534f;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+        }
+
+
+        /* =========================
+           FORM CARD
+        ========================= */
+
+        .card {
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 38px 42px;
+
+            box-shadow:
+                0 12px 35px rgba(20, 65, 60, 0.10);
+
+        }
+
+
+        .card-title {
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .card-title h2 {
+
+            margin: 0 0 6px;
+
+            font-size: 25px;
+
+            color: #173b38;
+
+        }
+
+
+        .card-title p {
+
+            margin: 0;
+
+            color: #74817f;
+
+            font-size: 15px;
+
+        }
+
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-group {
+
+            margin-bottom: 21px;
+
+        }
+
+
+        label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            color: #294541;
+
+        }
+
+
+        input,
+        select,
+        textarea {
+
+            width: 100%;
+
+            border: 1px solid #d2dfdc;
+
+            border-radius: 9px;
+
+            padding: 13px 14px;
+
+            font-family: Arial, sans-serif;
+
+            font-size: 15px;
+
+            color: #263d3a;
+
+            background: #fbfdfc;
+
+            outline: none;
+
+        }
+
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+
+            border-color: #168575;
+
+            box-shadow:
+                0 0 0 3px rgba(22, 133, 117, 0.10);
+
+        }
+
+
+        textarea {
+
+            min-height: 130px;
+
+            resize: vertical;
+
+            line-height: 1.5;
+
+        }
+
+
+        input::placeholder,
+        textarea::placeholder {
+
+            color: #9aa7a5;
+
+        }
+
+
+        /* =========================
+           TWO COLUMN AREA
+        ========================= */
+
+        .row {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 22px;
+
+        }
+
+
+        /* =========================
+           BUTTON AREA
+        ========================= */
+
+        .actions {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            align-items: center;
+
+            gap: 14px;
+
+            border-top: 1px solid #e4ece9;
+
+            padding-top: 25px;
+
+            margin-top: 28px;
+
+        }
+
+
+        .cancel-button {
+
+            text-decoration: none;
+
+            padding: 13px 22px;
+
+            border-radius: 9px;
+
+            background: #edf1ef;
+
+            color: #53615e;
+
+            font-weight: bold;
+
+        }
+
+
+        .cancel-button:hover {
+
+            background: #e2e8e5;
+
+        }
+
+
+        .add-button {
+
+            border: none;
+
+            padding: 13px 25px;
+
+            border-radius: 9px;
+
+            background: #137b6d;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        .add-button:hover {
+
+            background: #0f675c;
+
+        }
+
+
+        /* =========================
+           INFORMATION BOX
+        ========================= */
+
+        .info {
+
+            margin-top: 20px;
+
+            padding: 17px 20px;
+
+            background: #e7f2ef;
+
+            border-left: 4px solid #168575;
+
+            border-radius: 8px;
+
+        }
+
+
+        .info strong {
+
+            font-size: 15px;
+
+            color: #28534d;
+
+        }
+
+
+        .info p {
+
+            margin: 6px 0 0;
+
+            font-size: 14px;
+
+            color: #657571;
+
+            line-height: 1.5;
+
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            .page {
+
+                padding: 25px 15px;
+
+            }
+
+
+            .header {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+            }
+
+
+            .header h1 {
+
+                font-size: 32px;
+
+            }
+
+
+            .card {
+
+                padding: 25px 20px;
+
+            }
+
+
+            .row {
+
+                grid-template-columns: 1fr;
+
+                gap: 0;
+
+            }
+
+
+            .actions {
+
+                flex-direction: column-reverse;
+
+                align-items: stretch;
+
+            }
+
+
+            .cancel-button,
+            .add-button {
+
+                text-align: center;
+
+                width: 100%;
+
+            }
+
+
+            .success-popup,
+            .error-popup {
+
+                left: 20px;
+
+                right: 20px;
+
+                top: 20px;
+
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-<h1>Add Candidate</h1>
 
-<hr>
+<div class="page">
 
-<form method="POST">
 
-<label>Select Election</label>
-<br>
+<div class="container">
 
-<select name="election_id" required>
 
-{% for election in elections %}
+    <!-- =================================
+         HEADER
+    ================================== -->
 
-<option value="{{ election.id }}">
-    {{ election.title }}
-</option>
+    <div class="header">
 
-{% endfor %}
 
-</select>
+        <div>
 
-<br><br>
+            <div class="label">
+                CANDIDATE MANAGEMENT
+            </div>
 
-<label>Candidate Name</label>
-<br>
-<input type="text" name="name" required>
 
-<br><br>
+            <h1>
+                Add Candidate
+            </h1>
 
-<label>Age</label>
-<br>
-<input type="number" name="age" required>
 
-<br><br>
+            <p>
+                Register candidates and add their election information.
+            </p>
 
-<label>Gender</label>
-<br>
+        </div>
 
-<select name="gender">
 
-<option>Male</option>
+        <a
+            href="/candidate/list"
+            class="view-button"
+        >
+            View Candidates
+        </a>
 
-<option>Female</option>
 
-<option>Other</option>
+    </div>
 
-</select>
 
-<br><br>
 
-<label>Party Name</label>
-<br>
-<input type="text" name="party" required>
+    <!-- =================================
+         FLASH MESSAGES
+    ================================== -->
 
-<br><br>
+    {% with messages = get_flashed_messages(with_categories=true) %}
 
-<label>Education</label>
-<br>
-<input type="text" name="education" required>
+        {% if messages %}
 
-<br><br>
+            {% for category, message in messages %}
 
-<label>Profession</label>
-<br>
-<input type="text" name="profession" required>
 
-<br><br>
+                {% if category == "success" %}
 
-<label>Manifesto</label>
-<br>
+                    <div class="success-popup">
 
-<textarea
-name="manifesto"
-rows="5"
-cols="40"
-required>
-</textarea>
+                        <span class="success-icon">
+                            ✓
+                        </span>
 
-<br><br>
+                        <span>
+                            {{ message }}
+                        </span>
 
-<input
-type="submit"
-value="Add Candidate">
+                    </div>
 
-</form>
+
+                {% else %}
+
+                    <div class="error-popup">
+
+                        <span class="error-icon">
+                            !
+                        </span>
+
+                        <span>
+                            {{ message }}
+                        </span>
+
+                    </div>
+
+                {% endif %}
+
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+
+    <!-- =================================
+         FORM CARD
+    ================================== -->
+
+    <div class="card">
+
+
+        <div class="card-title">
+
+            <h2>
+                Candidate Information
+            </h2>
+
+            <p>
+                Enter the candidate's details carefully.
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================
+             CANDIDATE FORM
+        ================================== -->
+
+        <form method="POST">
+
+
+            <!-- ELECTION -->
+
+            <div class="form-group">
+
+                <label>
+                    Select Election
+                </label>
+
+
+                <select
+                    name="election_id"
+                    required
+                >
+
+                    <option value="">
+                        Select an election
+                    </option>
+
+
+                    {% for election in elections %}
+
+                    <option value="{{ election.id }}">
+
+                        {{ election.title }}
+
+                    </option>
+
+                    {% endfor %}
+
+
+                </select>
+
+            </div>
+
+
+
+            <!-- CANDIDATE NAME -->
+
+            <div class="form-group">
+
+                <label>
+                    Candidate Name
+                </label>
+
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Enter candidate name"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- AGE + GENDER -->
+
+            <div class="row">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Age
+                    </label>
+
+
+                    <input
+                        type="number"
+                        name="age"
+                        min="18"
+                        placeholder="Enter age"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label>
+                        Gender
+                    </label>
+
+
+                    <select name="gender">
+
+                        <option value="Male">
+                            Male
+                        </option>
+
+                        <option value="Female">
+                            Female
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- PARTY -->
+
+            <div class="form-group">
+
+                <label>
+                    Party Name
+                </label>
+
+
+                <input
+                    type="text"
+                    name="party"
+                    placeholder="Enter party name"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- EDUCATION -->
+
+            <div class="form-group">
+
+                <label>
+                    Education
+                </label>
+
+
+                <input
+                    type="text"
+                    name="education"
+                    placeholder="Enter educational qualification"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- PROFESSION -->
+
+            <div class="form-group">
+
+                <label>
+                    Profession
+                </label>
+
+
+                <input
+                    type="text"
+                    name="profession"
+                    placeholder="Enter profession"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- MANIFESTO -->
+
+            <div class="form-group">
+
+                <label>
+                    Manifesto
+                </label>
+
+
+                <textarea
+                    name="manifesto"
+                    placeholder="Enter candidate manifesto and key priorities..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+
+            <!-- =================================
+                 BUTTONS
+            ================================== -->
+
+            <div class="actions">
+
+
+                <a
+                    href="/admin/dashboard"
+                    class="cancel-button"
+                >
+                    Cancel
+                </a>
+
+
+                <button
+                    type="submit"
+                    class="add-button"
+                >
+                    + Add Candidate
+                </button>
+
+
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+
+
+    <!-- =================================
+         INFORMATION
+    ================================== -->
+
+    <div class="info">
+
+        <strong>
+            💡 Add multiple candidates
+        </strong>
+
+
+        <p>
+            After adding a candidate, you can continue
+            adding Candidate 2, Candidate 3 and more
+            without leaving the candidate creation page.
+        </p>
+
+    </div>
+
+
+</div>
+
+
+</div>
+
 
 </body>
 

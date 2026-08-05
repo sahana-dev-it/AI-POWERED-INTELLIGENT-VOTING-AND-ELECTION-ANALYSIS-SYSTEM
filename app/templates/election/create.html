@@ -1,60 +1,738 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Create Election</title>
+
+    <style>
+
+        /* ==============================
+           PAGE
+        ============================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at top left, #dff5ef 0%, transparent 35%),
+                radial-gradient(circle at bottom right, #d8eee9 0%, transparent 35%),
+                #f4f8f7;
+            color: #102f2b;
+        }
+
+
+        /* ==============================
+           MAIN CONTAINER
+        ============================== */
+
+        .page-wrapper {
+            width: 92%;
+            max-width: 1050px;
+            margin: 45px auto;
+        }
+
+
+        /* ==============================
+           HEADER
+        ============================== */
+
+        .page-header {
+            background: linear-gradient(
+                135deg,
+                #075e54,
+                #148875
+            );
+
+            color: white;
+
+            padding: 38px 45px;
+
+            border-radius: 22px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 18px 40px rgba(10, 91, 78, 0.18);
+        }
+
+
+        .page-header::after {
+            content: "";
+            position: absolute;
+
+            width: 260px;
+            height: 260px;
+
+            border: 1px solid rgba(255,255,255,0.18);
+
+            border-radius: 50%;
+
+            right: -80px;
+            top: -130px;
+        }
+
+
+        .header-label {
+            position: relative;
+            z-index: 1;
+
+            margin: 0 0 10px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            letter-spacing: 3px;
+
+            color: #ff9b8e;
+        }
+
+
+        .page-header h1 {
+            position: relative;
+            z-index: 1;
+
+            margin: 0;
+
+            font-size: 38px;
+
+            line-height: 1.15;
+        }
+
+
+        .page-header p {
+            position: relative;
+            z-index: 1;
+
+            margin: 12px 0 0;
+
+            font-size: 16px;
+
+            line-height: 1.6;
+
+            color: #e6f7f3;
+        }
+
+
+        /* ==============================
+           FORM CARD
+        ============================== */
+
+        .form-card {
+            background: rgba(255,255,255,0.96);
+
+            margin-top: 30px;
+
+            padding: 42px 48px;
+
+            border-radius: 20px;
+
+            border: 1px solid #d9e6e3;
+
+            box-shadow:
+                0 12px 35px rgba(20, 65, 59, 0.10);
+        }
+
+
+        .form-introduction {
+            margin-bottom: 30px;
+        }
+
+
+        .form-introduction h2 {
+            margin: 0 0 8px;
+
+            font-size: 25px;
+
+            color: #102f2b;
+        }
+
+
+        .form-introduction p {
+            margin: 0;
+
+            color: #637774;
+
+            font-size: 15px;
+
+            line-height: 1.6;
+        }
+
+
+        /* ==============================
+           FORM GRID
+        ============================== */
+
+        .form-group {
+            margin-bottom: 23px;
+        }
+
+
+        .form-row {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 24px;
+        }
+
+
+        label {
+            display: block;
+
+            margin-bottom: 9px;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            color: #173b36;
+        }
+
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+
+            padding: 14px 15px;
+
+            border: 1px solid #cbdad7;
+
+            border-radius: 10px;
+
+            background: #fbfdfc;
+
+            color: #16332f;
+
+            font-size: 15px;
+
+            font-family: inherit;
+
+            outline: none;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+
+        input {
+            min-height: 48px;
+        }
+
+
+        textarea {
+            resize: vertical;
+
+            min-height: 130px;
+        }
+
+
+        select {
+            min-height: 48px;
+
+            cursor: pointer;
+        }
+
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #12866f;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 4px rgba(18, 134, 111, 0.10);
+        }
+
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #91a29f;
+        }
+
+
+        /* ==============================
+           DATE / TIME SECTION
+        ============================== */
+
+        .schedule-heading {
+            margin: 34px 0 18px;
+
+            padding-bottom: 12px;
+
+            border-bottom: 1px solid #e2ece9;
+        }
+
+
+        .schedule-heading h3 {
+            margin: 0 0 5px;
+
+            font-size: 19px;
+
+            color: #173b36;
+        }
+
+
+        .schedule-heading p {
+            margin: 0;
+
+            color: #71827f;
+
+            font-size: 14px;
+        }
+
+
+        /* ==============================
+           STATUS
+        ============================== */
+
+        .status-section {
+            margin-top: 28px;
+        }
+
+
+        .status-section label {
+            margin-bottom: 9px;
+        }
+
+
+        /* ==============================
+           BUTTONS
+        ============================== */
+
+        .form-actions {
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 12px;
+
+            margin-top: 35px;
+
+            padding-top: 25px;
+
+            border-top: 1px solid #e2ece9;
+        }
+
+
+        .submit-button {
+            border: none;
+
+            padding: 14px 28px;
+
+            border-radius: 10px;
+
+            background: linear-gradient(
+                135deg,
+                #148875,
+                #076052
+            );
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 18px rgba(7, 96, 82, 0.20);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 24px rgba(7, 96, 82, 0.26);
+        }
+
+
+        .back-link {
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 13px 22px;
+
+            border-radius: 10px;
+
+            background: #edf4f2;
+
+            color: #24544c;
+
+            text-decoration: none;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+
+        .back-link:hover {
+            background: #e1eeeb;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* ==============================
+           FOOTER
+        ============================== */
+
+        .page-footer {
+            text-align: center;
+
+            margin: 28px 0 10px;
+
+            color: #71827f;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+
+        /* ==============================
+           RESPONSIVE
+        ============================== */
+
+        @media (max-width: 700px) {
+
+            .page-wrapper {
+                width: 94%;
+
+                margin: 25px auto;
+            }
+
+
+            .page-header {
+                padding: 30px 25px;
+
+                border-radius: 18px;
+            }
+
+
+            .page-header h1 {
+                font-size: 30px;
+            }
+
+
+            .form-card {
+                padding: 30px 24px;
+
+                border-radius: 17px;
+            }
+
+
+            .form-row {
+                grid-template-columns: 1fr;
+
+                gap: 0;
+            }
+
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+
+            .submit-button,
+            .back-link {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-    <h1>Create New Election</h1>
 
-    <hr>
+<div class="page-wrapper">
 
-    <form method="POST">
 
-        <label>Election Title</label>
+    <!-- ==============================
+         HEADER
+    ============================== -->
+
+    <header class="page-header">
+
+        <p class="header-label">
+            ELECTION MANAGEMENT
+        </p>
+
+        <h1>
+            Create New Election
+        </h1>
+
+        <p>
+            Set up an election, define its schedule and configure
+            the voting period from one centralized place.
+        </p>
+
+    </header>
+
+
+
+    <!-- ==============================
+         FORM
+    ============================== -->
+
+    <div class="form-card">
+
+
+        <div class="form-introduction">
+
+            <h2>
+                Election Details
+            </h2>
+
+            <p>
+                Enter the basic information and schedule for the
+                election you want to create.
+            </p>
+
+        </div>
+
+
+        <form method="POST">
+
+
+            <!-- Election Title -->
+
+            <div class="form-group">
+
+                <label>
+                    Election Title
+                </label>
+
+                <input
+                    type="text"
+                    name="title"
+                    placeholder="Enter election title"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- Description -->
+
+            <div class="form-group">
+
+                <label>
+                    Description
+                </label>
+
+                <textarea
+                    name="description"
+                    rows="5"
+                    placeholder="Enter a brief description of the election"
+                    required
+                ></textarea>
+
+            </div>
+
+
+
+            <!-- Schedule -->
+
+            <div class="schedule-heading">
+
+                <h3>
+                    Election Schedule
+                </h3>
+
+                <p>
+                    Specify when voting will begin and when it will end.
+                </p>
+
+            </div>
+
+
+            <div class="form-row">
+
+
+                <!-- Start Date -->
+
+                <div class="form-group">
+
+                    <label>
+                        Start Date
+                    </label>
+
+                    <input
+                        type="date"
+                        name="start_date"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Start Time -->
+
+                <div class="form-group">
+
+                    <label>
+                        Start Time
+                    </label>
+
+                    <input
+                        type="time"
+                        name="start_time"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <div class="form-row">
+
+
+                <!-- End Date -->
+
+                <div class="form-group">
+
+                    <label>
+                        End Date
+                    </label>
+
+                    <input
+                        type="date"
+                        name="end_date"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- End Time -->
+
+                <div class="form-group">
+
+                    <label>
+                        End Time
+                    </label>
+
+                    <input
+                        type="time"
+                        name="end_time"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Status -->
+
+            <div class="status-section">
+
+                <label>
+                    Status
+                </label>
+
+                <select name="status">
+
+                    <option value="Upcoming">
+                        Upcoming
+                    </option>
+
+                    <option value="Active">
+                        Active
+                    </option>
+
+                    <option value="Completed">
+                        Completed
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- Actions -->
+
+            <div class="form-actions">
+
+                <a
+                    href="/admin/dashboard"
+                    class="back-link"
+                >
+                    Back to Dashboard
+                </a>
+
+
+                <input
+                    type="submit"
+                    value="Create Election"
+                    class="submit-button"
+                >
+
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+
+
+    <!-- ==============================
+         FOOTER
+    ============================== -->
+
+    <footer class="page-footer">
+
+        AI-Powered Intelligent Voting & Election Analysis System
         <br>
-        <input type="text" name="title" required>
+        Election Management Center
 
-        <br><br>
+    </footer>
 
-        <label>Description</label>
-        <br>
-        <textarea name="description" rows="5" cols="40" required></textarea>
 
-        <br><br>
+</div>
 
-        <label>Start Date</label><br>
-        <input type="date" name="start_date" required><br><br>
-
-        <label>Start Time</label><br>
-        <input type="time" name="start_time" required><br><br>
-
-        <label>End Date</label><br>
-        <input type="date" name="end_date" required><br><br>
-
-        <label>End Time</label><br>
-        <input type="time" name="end_time" required><br><br>
-
-        <br><br>
-
-        <label>Status</label>
-        <br>
-
-        <select name="status">
-
-            <option value="Upcoming">Upcoming</option>
-            <option value="Active">Active</option>
-            <option value="Completed">Completed</option>
-
-        </select>
-
-        <br><br>
-
-        <input type="submit" value="Create Election">
-
-    </form>
 
 </body>
 
