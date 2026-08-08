@@ -1,83 +1,555 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Candidate List</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+
+            background:#eef6f3;
+            color:#173b38;
+            padding:40px;
+
+        }
+
+        .container{
+
+            max-width:1200px;
+            margin:auto;
+
+        }
+
+        /* ===========================
+           HEADER
+        ============================ */
+
+        .header{
+
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:30px;
+            flex-wrap:wrap;
+            gap:20px;
+
+        }
+
+        .header h1{
+
+            font-size:38px;
+            margin-bottom:8px;
+
+        }
+
+        .header p{
+
+            color:#6d7a78;
+            font-size:16px;
+
+        }
+
+        .add-button{
+
+            text-decoration:none;
+            background:#147869;
+            color:white;
+            padding:14px 24px;
+            border-radius:10px;
+            font-weight:bold;
+            transition:.3s;
+
+        }
+
+        .add-button:hover{
+
+            background:#0f6255;
+
+        }
+
+        /* ===========================
+            SUCCESS POPUP
+        ============================ */
+
+        .popup{
+
+            position:fixed;
+
+            top:25px;
+            right:30px;
+
+            background:white;
+
+            border-left:5px solid #147869;
+
+            color:#1d4f48;
+
+            padding:16px 22px;
+
+            border-radius:10px;
+
+            box-shadow:0 10px 25px rgba(0,0,0,.15);
+
+            font-weight:bold;
+
+            animation:
+            popupIn .4s ease,
+            popupOut .5s ease 3.5s forwards;
+
+            z-index:999;
+
+        }
+
+        @keyframes popupIn{
+
+            from{
+
+                opacity:0;
+                transform:translateX(30px);
+
+            }
+
+            to{
+
+                opacity:1;
+                transform:translateX(0);
+
+            }
+
+        }
+
+        @keyframes popupOut{
+
+            from{
+
+                opacity:1;
+
+            }
+
+            to{
+
+                opacity:0;
+                transform:translateX(30px);
+
+            }
+
+        }
+
+        /* ===========================
+            TABLE CARD
+        ============================ */
+
+        .table-card{
+
+            background:white;
+            border-radius:18px;
+            overflow:hidden;
+            box-shadow:0 12px 30px rgba(0,0,0,.08);
+
+        }
+
+        table{
+
+            width:100%;
+            border-collapse:collapse;
+
+        }
+
+        thead{
+
+            background:#147869;
+            color:white;
+
+        }
+
+        th{
+
+            padding:18px;
+            font-size:15px;
+
+        }
+
+        td{
+
+            padding:16px;
+            text-align:center;
+            border-bottom:1px solid #ececec;
+
+        }
+
+        tbody tr:hover{
+
+            background:#f6fbfa;
+
+        }
+
+        /* ===========================
+            BADGES
+        ============================ */
+
+        .party{
+
+            display:inline-block;
+            padding:6px 14px;
+            border-radius:30px;
+            background:#e7f7f4;
+            color:#147869;
+            font-size:14px;
+            font-weight:bold;
+
+        }
+
+        /* ===========================
+            BUTTONS
+        ============================ */
+
+        .edit{
+
+            text-decoration:none;
+            background:#ffb347;
+            color:white;
+            padding:8px 16px;
+            border-radius:8px;
+            margin-right:8px;
+            font-size:14px;
+            font-weight:bold;
+
+        }
+
+        .edit:hover{
+
+            background:#e79b2c;
+
+        }
+
+        .delete{
+
+            text-decoration:none;
+            background:#d9534f;
+            color:white;
+            padding:8px 16px;
+            border-radius:8px;
+            font-size:14px;
+            font-weight:bold;
+
+        }
+
+        .delete:hover{
+
+            background:#b53f3b;
+
+        }
+
+        /* ===========================
+            EMPTY STATE
+        ============================ */
+
+        .empty{
+
+            background:white;
+            padding:60px;
+            text-align:center;
+            border-radius:18px;
+            box-shadow:0 12px 30px rgba(0,0,0,.08);
+
+        }
+
+        .empty h2{
+
+            margin-bottom:10px;
+
+        }
+
+        .empty p{
+
+            color:#777;
+
+        }
+
+        @media(max-width:900px){
+
+            body{
+
+                padding:20px;
+
+            }
+
+            .table-card{
+
+                overflow-x:auto;
+
+            }
+
+            table{
+
+                min-width:900px;
+
+            }
+
+        }
+
+    </style>
+
 </head>
 
 <body>
 
-<h1>Candidate List</h1>
+<div class="container">
 
-<hr>
+    <!-- FLASH MESSAGE -->
 
-{% with messages = get_flashed_messages(with_categories=true) %}
-{% if messages %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
 
-{% for category, message in messages %}
+    {% if messages %}
 
-<script>
-alert("{{ message }}");
-</script>
+        {% for category, message in messages %}
 
-{% endfor %}
+        <div class="popup">
 
-{% endif %}
-{% endwith %}
+            ✓ {{ message }}
 
-<table border="1" cellpadding="10">
+        </div>
 
-<tr>
+        {% endfor %}
 
-    <th>ID</th>
-    <th>Name</th>
-    <th>Party</th>
-    <th>Election ID</th>
-    <th>Age</th>
-    <th>Gender</th>
-    <th>Actions</th>
+    {% endif %}
 
-</tr>
+    {% endwith %}
 
-{% for candidate in candidates %}
+    <!-- HEADER -->
 
-<tr>
+    <div class="header">
 
-    <td>{{ candidate.id }}</td>
-    <td>{{ candidate.name }}</td>
-    <td>{{ candidate.party }}</td>
-    <td>{{ candidate.election_id }}</td>
-    <td>{{ candidate.age }}</td>
-    <td>{{ candidate.gender }}</td>
+        <div>
 
-    <td>
+            <h1>Candidate List</h1>
 
-        <a href="/candidate/edit/{{ candidate.id }}">
-            Edit
-        </a>
+            <p>
 
-        |
+                View, edit and manage all registered candidates.
+
+            </p>
+
+        </div>
 
         <a
-        href="/candidate/delete/{{ candidate.id }}"
-        onclick="return confirm('Delete this candidate?')">
-            Delete
+            href="/candidate/create"
+            class="add-button"
+        >
+            + Add Candidate
         </a>
 
-    </td>
+    </div>
 
-</tr>
 
-{% endfor %}
+    <!-- Election Filter -->
 
-</table>
+    <form
+        method="GET"
+        action="/candidate/list"
+        class="filter-form"
+    >
 
-<br>
+        <select
+            name="election_id"
+            required
+        >
 
-<a href="/candidate/create">
-    Add New Candidate
-</a>
+            <option value="">
+                Select Election
+            </option>
+
+            {% for item in elections %}
+
+            <option
+                value="{{ item.id }}"
+                {% if selected_election == item.id %}
+                selected
+                {% endif %}
+            >
+
+                {{ item.title }}
+
+            </option>
+
+            {% endfor %}
+
+        </select>
+
+        <button type="submit">
+
+            View Candidates
+
+        </button>
+
+    </form>
+
+
+    {% if election %}
+
+    <div class="summary-card">
+
+        <h2>
+
+            {{ election.title }}
+
+        </h2>
+
+        <p>
+
+            {{ candidates|length }} Candidate(s) Registered
+
+        </p>
+
+    </div>
+
+    {% endif %}
+
+
+    {% if selected_election %}
+
+        {% if candidates %}
+
+        <div class="table-card">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Name</th>
+
+                        <th>Party</th>
+
+                        <th>Election Name</th>
+
+                        <th>Age</th>
+
+                        <th>Gender</th>
+
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for candidate in candidates %}
+
+                <tr>
+
+                    <td>{{ candidate.id }}</td>
+
+                    <td>
+
+                        <strong>
+
+                            {{ candidate.name }}
+
+                        </strong>
+
+                    </td>
+
+                    <td>
+
+                        <span class="party">
+
+                            {{ candidate.party }}
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        {{ election.title }}
+
+                    </td>
+
+                    <td>
+
+                        {{ candidate.age }}
+
+                    </td>
+
+                    <td>
+
+                        {{ candidate.gender }}
+
+                    </td>
+
+                    <td>
+
+                        <a
+                            href="/candidate/edit/{{ candidate.id }}"
+                            class="edit"
+                        >
+                            Edit
+                        </a>
+
+                        <a
+                            href="/candidate/delete/{{ candidate.id }}"
+                            class="delete"
+                            onclick="return confirm('Delete this candidate?')"
+                        >
+                            Delete
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty">
+
+            <h2>
+
+                No Candidates Found
+
+            </h2>
+
+            <p>
+
+                No candidates have been added for this election yet.
+
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    {% endif %}
+
+</div>
 
 </body>
-
 </html>

@@ -386,6 +386,13 @@
         }
 
 
+        .required {
+
+            color: #d9534f;
+
+        }
+
+
         input,
         select,
         textarea {
@@ -684,7 +691,7 @@
 
 
             <p>
-                Register candidates and add their election information.
+                Register candidates and assign them to an election position.
             </p>
 
         </div>
@@ -767,7 +774,7 @@
             </h2>
 
             <p>
-                Enter the candidate's details carefully.
+                Enter all required candidate details carefully.
             </p>
 
         </div>
@@ -787,6 +794,7 @@
 
                 <label>
                     Select Election
+                    <span class="required">*</span>
                 </label>
 
 
@@ -802,7 +810,12 @@
 
                     {% for election in elections %}
 
-                    <option value="{{ election.id }}">
+                    <option
+                        value="{{ election.id }}"
+                        {% if selected_election|string == election.id|string %}
+                            selected
+                        {% endif %}
+                    >
 
                         {{ election.title }}
 
@@ -817,12 +830,34 @@
 
 
 
+            <!-- POSITION -->
+
+            <div class="form-group">
+
+                <label>
+                    Election Position
+                    <span class="required">*</span>
+                </label>
+
+
+                <input
+                    type="text"
+                    name="position"
+                    placeholder="Example: President, Joint Secretary, Treasurer"
+                    required
+                >
+
+            </div>
+
+
+
             <!-- CANDIDATE NAME -->
 
             <div class="form-group">
 
                 <label>
                     Candidate Name
+                    <span class="required">*</span>
                 </label>
 
 
@@ -846,6 +881,7 @@
 
                     <label>
                         Age
+                        <span class="required">*</span>
                     </label>
 
 
@@ -853,6 +889,7 @@
                         type="number"
                         name="age"
                         min="18"
+                        max="100"
                         placeholder="Enter age"
                         required
                     >
@@ -865,10 +902,18 @@
 
                     <label>
                         Gender
+                        <span class="required">*</span>
                     </label>
 
 
-                    <select name="gender">
+                    <select
+                        name="gender"
+                        required
+                    >
+
+                        <option value="">
+                            Select gender
+                        </option>
 
                         <option value="Male">
                             Male
@@ -897,6 +942,7 @@
 
                 <label>
                     Party Name
+                    <span class="required">*</span>
                 </label>
 
 
@@ -917,6 +963,7 @@
 
                 <label>
                     Education
+                    <span class="required">*</span>
                 </label>
 
 
@@ -937,6 +984,7 @@
 
                 <label>
                     Profession
+                    <span class="required">*</span>
                 </label>
 
 
@@ -957,6 +1005,7 @@
 
                 <label>
                     Manifesto
+                    <span class="required">*</span>
                 </label>
 
 
@@ -1010,14 +1059,15 @@
     <div class="info">
 
         <strong>
-            💡 Add multiple candidates
+            💡 Add candidates for different positions
         </strong>
 
 
         <p>
-            After adding a candidate, you can continue
-            adding Candidate 2, Candidate 3 and more
-            without leaving the candidate creation page.
+            For example, you can add multiple candidates for
+            President, Joint Secretary, Treasurer and other
+            positions. Each candidate can be assigned to a specific
+            position within the selected election.
         </p>
 
     </div>

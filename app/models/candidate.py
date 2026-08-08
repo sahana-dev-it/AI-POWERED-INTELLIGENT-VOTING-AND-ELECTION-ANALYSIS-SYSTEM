@@ -3,7 +3,19 @@ from app import db
 
 class Candidate(db.Model):
 
-    id = db.Column(db.Integer, primary_key=True)
+    # ----------------------------------
+    # Candidate ID
+    # ----------------------------------
+
+    id = db.Column(
+        db.Integer,
+        primary_key=True
+    )
+
+
+    # ----------------------------------
+    # Election ID
+    # ----------------------------------
 
     election_id = db.Column(
         db.Integer,
@@ -11,16 +23,82 @@ class Candidate(db.Model):
         nullable=False
     )
 
-    name = db.Column(db.String(100), nullable=False)
 
-    age = db.Column(db.Integer, nullable=False)
+    # ----------------------------------
+    # Candidate Name
+    # ----------------------------------
 
-    gender = db.Column(db.String(20), nullable=False)
+    name = db.Column(
+        db.String(150),
+        nullable=False
+    )
 
-    party = db.Column(db.String(100), nullable=False)
 
-    education = db.Column(db.String(100), nullable=False)
+    # ----------------------------------
+    # Candidate Age
+    # ----------------------------------
 
-    profession = db.Column(db.String(100), nullable=False)
+    age = db.Column(
+        db.Integer,
+        nullable=False
+    )
 
-    manifesto = db.Column(db.Text, nullable=False)
+
+    # ----------------------------------
+    # Gender
+    # ----------------------------------
+
+    gender = db.Column(
+        db.String(20),
+        nullable=False
+    )
+
+
+    # ----------------------------------
+    # Party Name
+    # ----------------------------------
+
+    party = db.Column(
+        db.String(150),
+        nullable=False
+    )
+
+
+    # ----------------------------------
+    # Education
+    # ----------------------------------
+
+    education = db.Column(
+        db.String(150),
+        nullable=False
+    )
+
+
+    # ----------------------------------
+    # Profession
+    # ----------------------------------
+
+    profession = db.Column(
+        db.String(150),
+        nullable=False
+    )
+
+
+    # ----------------------------------
+    # Manifesto
+    # ----------------------------------
+
+    manifesto = db.Column(
+        db.Text,
+        nullable=False
+    )
+
+
+    # ----------------------------------
+    # Position
+    # ----------------------------------
+
+    position = db.Column(
+        db.String(100),
+        nullable=True
+    )

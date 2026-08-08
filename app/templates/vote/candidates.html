@@ -19,12 +19,9 @@
 
 </head>
 
-
 <body class="candidates-page">
 
-
 <div class="candidates-container">
-
 
     <!-- =====================================
          HEADER
@@ -49,7 +46,6 @@
 
         </div>
 
-
         <a
             href="{{ url_for('vote.elections') }}"
             class="candidates-back-button"
@@ -58,7 +54,6 @@
         </a>
 
     </header>
-
 
 
     <!-- =====================================
@@ -94,7 +89,6 @@
     {% endwith %}
 
 
-
     <!-- =====================================
          VOTING COMPLETED
     ====================================== -->
@@ -125,13 +119,11 @@
     {% endif %}
 
 
-
     <!-- =====================================
          CANDIDATES
     ====================================== -->
 
     <section class="candidates-section">
-
 
         <div class="candidates-section-heading">
 
@@ -162,20 +154,15 @@
         </div>
 
 
-
         {% if candidates %}
-
 
             <div class="candidate-grid">
 
-
                 {% for candidate in candidates %}
-
 
                     <article class="candidate-card">
 
-
-                        <!-- CARD TOP -->
+                        <!-- Candidate Header -->
 
                         <div class="candidate-card-top">
 
@@ -184,7 +171,6 @@
                                 {{ candidate.name[0]|upper }}
 
                             </div>
-
 
                             <div class="candidate-name-area">
 
@@ -201,11 +187,9 @@
                         </div>
 
 
-
-                        <!-- DETAILS -->
+                        <!-- Candidate Details -->
 
                         <div class="candidate-details">
-
 
                             <div class="candidate-detail">
 
@@ -219,7 +203,6 @@
 
                             </div>
 
-
                             <div class="candidate-detail">
 
                                 <span>
@@ -232,12 +215,10 @@
 
                             </div>
 
-
                         </div>
 
 
-
-                        <!-- MANIFESTO -->
+                        <!-- Manifesto -->
 
                         <div class="candidate-manifesto">
 
@@ -252,11 +233,9 @@
                         </div>
 
 
-
-                        <!-- ACTION -->
+                        <!-- Vote Button -->
 
                         <div class="candidate-action">
-
 
                             {% if has_voted %}
 
@@ -270,9 +249,7 @@
 
                                 </div>
 
-
                             {% else %}
-
 
                                 <form
                                     method="POST"
@@ -295,28 +272,17 @@
 
                                 </form>
 
-
                             {% endif %}
-
 
                         </div>
 
-
                     </article>
-
 
                 {% endfor %}
 
-
             </div>
 
-
         {% else %}
-
-
-            <!-- =====================================
-                 NO CANDIDATES
-            ====================================== -->
 
             <div class="no-candidates">
 
@@ -329,23 +295,17 @@
                 </h3>
 
                 <p>
-                    Candidates have not been added to this
-                    election yet.
+                    Candidates have not been added to this election yet.
                 </p>
 
             </div>
 
-
         {% endif %}
-
 
     </section>
 
 
-
-    <!-- =====================================
-         FOOTER
-    ====================================== -->
+    <!-- Footer -->
 
     <footer class="candidates-footer">
 
@@ -359,9 +319,7 @@
 
     </footer>
 
-
 </div>
-
 
 </body>
 

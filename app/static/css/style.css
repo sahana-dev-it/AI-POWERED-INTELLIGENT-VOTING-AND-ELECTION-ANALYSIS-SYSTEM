@@ -5345,3 +5345,196 @@ body {
     }
 
 }
+/* ===========================
+   ELECTION SUMMARY
+=========================== */
+
+.summary-card{
+
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    margin-bottom:25px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.summary-card h2{
+
+    color:#147869;
+    margin-bottom:8px;
+    font-size:28px;
+
+}
+
+.summary-card p{
+
+    color:#666;
+    font-size:16px;
+
+}
+.filter-form{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-bottom:25px;
+
+    align-items:center;
+
+}
+
+.filter-form select{
+
+    flex:1;
+
+    padding:14px;
+
+    border-radius:10px;
+
+    border:1px solid #cfd8d6;
+
+    font-size:15px;
+
+}
+
+.filter-form button{
+
+    background:#147869;
+
+    color:white;
+
+    border:none;
+
+    padding:14px 24px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+}
+
+.filter-form button:hover{
+
+    background:#0f6255;
+
+}
+/* ===========================
+   ELECTION SUMMARY
+=========================== */
+
+.summary-card{
+
+    background:white;
+    padding:25px;
+    margin-bottom:25px;
+    border-radius:18px;
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+
+}
+
+.summary-card h2{
+
+    color:#147869;
+    margin-bottom:8px;
+    font-size:28px;
+
+}
+
+.summary-card p{
+
+    color:#666;
+    font-size:16px;
+
+}
+/* Candidate Number */
+
+.candidate-number{
+
+    display:inline-block;
+
+    background:#147869;
+
+    color:white;
+
+    padding:6px 14px;
+
+    border-radius:30px;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+    margin-bottom:18px;
+
+}
+/* ===========================
+   FILTER
+=========================== */
+
+.filter-form{
+
+    display:flex;
+    gap:15px;
+    margin-bottom:25px;
+    flex-wrap:wrap;
+
+}
+
+.filter-form select{
+
+    padding:12px 18px;
+    border:1px solid #ccc;
+    border-radius:10px;
+    min-width:260px;
+    font-size:15px;
+
+}
+
+.filter-form button{
+
+    background:#147869;
+    color:white;
+    border:none;
+    border-radius:10px;
+    padding:12px 20px;
+    cursor:pointer;
+    font-weight:bold;
+
+}
+
+.filter-form button:hover{
+
+    background:#0f6255;
+
+}
+
+/* ===========================
+   SUMMARY
+=========================== */
+
+.summary-card{
+
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    margin-bottom:25px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.summary-card h2{
+
+    color:#147869;
+    margin-bottom:8px;
+
+}
+
+.summary-card p{
+
+    color:#666;
+
+}

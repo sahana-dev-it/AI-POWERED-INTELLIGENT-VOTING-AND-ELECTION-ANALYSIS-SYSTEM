@@ -38,7 +38,20 @@ class Election(db.Model):
         nullable=False
     )
 
-    # Election status
+    # ----------------------------------
+    # Election Type
+    # ----------------------------------
+
+    election_type = db.Column(
+        db.String(20),
+        nullable=False,
+        default="single"
+    )
+
+    # ----------------------------------
+    # Election Status
+    # ----------------------------------
+
     status = db.Column(
         db.String(20),
         nullable=False,

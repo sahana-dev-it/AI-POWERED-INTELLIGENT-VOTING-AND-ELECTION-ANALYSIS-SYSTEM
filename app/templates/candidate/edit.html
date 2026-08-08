@@ -1,126 +1,417 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Edit Candidate</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+
+            background:linear-gradient(135deg,#eef7f4,#dfeee9);
+
+            min-height:100vh;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            padding:40px;
+
+        }
+
+        .container{
+
+            width:100%;
+            max-width:900px;
+
+            background:white;
+
+            border-radius:22px;
+
+            padding:40px;
+
+            box-shadow:0 15px 40px rgba(0,0,0,.12);
+
+        }
+
+        h1{
+
+            color:#146b5f;
+
+            margin-bottom:10px;
+
+            font-size:34px;
+
+        }
+
+        .subtitle{
+
+            color:#666;
+
+            margin-bottom:35px;
+
+        }
+
+        form{
+
+            display:grid;
+
+            grid-template-columns:1fr 1fr;
+
+            gap:25px;
+
+        }
+
+        .full{
+
+            grid-column:1/3;
+
+        }
+
+        label{
+
+            display:block;
+
+            margin-bottom:8px;
+
+            font-weight:bold;
+
+            color:#23534d;
+
+        }
+
+        input,
+        select,
+        textarea{
+
+            width:100%;
+
+            padding:14px;
+
+            border:1px solid #d5e1dd;
+
+            border-radius:10px;
+
+            font-size:15px;
+
+            outline:none;
+
+            transition:.3s;
+
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus{
+
+            border-color:#147869;
+
+            box-shadow:0 0 0 4px rgba(20,120,105,.15);
+
+        }
+
+        textarea{
+
+            resize:vertical;
+
+            min-height:130px;
+
+        }
+
+        .buttons{
+
+            grid-column:1/3;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            margin-top:15px;
+
+        }
+
+        .back{
+
+            text-decoration:none;
+
+            background:#888;
+
+            color:white;
+
+            padding:14px 22px;
+
+            border-radius:10px;
+
+            font-weight:bold;
+
+        }
+
+        .back:hover{
+
+            background:#666;
+
+        }
+
+        .update{
+
+            background:#147869;
+
+            color:white;
+
+            border:none;
+
+            padding:14px 30px;
+
+            border-radius:10px;
+
+            cursor:pointer;
+
+            font-size:16px;
+
+            font-weight:bold;
+
+            transition:.3s;
+
+        }
+
+        .update:hover{
+
+            background:#0f6255;
+
+        }
+
+        @media(max-width:768px){
+
+            form{
+
+                grid-template-columns:1fr;
+
+            }
+
+            .full{
+
+                grid-column:1;
+
+            }
+
+            .buttons{
+
+                grid-column:1;
+
+                flex-direction:column;
+
+                gap:15px;
+
+            }
+
+            .back,
+            .update{
+
+                width:100%;
+                text-align:center;
+
+            }
+
+        }
+
+    </style>
+
 </head>
 
 <body>
 
-<h1>Edit Candidate</h1>
+<div class="container">
 
-<hr>
+    <h1>Edit Candidate</h1>
 
-<form method="POST">
+    <p class="subtitle">
+        Update candidate details for the selected election.
+    </p>
 
-<label>Select Election</label>
-<br>
+    <form method="POST">
 
-<select name="election_id" required>
+        <div class="full">
 
-{% for election in elections %}
+            <label>Select Election</label>
 
-<option value="{{ election.id }}"
-{% if election.id == candidate.election_id %}selected{% endif %}>
-{{ election.title }}
-</option>
+            <select
+                name="election_id"
+                required
+            >
 
-{% endfor %}
+                {% for election in elections %}
 
-</select>
+                <option
+                    value="{{ election.id }}"
+                    {% if election.id == candidate.election_id %}
+                    selected
+                    {% endif %}
+                >
+                    {{ election.title }}
+                </option>
 
-<br><br>
+                {% endfor %}
 
-<label>Candidate Name</label>
-<br>
-<input
-type="text"
-name="name"
-value="{{ candidate.name }}"
-required>
+            </select>
 
-<br><br>
+        </div>
 
-<label>Age</label>
-<br>
-<input
-type="number"
-name="age"
-value="{{ candidate.age }}"
-required>
+        <div>
 
-<br><br>
+            <label>Candidate Name</label>
 
-<label>Gender</label>
-<br>
+            <input
+                type="text"
+                name="name"
+                value="{{ candidate.name }}"
+                required
+            >
 
-<select name="gender">
+        </div>
 
-<option value="Male"
-{% if candidate.gender=="Male" %}selected{% endif %}>
-Male
-</option>
+        <div>
 
-<option value="Female"
-{% if candidate.gender=="Female" %}selected{% endif %}>
-Female
-</option>
+            <label>Age</label>
 
-<option value="Other"
-{% if candidate.gender=="Other" %}selected{% endif %}>
-Other
-</option>
+            <input
+                type="number"
+                name="age"
+                min="18"
+                max="100"
+                value="{{ candidate.age }}"
+                required
+            >
 
-</select>
+        </div>
 
-<br><br>
+        <div>
 
-<label>Party Name</label>
-<br>
-<input
-type="text"
-name="party"
-value="{{ candidate.party }}"
-required>
+            <label>Gender</label>
 
-<br><br>
+            <select
+                name="gender"
+            >
 
-<label>Education</label>
-<br>
-<input
-type="text"
-name="education"
-value="{{ candidate.education }}"
-required>
+                <option
+                    value="Male"
+                    {% if candidate.gender=="Male" %}
+                    selected
+                    {% endif %}
+                >
+                    Male
+                </option>
 
-<br><br>
+                <option
+                    value="Female"
+                    {% if candidate.gender=="Female" %}
+                    selected
+                    {% endif %}
+                >
+                    Female
+                </option>
 
-<label>Profession</label>
-<br>
-<input
-type="text"
-name="profession"
-value="{{ candidate.profession }}"
-required>
+                <option
+                    value="Other"
+                    {% if candidate.gender=="Other" %}
+                    selected
+                    {% endif %}
+                >
+                    Other
+                </option>
 
-<br><br>
+            </select>
 
-<label>Manifesto</label>
-<br>
+        </div>
 
-<textarea
-name="manifesto"
-rows="5"
-cols="40"
-required>{{ candidate.manifesto }}</textarea>
+        <div>
 
-<br><br>
+            <label>Party Name</label>
 
-<input
-type="submit"
-value="Update Candidate">
+            <input
+                type="text"
+                name="party"
+                value="{{ candidate.party }}"
+                required
+            >
 
-</form>
+        </div>
+
+        <div>
+
+            <label>Education</label>
+
+            <input
+                type="text"
+                name="education"
+                value="{{ candidate.education }}"
+                required
+            >
+
+        </div>
+
+        <div>
+
+            <label>Profession</label>
+
+            <input
+                type="text"
+                name="profession"
+                value="{{ candidate.profession }}"
+                required
+            >
+
+        </div>
+
+        <div class="full">
+
+            <label>Manifesto</label>
+
+            <textarea
+                name="manifesto"
+                required
+            >{{ candidate.manifesto }}</textarea>
+
+        </div>
+
+        <div class="buttons">
+
+            <a
+                href="/candidate/list?election_id={{ candidate.election_id }}"
+                class="back"
+            >
+                ← Back
+            </a>
+
+            <button
+                type="submit"
+                class="update"
+            >
+                Update Candidate
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
 
 </body>
 
