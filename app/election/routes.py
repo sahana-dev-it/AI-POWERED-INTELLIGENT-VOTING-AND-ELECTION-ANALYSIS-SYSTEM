@@ -1,13 +1,26 @@
 # Import Flask tools
-from flask import Blueprint, render_template, request, redirect, flash
+
+from flask import (
+    Blueprint,
+    render_template,
+    request,
+    redirect,
+    flash
+)
+
 
 # Import database
+
 from app import db
 
+
 # Import Election model
+
 from app.models.election import Election
 
+
 # Import datetime
+
 from datetime import datetime
 
 
@@ -30,41 +43,52 @@ election = Blueprint(
 def update_election_status(election_item):
 
     # Get current date and time
+
     now = datetime.now()
 
+
     # Convert start date + time into datetime
+
     start_datetime = datetime.strptime(
         f"{election_item.start_date} "
         f"{election_item.start_time}",
         "%Y-%m-%d %H:%M"
     )
 
+
     # Convert end date + time into datetime
+
     end_datetime = datetime.strptime(
         f"{election_item.end_date} "
         f"{election_item.end_time}",
         "%Y-%m-%d %H:%M"
     )
 
+
     # Before election starts
+
     if now < start_datetime:
 
         election_item.status = "Upcoming"
 
+
     # Election is currently running
+
     elif start_datetime <= now <= end_datetime:
 
         election_item.status = "Active"
 
+
     # Election has ended
+
     else:
 
         election_item.status = "Completed"
 
 
-# ----------------------------------
-# Create Election
-# ----------------------------------
+# ==================================
+# CREATE ELECTION
+# ==================================
 
 @election.route(
     "/create",
@@ -90,6 +114,7 @@ def create():
 
         end_time = request.form["end_time"]
 
+
         # ----------------------------------
         # Get Election Type
         # ----------------------------------
@@ -99,9 +124,14 @@ def create():
             "single"
         )
 
+
         # Make sure only valid types
         # can be stored
-        if election_type not in ["single", "multiple"]:
+
+        if election_type not in [
+            "single",
+            "multiple"
+        ]:
 
             election_type = "single"
 
@@ -116,6 +146,7 @@ def create():
                 f"{start_date} {start_time}",
                 "%Y-%m-%d %H:%M"
             )
+
 
             end_datetime = datetime.strptime(
                 f"{end_date} {end_time}",
@@ -156,6 +187,7 @@ def create():
         # ----------------------------------
 
         now = datetime.now()
+
 
         if now < start_datetime:
 
@@ -199,7 +231,9 @@ def create():
         # Save Election
         # ----------------------------------
 
-        db.session.add(new_election)
+        db.session.add(
+            new_election
+        )
 
         db.session.commit()
 
@@ -215,11 +249,18 @@ def create():
 
 
         # ----------------------------------
-        # Go to Election List
+        # Go directly to Add Candidate
+        # ----------------------------------
+        #
+        # The newly created election ID is
+        # passed to the candidate page.
+        #
+        # This avoids making the admin go
+        # back through the election list.
         # ----------------------------------
 
         return redirect(
-            "/election/list"
+            f"/candidate/create?election_id={new_election.id}"
         )
 
 
@@ -232,14 +273,15 @@ def create():
     )
 
 
-# ----------------------------------
-# View All Elections
-# ----------------------------------
+# ==================================
+# VIEW ALL ELECTIONS
+# ==================================
 
 @election.route("/list")
 def list_elections():
 
     # Get all elections
+
     elections = Election.query.all()
 
 
@@ -255,6 +297,7 @@ def list_elections():
 
 
     # Save updated statuses
+
     db.session.commit()
 
 
@@ -268,9 +311,9 @@ def list_elections():
     )
 
 
-# ----------------------------------
-# Edit Election
-# ----------------------------------
+# ==================================
+# EDIT ELECTION
+# ==================================
 
 @election.route(
     "/edit/<int:id>",
@@ -278,7 +321,9 @@ def list_elections():
 )
 def edit_election(id):
 
-    election_item = Election.query.get_or_404(id)
+    election_item = Election.query.get_or_404(
+        id
+    )
 
 
     if request.method == "POST":
@@ -291,21 +336,26 @@ def edit_election(id):
             "title"
         ]
 
+
         election_item.description = request.form[
             "description"
         ]
+
 
         election_item.start_date = request.form[
             "start_date"
         ]
 
+
         election_item.start_time = request.form[
             "start_time"
         ]
 
+
         election_item.end_date = request.form[
             "end_date"
         ]
+
 
         election_item.end_time = request.form[
             "end_time"
@@ -321,9 +371,14 @@ def edit_election(id):
             "single"
         )
 
-        if election_type not in ["single", "multiple"]:
+
+        if election_type not in [
+            "single",
+            "multiple"
+        ]:
 
             election_type = "single"
+
 
         election_item.election_type = election_type
 
@@ -339,6 +394,7 @@ def edit_election(id):
                 f"{election_item.start_time}",
                 "%Y-%m-%d %H:%M"
             )
+
 
             end_datetime = datetime.strptime(
                 f"{election_item.end_date} "
@@ -418,27 +474,32 @@ def edit_election(id):
     )
 
 
-# ----------------------------------
-# Delete Election
-# ----------------------------------
+# ==================================
+# DELETE ELECTION
+# ==================================
 
 @election.route(
     "/delete/<int:id>"
 )
 def delete_election(id):
 
-    election_item = Election.query.get_or_404(id)
+    election_item = Election.query.get_or_404(
+        id
+    )
 
 
     # Delete election
+
     db.session.delete(
         election_item
     )
+
 
     db.session.commit()
 
 
     # Success Message
+
     flash(
         "Election deleted successfully!",
         "success"

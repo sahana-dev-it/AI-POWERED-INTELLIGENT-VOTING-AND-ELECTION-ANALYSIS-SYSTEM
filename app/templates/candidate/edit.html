@@ -12,6 +12,7 @@
 
     <title>Edit Candidate</title>
 
+
     <style>
 
         *{
@@ -21,9 +22,14 @@
             font-family:Arial,sans-serif;
         }
 
+
         body{
 
-            background:linear-gradient(135deg,#eef7f4,#dfeee9);
+            background:linear-gradient(
+                135deg,
+                #eef7f4,
+                #dfeee9
+            );
 
             min-height:100vh;
 
@@ -37,9 +43,11 @@
 
         }
 
+
         .container{
 
             width:100%;
+
             max-width:900px;
 
             background:white;
@@ -48,9 +56,11 @@
 
             padding:40px;
 
-            box-shadow:0 15px 40px rgba(0,0,0,.12);
+            box-shadow:
+                0 15px 40px rgba(0,0,0,.12);
 
         }
+
 
         h1{
 
@@ -62,6 +72,7 @@
 
         }
 
+
         .subtitle{
 
             color:#666;
@@ -69,6 +80,7 @@
             margin-bottom:35px;
 
         }
+
 
         form{
 
@@ -80,11 +92,13 @@
 
         }
 
+
         .full{
 
             grid-column:1/3;
 
         }
+
 
         label{
 
@@ -97,6 +111,7 @@
             color:#23534d;
 
         }
+
 
         input,
         select,
@@ -118,15 +133,23 @@
 
         }
 
+
         input:focus,
         select:focus,
         textarea:focus{
 
             border-color:#147869;
 
-            box-shadow:0 0 0 4px rgba(20,120,105,.15);
+            box-shadow:
+                0 0 0 4px rgba(
+                    20,
+                    120,
+                    105,
+                    .15
+                );
 
         }
+
 
         textarea{
 
@@ -135,6 +158,44 @@
             min-height:130px;
 
         }
+
+
+        /* =========================
+           POSITION BOX
+        ========================= */
+
+        .position-box{
+
+            grid-column:1/3;
+
+            background:#f4faf8;
+
+            border:1px solid #d5e8e2;
+
+            border-radius:12px;
+
+            padding:18px;
+
+        }
+
+
+        .position-box label{
+
+            margin-bottom:8px;
+
+        }
+
+
+        .position-help{
+
+            margin-top:7px;
+
+            font-size:13px;
+
+            color:#6b7b77;
+
+        }
+
 
         .buttons{
 
@@ -147,6 +208,7 @@
             margin-top:15px;
 
         }
+
 
         .back{
 
@@ -164,11 +226,13 @@
 
         }
 
+
         .back:hover{
 
             background:#666;
 
         }
+
 
         .update{
 
@@ -192,11 +256,17 @@
 
         }
 
+
         .update:hover{
 
             background:#0f6255;
 
         }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
 
         @media(max-width:768px){
 
@@ -206,11 +276,20 @@
 
             }
 
+
             .full{
 
                 grid-column:1;
 
             }
+
+
+            .position-box{
+
+                grid-column:1;
+
+            }
+
 
             .buttons{
 
@@ -222,10 +301,12 @@
 
             }
 
+
             .back,
             .update{
 
                 width:100%;
+
                 text-align:center;
 
             }
@@ -236,24 +317,49 @@
 
 </head>
 
+
 <body>
+
 
 <div class="container">
 
-    <h1>Edit Candidate</h1>
+
+    <!-- =================================
+         PAGE TITLE
+    ================================== -->
+
+    <h1>
+        Edit Candidate
+    </h1>
+
 
     <p class="subtitle">
         Update candidate details for the selected election.
     </p>
 
+
+
+    <!-- =================================
+         EDIT FORM
+    ================================== -->
+
     <form method="POST">
+
+
+        <!-- =================================
+             ELECTION
+        ================================== -->
 
         <div class="full">
 
-            <label>Select Election</label>
+            <label>
+                Select Election
+            </label>
+
 
             <select
                 name="election_id"
+                id="election_id"
                 required
             >
 
@@ -261,11 +367,14 @@
 
                 <option
                     value="{{ election.id }}"
+                    data-type="{{ election.election_type }}"
                     {% if election.id == candidate.election_id %}
                     selected
                     {% endif %}
                 >
+
                     {{ election.title }}
+
                 </option>
 
                 {% endfor %}
@@ -274,9 +383,55 @@
 
         </div>
 
+
+
+        <!-- =================================
+             POSITION
+             ONLY FOR MULTIPLE-POSITION
+             ELECTIONS
+        ================================== -->
+
+        <div
+            class="position-box"
+            id="positionBox"
+            style="display:none;"
+        >
+
+            <label>
+                Candidate Position
+            </label>
+
+
+            <input
+                type="text"
+                name="position"
+                id="position"
+                value="{{ candidate.position or '' }}"
+                placeholder="Example: President, Secretary, Treasurer"
+            >
+
+
+            <div class="position-help">
+
+                This field is required only for
+                multiple-position elections.
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================
+             CANDIDATE NAME
+        ================================== -->
+
         <div>
 
-            <label>Candidate Name</label>
+            <label>
+                Candidate Name
+            </label>
+
 
             <input
                 type="text"
@@ -287,9 +442,18 @@
 
         </div>
 
+
+
+        <!-- =================================
+             AGE
+        ================================== -->
+
         <div>
 
-            <label>Age</label>
+            <label>
+                Age
+            </label>
+
 
             <input
                 type="number"
@@ -302,9 +466,18 @@
 
         </div>
 
+
+
+        <!-- =================================
+             GENDER
+        ================================== -->
+
         <div>
 
-            <label>Gender</label>
+            <label>
+                Gender
+            </label>
+
 
             <select
                 name="gender"
@@ -312,25 +485,27 @@
 
                 <option
                     value="Male"
-                    {% if candidate.gender=="Male" %}
+                    {% if candidate.gender == "Male" %}
                     selected
                     {% endif %}
                 >
                     Male
                 </option>
 
+
                 <option
                     value="Female"
-                    {% if candidate.gender=="Female" %}
+                    {% if candidate.gender == "Female" %}
                     selected
                     {% endif %}
                 >
                     Female
                 </option>
 
+
                 <option
                     value="Other"
-                    {% if candidate.gender=="Other" %}
+                    {% if candidate.gender == "Other" %}
                     selected
                     {% endif %}
                 >
@@ -341,9 +516,18 @@
 
         </div>
 
+
+
+        <!-- =================================
+             PARTY
+        ================================== -->
+
         <div>
 
-            <label>Party Name</label>
+            <label>
+                Party Name
+            </label>
+
 
             <input
                 type="text"
@@ -354,9 +538,18 @@
 
         </div>
 
+
+
+        <!-- =================================
+             EDUCATION
+        ================================== -->
+
         <div>
 
-            <label>Education</label>
+            <label>
+                Education
+            </label>
+
 
             <input
                 type="text"
@@ -367,9 +560,18 @@
 
         </div>
 
+
+
+        <!-- =================================
+             PROFESSION
+        ================================== -->
+
         <div>
 
-            <label>Profession</label>
+            <label>
+                Profession
+            </label>
+
 
             <input
                 type="text"
@@ -380,9 +582,18 @@
 
         </div>
 
+
+
+        <!-- =================================
+             MANIFESTO
+        ================================== -->
+
         <div class="full">
 
-            <label>Manifesto</label>
+            <label>
+                Manifesto
+            </label>
+
 
             <textarea
                 name="manifesto"
@@ -391,7 +602,14 @@
 
         </div>
 
+
+
+        <!-- =================================
+             BUTTONS
+        ================================== -->
+
         <div class="buttons">
+
 
             <a
                 href="/candidate/list?election_id={{ candidate.election_id }}"
@@ -400,6 +618,7 @@
                 ← Back
             </a>
 
+
             <button
                 type="submit"
                 class="update"
@@ -407,11 +626,118 @@
                 Update Candidate
             </button>
 
+
         </div>
+
 
     </form>
 
 </div>
+
+
+
+<!-- =================================
+     POSITION SHOW/HIDE SCRIPT
+================================== -->
+
+<script>
+
+    function updatePositionField() {
+
+        const electionSelect =
+            document.getElementById("election_id");
+
+        const positionBox =
+            document.getElementById("positionBox");
+
+        const positionInput =
+            document.getElementById("position");
+
+
+        if (!electionSelect.value) {
+
+            positionBox.style.display = "none";
+
+            positionInput.required = false;
+
+            return;
+
+        }
+
+
+        const selectedOption =
+            electionSelect.options[
+                electionSelect.selectedIndex
+            ];
+
+
+        const electionType =
+            selectedOption.getAttribute(
+                "data-type"
+            );
+
+
+        if (electionType === "multiple") {
+
+            /*
+             * Multiple-position election
+             * Show Position field
+             */
+
+            positionBox.style.display = "block";
+
+            positionInput.required = true;
+
+        }
+
+        else {
+
+            /*
+             * Single-position election
+             * Hide Position field
+             */
+
+            positionBox.style.display = "none";
+
+            positionInput.required = false;
+
+        }
+
+    }
+
+
+    /*
+     * Run when page first loads
+     */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function(){
+
+            updatePositionField();
+
+        }
+    );
+
+
+    /*
+     * Run whenever admin changes
+     * the election
+     */
+
+    document.getElementById(
+        "election_id"
+    ).addEventListener(
+        "change",
+        function(){
+
+            updatePositionField();
+
+        }
+    );
+
+</script>
+
 
 </body>
 

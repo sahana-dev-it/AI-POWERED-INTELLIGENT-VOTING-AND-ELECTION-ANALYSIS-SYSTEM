@@ -5538,3 +5538,778 @@ body {
     color:#666;
 
 }
+/* =========================================
+   APPLICATION CHATBOT
+========================================= */
+
+.chatbot-page {
+
+    min-height: 100vh;
+
+    background: #eef6f3;
+
+    padding: 40px;
+
+    color: #173b38;
+
+}
+
+
+.chatbot-container {
+
+    width: 100%;
+
+    max-width: 1050px;
+
+    margin: auto;
+
+    background: white;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 12px 35px rgba(20, 65, 60, 0.12);
+
+}
+
+
+/* =========================================
+   CHATBOT HEADER
+========================================= */
+
+.chatbot-header {
+
+    padding: 30px 35px;
+
+    background: #137b6d;
+
+    color: white;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+}
+
+
+.chatbot-label {
+
+    margin: 0 0 7px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+    opacity: .85;
+
+}
+
+
+.chatbot-header h1 {
+
+    margin: 0;
+
+    font-size: 30px;
+
+}
+
+
+.chatbot-header p {
+
+    margin: 7px 0 0;
+
+    font-size: 15px;
+
+    opacity: .9;
+
+}
+
+
+.chatbot-back {
+
+    text-decoration: none;
+
+    color: #137b6d;
+
+    background: white;
+
+    padding: 11px 18px;
+
+    border-radius: 9px;
+
+    font-weight: bold;
+
+    white-space: nowrap;
+
+}
+
+
+.chatbot-back:hover {
+
+    background: #eef6f3;
+
+}
+
+
+/* =========================================
+   CHAT AREA
+========================================= */
+
+.chat-area {
+
+    height: 480px;
+
+    overflow-y: auto;
+
+    padding: 28px;
+
+    background: #f8fbfa;
+
+}
+
+
+/* =========================================
+   CHAT MESSAGE
+========================================= */
+
+.chat-message {
+
+    display: flex;
+
+    gap: 12px;
+
+    margin-bottom: 20px;
+
+    max-width: 78%;
+
+}
+
+
+.bot-message {
+
+    align-items: flex-start;
+
+}
+
+
+.user-message {
+
+    margin-left: auto;
+
+    justify-content: flex-end;
+
+}
+
+
+.message-icon {
+
+    width: 38px;
+
+    height: 38px;
+
+    min-width: 38px;
+
+    border-radius: 50%;
+
+    background: #dff1ec;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 19px;
+
+}
+
+
+.message-content {
+
+    padding: 13px 16px;
+
+    border-radius: 12px;
+
+    background: white;
+
+    border: 1px solid #e0eae7;
+
+    box-shadow:
+        0 3px 10px rgba(20, 65, 60, .05);
+
+}
+
+
+.user-message .message-content {
+
+    background: #137b6d;
+
+    color: white;
+
+    border: none;
+
+}
+
+
+.message-content strong {
+
+    display: block;
+
+    font-size: 13px;
+
+    margin-bottom: 5px;
+
+}
+
+
+.message-content p {
+
+    margin: 0;
+
+    line-height: 1.5;
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================
+   SUGGESTIONS
+========================================= */
+
+.suggestions {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 9px;
+
+    padding: 15px 25px;
+
+    border-top: 1px solid #e2ebe8;
+
+}
+
+
+.suggestions button {
+
+    border: 1px solid #cfe1dc;
+
+    background: #f4f9f7;
+
+    color: #17675c;
+
+    padding: 9px 13px;
+
+    border-radius: 20px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+}
+
+
+.suggestions button:hover {
+
+    background: #dff1ec;
+
+}
+
+
+/* =========================================
+   INPUT AREA
+========================================= */
+
+.chat-input-area {
+
+    display: flex;
+
+    gap: 12px;
+
+    padding: 18px 25px;
+
+    border-top: 1px solid #e2ebe8;
+
+    background: white;
+
+}
+
+
+.chat-input-area input {
+
+    flex: 1;
+
+    padding: 13px 15px;
+
+    border: 1px solid #d2dfdc;
+
+    border-radius: 9px;
+
+    outline: none;
+
+    font-size: 15px;
+
+}
+
+
+.chat-input-area input:focus {
+
+    border-color: #168575;
+
+    box-shadow:
+        0 0 0 3px rgba(
+            22,
+            133,
+            117,
+            .10
+        );
+
+}
+
+
+.chat-input-area button {
+
+    border: none;
+
+    background: #137b6d;
+
+    color: white;
+
+    padding: 0 24px;
+
+    border-radius: 9px;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+.chat-input-area button:hover {
+
+    background: #0f675c;
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .chatbot-page {
+
+        padding: 15px;
+
+    }
+
+
+    .chatbot-header {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+    }
+
+
+    .chatbot-header h1 {
+
+        font-size: 25px;
+
+    }
+
+
+    .chat-area {
+
+        height: 450px;
+
+        padding: 18px;
+
+    }
+
+
+    .chat-message {
+
+        max-width: 90%;
+
+    }
+
+
+    .suggestions {
+
+        padding: 12px 15px;
+
+    }
+
+
+    .chat-input-area {
+
+        padding: 15px;
+
+    }
+
+}
+/* =========================================
+   AI ASSISTANT
+========================================= */
+
+.ai-assistant-card {
+
+    background: linear-gradient(
+        135deg,
+        #51418f,
+        #6651a3
+    );
+
+    color: white;
+
+    border: none;
+
+}
+
+
+.ai-assistant-card .results-information h3 {
+
+    color: white;
+
+}
+
+
+.ai-assistant-card .results-information p {
+
+    color: rgba(255, 255, 255, 0.88);
+
+}
+
+
+.btn-ai {
+
+    background: #e97869;
+
+    color: white;
+
+    border: none;
+
+}
+
+
+.btn-ai:hover {
+
+    background: #d96154;
+
+    color: white;
+
+}
+/* =========================================
+   ELECTION AI ASSISTANT
+========================================= */
+
+.ai-assistant-page {
+
+    min-height: 100vh;
+
+    padding: 60px 8%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef7f4,
+            #e5f0ed
+        );
+
+}
+
+
+.ai-assistant-header {
+
+    max-width: 900px;
+
+    margin: 0 auto 35px;
+
+}
+
+
+.ai-assistant-label {
+
+    color: #147869;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    letter-spacing: 1.5px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.ai-assistant-header h1 {
+
+    color: #103f3a;
+
+    font-size: 38px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.ai-assistant-header p {
+
+    color: #666;
+
+    font-size: 16px;
+
+}
+
+
+.ai-chat-container {
+
+    max-width: 900px;
+
+    margin: auto;
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 35px;
+
+    box-shadow:
+        0 15px 40px
+        rgba(0, 0, 0, 0.10);
+
+}
+
+
+.ai-welcome-message {
+
+    background: #eef8f5;
+
+    border-left: 5px solid #147869;
+
+    padding: 20px;
+
+    border-radius: 12px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.ai-welcome-message h2 {
+
+    color: #146b5f;
+
+    margin-bottom: 8px;
+
+}
+
+
+.ai-welcome-message p {
+
+    color: #555;
+
+    line-height: 1.6;
+
+}
+
+
+.ai-response {
+
+    background: #f5f2ff;
+
+    border-left: 5px solid #5c4b9a;
+
+    padding: 20px;
+
+    border-radius: 12px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.ai-response strong {
+
+    display: block;
+
+    color: #4d3d88;
+
+    margin-bottom: 8px;
+
+}
+
+
+.ai-response p {
+
+    color: #444;
+
+    line-height: 1.6;
+
+}
+
+
+.ai-chat-form {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+}
+
+
+.ai-chat-form label {
+
+    font-weight: bold;
+
+    color: #23534d;
+
+}
+
+
+.ai-chat-form textarea {
+
+    width: 100%;
+
+    min-height: 140px;
+
+    padding: 15px;
+
+    border: 1px solid #d5e1dd;
+
+    border-radius: 12px;
+
+    font-size: 15px;
+
+    resize: vertical;
+
+    outline: none;
+
+}
+
+
+.ai-chat-form textarea:focus {
+
+    border-color: #147869;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(20, 120, 105, 0.12);
+
+}
+
+
+.ai-send-button {
+
+    align-self: flex-end;
+
+    background: #147869;
+
+    color: white;
+
+    border: none;
+
+    padding: 13px 24px;
+
+    border-radius: 10px;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+}
+
+
+.ai-send-button:hover {
+
+    background: #0f6255;
+
+}
+
+
+.ai-back-container {
+
+    margin-top: 25px;
+
+}
+
+
+.ai-back-button {
+
+    display: inline-block;
+
+    text-decoration: none;
+
+    background: #888;
+
+    color: white;
+
+    padding: 12px 20px;
+
+    border-radius: 10px;
+
+    font-weight: bold;
+
+}
+
+
+.ai-back-button:hover {
+
+    background: #666;
+
+}
+
+
+@media (max-width: 768px) {
+
+    .ai-assistant-page {
+
+        padding: 35px 20px;
+
+    }
+
+
+    .ai-chat-container {
+
+        padding: 25px;
+
+    }
+
+
+    .ai-assistant-header h1 {
+
+        font-size: 30px;
+
+    }
+
+
+    .ai-send-button {
+
+        width: 100%;
+
+    }
+
+}

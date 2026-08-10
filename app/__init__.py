@@ -139,7 +139,8 @@ def create_app():
     from app.models.election import Election
     from app.models.candidate import Candidate
     from app.models.vote import Vote
-
+    from app.ai_assistant.routes import ai_assistant
+    app.register_blueprint(ai_assistant)
 
     # --------------------------------------------------
     # MAIN BLUEPRINT
@@ -212,7 +213,7 @@ def create_app():
 
     app.register_blueprint(results)
 
-
+   
     # --------------------------------------------------
     # CREATE DATABASE TABLES
     # --------------------------------------------------

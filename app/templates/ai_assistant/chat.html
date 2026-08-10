@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Election AI Assistant</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     AI ASSISTANT HEADER
+========================================== -->
+
+<section class="ai-assistant-page">
+
+    <div class="ai-assistant-header">
+
+        <p class="ai-assistant-label">
+            AI POWERED ASSISTANT
+        </p>
+
+        <h1>
+            Election AI Assistant
+        </h1>
+
+        <p>
+            Ask questions about the Voting and
+            Election Management System.
+        </p>
+
+    </div>
+
+
+    <!-- =====================================
+         CHAT AREA
+    ====================================== -->
+
+    <div class="ai-chat-container">
+
+
+        <div class="ai-welcome-message">
+
+            <h2>
+                How can I help you?
+            </h2>
+
+            <p>
+                You can ask questions about elections,
+                candidates, voting, results and other
+                features of this application.
+            </p>
+
+        </div>
+
+
+        {% if response %}
+
+        <div class="ai-response">
+
+            <strong>
+                Election AI Assistant
+            </strong>
+
+            <p>
+                {{ response }}
+            </p>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- =================================
+             QUESTION FORM
+        ================================== -->
+
+        <form
+            method="POST"
+            class="ai-chat-form"
+        >
+
+            <label for="question">
+                Ask your question
+            </label>
+
+
+            <textarea
+                id="question"
+                name="question"
+                placeholder="Type your question here..."
+                required
+            ></textarea>
+
+
+            <button
+                type="submit"
+                class="ai-send-button"
+            >
+                Ask AI Assistant
+            </button>
+
+        </form>
+
+
+        <!-- =================================
+             BACK BUTTON
+        ================================== -->
+
+        <div class="ai-back-container">
+
+            <a
+                href="{{ url_for('admin.dashboard') }}"
+                class="ai-back-button"
+            >
+                ← Back to Dashboard
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</body>
+
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Application Assistant</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+</head>
+
+
+<body class="chatbot-page">
+
+
+<div class="chatbot-container">
+
+
+    <!-- ==============================
+         HEADER
+    =============================== -->
+
+    <div class="chatbot-header">
+
+        <div>
+
+            <p class="chatbot-label">
+                APPLICATION ASSISTANT
+            </p>
+
+            <h1>
+                🤖 Voting System Assistant
+            </h1>
+
+            <p>
+                Ask questions about this application
+                and its features.
+            </p>
+
+        </div>
+
+
+        <a
+            href="/admin/dashboard"
+            class="chatbot-back"
+        >
+            ← Dashboard
+        </a>
+
+    </div>
+
+
+
+    <!-- ==============================
+         CHAT AREA
+    =============================== -->
+
+    <div
+        class="chat-area"
+        id="chatArea"
+    >
+
+        <div class="chat-message bot-message">
+
+            <div class="message-icon">
+                🤖
+            </div>
+
+            <div class="message-content">
+
+                <strong>
+                    Application Assistant
+                </strong>
+
+                <p>
+                    Hello! 👋 I can help you understand
+                    how to use this Voting and Election
+                    Management System.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==============================
+         SUGGESTED QUESTIONS
+    =============================== -->
+
+    <div class="suggestions">
+
+        <button
+            onclick="askQuestion('How do I create an election?')"
+        >
+            How do I create an election?
+        </button>
+
+
+        <button
+            onclick="askQuestion('How do I add a candidate?')"
+        >
+            How do I add a candidate?
+        </button>
+
+
+        <button
+            onclick="askQuestion('How does voting work?')"
+        >
+            How does voting work?
+        </button>
+
+
+        <button
+            onclick="askQuestion('Where can I see results?')"
+        >
+            Where can I see results?
+        </button>
+
+    </div>
+
+
+
+    <!-- ==============================
+         INPUT AREA
+    =============================== -->
+
+    <div class="chat-input-area">
+
+        <input
+            type="text"
+            id="messageInput"
+            placeholder="Ask something about the application..."
+            autocomplete="off"
+        >
+
+        <button
+            onclick="sendMessage()"
+        >
+            Send
+        </button>
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+function addMessage(
+    message,
+    type
+) {
+
+    const chatArea =
+        document.getElementById(
+            "chatArea"
+        );
+
+
+    const messageDiv =
+        document.createElement(
+            "div"
+        );
+
+
+    messageDiv.className =
+        "chat-message " +
+        type + "-message";
+
+
+    if (type === "user") {
+
+        messageDiv.innerHTML = `
+
+            <div class="message-content">
+
+                <strong>
+                    You
+                </strong>
+
+                <p>
+                    ${message}
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+    else {
+
+        messageDiv.innerHTML = `
+
+            <div class="message-icon">
+                🤖
+            </div>
+
+            <div class="message-content">
+
+                <strong>
+                    Application Assistant
+                </strong>
+
+                <p>
+                    ${message}
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+
+    chatArea.appendChild(
+        messageDiv
+    );
+
+
+    chatArea.scrollTop =
+        chatArea.scrollHeight;
+}
+
+
+async function sendMessage() {
+
+    const input =
+        document.getElementById(
+            "messageInput"
+        );
+
+
+    const message =
+        input.value.trim();
+
+
+    if (!message) {
+
+        return;
+
+    }
+
+
+    addMessage(
+        message,
+        "user"
+    );
+
+
+    input.value = "";
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/chatbot/ask",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        message: message
+                    })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        addMessage(
+            data.response,
+            "bot"
+        );
+
+
+    }
+
+    catch (error) {
+
+        addMessage(
+            "Sorry, something went wrong while processing your question.",
+            "bot"
+        );
+
+    }
+
+}
+
+
+function askQuestion(
+    question
+) {
+
+    document.getElementById(
+        "messageInput"
+    ).value = question;
+
+
+    sendMessage();
+
+}
+
+
+document.getElementById(
+    "messageInput"
+).addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            sendMessage();
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
