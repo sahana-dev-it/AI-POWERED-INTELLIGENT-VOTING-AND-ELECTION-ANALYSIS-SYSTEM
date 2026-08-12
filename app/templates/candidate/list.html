@@ -10,511 +10,433 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Candidate List</title>
-
+    <title>Candidate Management</title>
 
     <style>
 
-        *{
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
 
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
+        body {
 
-            font-family:Arial,sans-serif;
+            background: #eef6f3;
+
+            color: #173b38;
+
+            padding: 35px;
 
         }
 
+        .container {
 
-        body{
+            max-width: 1100px;
 
-            background:#eef6f3;
-
-            color:#173b38;
-
-            padding:40px;
+            margin: auto;
 
         }
 
+        .header {
 
-        .container{
+            display: flex;
 
-            max-width:1200px;
+            justify-content: space-between;
 
-            margin:auto;
+            align-items: center;
 
-        }
+            margin-bottom: 25px;
 
-
-        /* ===========================
-           HEADER
-        ============================ */
-
-        .header{
-
-            display:flex;
-
-            justify-content:space-between;
-
-            align-items:center;
-
-            margin-bottom:30px;
-
-            flex-wrap:wrap;
-
-            gap:20px;
+            gap: 20px;
 
         }
 
+        .header h1 {
 
-        .header h1{
+            font-size: 32px;
 
-            font-size:38px;
-
-            margin-bottom:8px;
-
-        }
-
-
-        .header p{
-
-            color:#6d7a78;
-
-            font-size:16px;
+            margin-bottom: 6px;
 
         }
 
+        .header p {
 
-        .add-button{
-
-            text-decoration:none;
-
-            background:#147869;
-
-            color:white;
-
-            padding:14px 24px;
-
-            border-radius:10px;
-
-            font-weight:bold;
-
-            transition:.3s;
+            color: #71807d;
 
         }
 
+        .back-button {
 
-        .add-button:hover{
+            text-decoration: none;
 
-            background:#0f6255;
+            background: #137b6d;
 
-        }
+            color: white;
 
+            padding: 12px 20px;
 
-        /* ===========================
-           FILTER
-        ============================ */
+            border-radius: 8px;
 
-        .filter-area{
-
-            display:flex;
-
-            align-items:center;
-
-            gap:10px;
-
-            margin-bottom:15px;
-
-            flex-wrap:wrap;
+            font-weight: bold;
 
         }
 
+        .filter-card {
 
-        .filter-area select{
+            background: white;
 
-            padding:12px 14px;
+            padding: 25px;
 
-            border:1px solid #cddbd8;
-
-            border-radius:9px;
-
-            background:white;
-
-            font-size:15px;
-
-            min-width:180px;
-
-            outline:none;
-
-        }
-
-
-        .filter-area select:focus{
-
-            border-color:#147869;
-
-        }
-
-
-        .filter-button{
-
-            border:none;
-
-            background:#147869;
-
-            color:white;
-
-            padding:12px 18px;
-
-            border-radius:9px;
-
-            font-weight:bold;
-
-            cursor:pointer;
-
-        }
-
-
-        .filter-button:hover{
-
-            background:#0f6255;
-
-        }
-
-
-        /* ===========================
-           ELECTION SUMMARY
-        ============================ */
-
-        .summary-card{
-
-            margin-bottom:18px;
-
-        }
-
-
-        .summary-card h2{
-
-            margin-bottom:5px;
-
-            font-size:25px;
-
-        }
-
-
-        .summary-card p{
-
-            color:#687774;
-
-        }
-
-
-        /* ===========================
-           SUCCESS POPUP
-        ============================ */
-
-        .popup{
-
-            position:fixed;
-
-            top:25px;
-
-            right:30px;
-
-            background:white;
-
-            border-left:5px solid #147869;
-
-            color:#1d4f48;
-
-            padding:16px 22px;
-
-            border-radius:10px;
-
-            box-shadow:0 10px 25px rgba(0,0,0,.15);
-
-            font-weight:bold;
-
-            animation:
-
-                popupIn .4s ease,
-
-                popupOut .5s ease 3.5s forwards;
-
-            z-index:999;
-
-        }
-
-
-        @keyframes popupIn{
-
-            from{
-
-                opacity:0;
-
-                transform:translateX(30px);
-
-            }
-
-            to{
-
-                opacity:1;
-
-                transform:translateX(0);
-
-            }
-
-        }
-
-
-        @keyframes popupOut{
-
-            from{
-
-                opacity:1;
-
-            }
-
-            to{
-
-                opacity:0;
-
-                transform:translateX(30px);
-
-            }
-
-        }
-
-
-        /* ===========================
-           TABLE CARD
-        ============================ */
-
-        .table-card{
-
-            background:white;
-
-            border-radius:18px;
-
-            overflow:hidden;
+            border-radius: 15px;
 
             box-shadow:
+                0 8px 25px rgba(0,0,0,0.07);
 
-                0 12px 30px rgba(0,0,0,.08);
-
-        }
-
-
-        table{
-
-            width:100%;
-
-            border-collapse:collapse;
+            margin-bottom: 25px;
 
         }
 
+        .filter-card label {
 
-        thead{
+            display: block;
 
-            background:#147869;
+            font-weight: bold;
 
-            color:white;
-
-        }
-
-
-        th{
-
-            padding:18px;
-
-            font-size:15px;
-
-            white-space:nowrap;
+            margin-bottom: 8px;
 
         }
 
+        .filter-row {
 
-        td{
+            display: grid;
 
-            padding:16px;
+            grid-template-columns: 1fr auto;
 
-            text-align:center;
-
-            border-bottom:1px solid #ececec;
-
-        }
-
-
-        tbody tr:hover{
-
-            background:#f6fbfa;
+            gap: 12px;
 
         }
 
+        select {
 
-        /* ===========================
-           PARTY BADGE
-        ============================ */
+            width: 100%;
 
-        .party{
+            padding: 12px;
 
-            display:inline-block;
+            border: 1px solid #d2dfdc;
 
-            padding:6px 14px;
+            border-radius: 8px;
 
-            border-radius:30px;
+            font-size: 15px;
 
-            background:#e7f7f4;
-
-            color:#147869;
-
-            font-size:14px;
-
-            font-weight:bold;
+            background: white;
 
         }
 
+        .filter-button {
 
-        /* ===========================
-           POSITION BADGE
-        ============================ */
+            border: none;
 
-        .position{
+            background: #137b6d;
 
-            display:inline-block;
+            color: white;
 
-            padding:6px 14px;
+            padding: 12px 22px;
 
-            border-radius:30px;
+            border-radius: 8px;
 
-            background:#fff1d9;
+            font-weight: bold;
 
-            color:#a56500;
-
-            font-size:14px;
-
-            font-weight:bold;
+            cursor: pointer;
 
         }
 
+        .selected-election {
 
-        /* ===========================
-           BUTTONS
-        ============================ */
+            background: #e7f2ef;
 
-        .edit{
+            border-left: 4px solid #137b6d;
 
-            text-decoration:none;
+            padding: 15px 18px;
 
-            background:#ffb347;
+            border-radius: 8px;
 
-            color:white;
-
-            padding:8px 16px;
-
-            border-radius:8px;
-
-            margin-right:8px;
-
-            font-size:14px;
-
-            font-weight:bold;
+            margin-bottom: 25px;
 
         }
 
+        .selected-election span {
 
-        .edit:hover{
+            display: block;
 
-            background:#e79b2c;
+            font-size: 12px;
 
-        }
+            color: #71807d;
 
+            margin-bottom: 5px;
 
-        .delete{
+            font-weight: bold;
 
-            text-decoration:none;
-
-            background:#d9534f;
-
-            color:white;
-
-            padding:8px 16px;
-
-            border-radius:8px;
-
-            font-size:14px;
-
-            font-weight:bold;
+            letter-spacing: 1px;
 
         }
 
+        .selected-election strong {
 
-        .delete:hover{
+            font-size: 20px;
 
-            background:#b53f3b;
+            color: #173b38;
 
         }
 
+        .candidate-grid {
 
-        /* ===========================
-           EMPTY STATE
-        ============================ */
+            display: grid;
 
-        .empty{
+            grid-template-columns:
+                repeat(2, 1fr);
 
-            background:white;
+            gap: 20px;
 
-            padding:60px;
+        }
 
-            text-align:center;
+        .candidate-card {
 
-            border-radius:18px;
+            background: white;
+
+            border-radius: 14px;
+
+            padding: 22px;
 
             box-shadow:
-
-                0 12px 30px rgba(0,0,0,.08);
-
-        }
-
-
-        .empty h2{
-
-            margin-bottom:10px;
+                0 8px 25px rgba(0,0,0,0.07);
 
         }
 
+        .candidate-top {
 
-        .empty p{
+            display: flex;
 
-            color:#777;
+            align-items: center;
+
+            gap: 15px;
+
+            margin-bottom: 18px;
 
         }
 
+        .avatar {
 
-        /* ===========================
-           MOBILE
-        ============================ */
+            width: 50px;
 
-        @media(max-width:900px){
+            height: 50px;
 
-            body{
+            border-radius: 50%;
 
-                padding:20px;
+            background: #137b6d;
 
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+        }
+
+        .candidate-top h2 {
+
+            font-size: 20px;
+
+            margin-bottom: 4px;
+
+        }
+
+        .party {
+
+            color: #137b6d;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+        }
+
+        .position {
+
+            background: #e7f2ef;
+
+            padding: 10px 12px;
+
+            border-radius: 7px;
+
+            margin-bottom: 15px;
+
+        }
+
+        .position span {
+
+            display: block;
+
+            font-size: 11px;
+
+            color: #71807d;
+
+            font-weight: bold;
+
+            margin-bottom: 4px;
+
+        }
+
+        .position strong {
+
+            color: #137b6d;
+
+        }
+
+        .details {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 10px;
+
+            margin-bottom: 15px;
+
+        }
+
+        .detail {
+
+            background: #f8faf9;
+
+            padding: 12px;
+
+            border-radius: 7px;
+
+        }
+
+        .detail span {
+
+            display: block;
+
+            font-size: 10px;
+
+            color: #71807d;
+
+            font-weight: bold;
+
+            margin-bottom: 5px;
+
+        }
+
+        .detail strong {
+
+            font-size: 14px;
+
+        }
+
+        .manifesto {
+
+            border-top: 1px solid #e4ece9;
+
+            padding-top: 15px;
+
+            margin-bottom: 18px;
+
+        }
+
+        .manifesto span {
+
+            font-size: 11px;
+
+            color: #71807d;
+
+            font-weight: bold;
+
+        }
+
+        .manifesto p {
+
+            margin-top: 7px;
+
+            color: #53615e;
+
+            line-height: 1.5;
+
+        }
+
+        .delete-button {
+
+            display: inline-block;
+
+            text-decoration: none;
+
+            background: #d9534f;
+
+            color: white;
+
+            padding: 9px 15px;
+
+            border-radius: 7px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+        }
+
+        .no-candidates {
+
+            background: white;
+
+            padding: 50px;
+
+            text-align: center;
+
+            border-radius: 14px;
+
+        }
+
+        .no-candidates h2 {
+
+            margin-bottom: 8px;
+
+        }
+
+        .no-candidates p {
+
+            color: #71807d;
+
+        }
+
+        @media(max-width: 700px) {
+
+            body {
+                padding: 20px;
             }
 
-
-            .table-card{
-
-                overflow-x:auto;
-
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
             }
 
+            .filter-row {
+                grid-template-columns: 1fr;
+            }
 
-            table{
+            .candidate-grid {
+                grid-template-columns: 1fr;
+            }
 
-                min-width:900px;
-
+            .details {
+                grid-template-columns: 1fr;
             }
 
         }
@@ -531,30 +453,6 @@
 
 
     <!-- =================================
-         FLASH MESSAGE
-    ================================== -->
-
-    {% with messages = get_flashed_messages(with_categories=true) %}
-
-        {% if messages %}
-
-            {% for category, message in messages %}
-
-                <div class="popup">
-
-                    ✓ {{ message }}
-
-                </div>
-
-            {% endfor %}
-
-        {% endif %}
-
-    {% endwith %}
-
-
-
-    <!-- =================================
          HEADER
     ================================== -->
 
@@ -563,77 +461,86 @@
         <div>
 
             <h1>
-                Candidate List
+                Candidate Management
             </h1>
 
             <p>
-                View, edit and manage all registered candidates.
+                View candidates by election.
             </p>
 
         </div>
 
 
         <a
-            href="/candidate/create"
-            class="add-button"
+            href="/admin/dashboard"
+            class="back-button"
         >
-            + Add Candidate
+            ← Dashboard
         </a>
 
     </div>
-
 
 
     <!-- =================================
          ELECTION FILTER
     ================================== -->
 
-    <form
-        method="GET"
-        action="/candidate/list"
-        class="filter-area"
-    >
+    <div class="filter-card">
 
-        <select
-            name="election_id"
-            required
+        <form
+            method="GET"
+            action="/candidate/list"
         >
 
-            <option value="">
+            <label for="election_id">
                 Select Election
-            </option>
+            </label>
 
 
-            {% for item in elections %}
+            <div class="filter-row">
 
-                <option
-                    value="{{ item.id }}"
-
-                    {% if selected_election == item.id %}
-
-                        selected
-
-                    {% endif %}
+                <select
+                    name="election_id"
+                    id="election_id"
+                    required
                 >
 
-                    {{ item.title }}
-
-                </option>
-
-            {% endfor %}
-
-        </select>
+                    <option value="">
+                        Select an election
+                    </option>
 
 
-        <button
-            type="submit"
-            class="filter-button"
-        >
-            View Candidates
-        </button>
+                    {% for item in elections %}
 
-    </form>
+                        <option
+                            value="{{ item.id }}"
 
+                            {% if selected_election == item.id %}
+                                selected
+                            {% endif %}
+                        >
+
+                            {{ item.title }}
+
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+
+                <button
+                    type="submit"
+                    class="filter-button"
+                >
+                    View Candidates
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
 
 
     <!-- =================================
@@ -642,194 +549,188 @@
 
     {% if election %}
 
-        <div class="summary-card">
+        <div class="selected-election">
 
-            <h2>
+            <span>
+                SELECTED ELECTION
+            </span>
+
+            <strong>
                 {{ election.title }}
-            </h2>
-
-
-            <p>
-
-                {{ candidates|length }}
-
-                Candidate(s) Registered
-
-            </p>
+            </strong>
 
         </div>
 
     {% endif %}
 
 
-
     <!-- =================================
-         CANDIDATE TABLE
+         CANDIDATES
     ================================== -->
 
-    {% if candidates %}
-
-        <div class="table-card">
-
-            <table>
-
-                <thead>
-
-                    <tr>
-
-                        <th>
-                            ID
-                        </th>
+    {% if election and candidates %}
 
 
-                        <th>
-                            Name
-                        </th>
+        <div class="candidate-grid">
 
 
-                        <th>
-                            Party
-                        </th>
+            {% for candidate in candidates %}
 
 
-                        <!-- POSITION ONLY FOR MULTIPLE -->
-
-                        {% if election and election.election_type == "multiple" %}
-
-                            <th>
-                                Position
-                            </th>
-
-                        {% endif %}
+                <div class="candidate-card">
 
 
-                        <th>
-                            Election Name
-                        </th>
+                    <div class="candidate-top">
+
+                        <div class="avatar">
+
+                            {{ candidate.name[0]|upper }}
+
+                        </div>
 
 
-                        <th>
-                            Age
-                        </th>
+                        <div>
+
+                            <h2>
+                                {{ candidate.name }}
+                            </h2>
+
+                            <div class="party">
+                                {{ candidate.party }}
+                            </div>
+
+                        </div>
+
+                    </div>
 
 
-                        <th>
-                            Gender
-                        </th>
+                    <!-- Position -->
+
+                    {% if election.election_type == "multiple" %}
+
+                        <div class="position">
+
+                            <span>
+                                POSITION
+                            </span>
+
+                            <strong>
+                                {{ candidate.position }}
+                            </strong>
+
+                        </div>
+
+                    {% endif %}
 
 
-                        <th>
-                            Actions
-                        </th>
+                    <!-- Details -->
 
-                    </tr>
-
-                </thead>
+                    <div class="details">
 
 
-                <tbody>
+                        <div class="detail">
 
+                            <span>
+                                AGE
+                            </span>
 
-                    {% for candidate in candidates %}
-
-                        <tr>
-
-
-                            <td>
-                                {{ candidate.id }}
-                            </td>
-
-
-                            <td>
-
-                                <strong>
-
-                                    {{ candidate.name }}
-
-                                </strong>
-
-                            </td>
-
-
-                            <td>
-
-                                <span class="party">
-
-                                    {{ candidate.party }}
-
-                                </span>
-
-                            </td>
-
-
-                            <!-- POSITION ONLY FOR MULTIPLE -->
-
-                            {% if election and election.election_type == "multiple" %}
-
-                                <td>
-
-                                    <span class="position">
-
-                                        {{ candidate.position or "Not Assigned" }}
-
-                                    </span>
-
-                                </td>
-
-                            {% endif %}
-
-
-                            <td>
-
-                                {{ election.title }}
-
-                            </td>
-
-
-                            <td>
-
+                            <strong>
                                 {{ candidate.age }}
+                            </strong>
 
-                            </td>
+                        </div>
 
 
-                            <td>
+                        <div class="detail">
 
+                            <span>
+                                GENDER
+                            </span>
+
+                            <strong>
                                 {{ candidate.gender }}
+                            </strong>
 
-                            </td>
-
-
-                            <td>
-
-                                <a
-                                    href="/candidate/edit/{{ candidate.id }}"
-                                    class="edit"
-                                >
-                                    Edit
-                                </a>
+                        </div>
 
 
-                                <a
-                                    href="/candidate/delete/{{ candidate.id }}"
-                                    class="delete"
+                        <div class="detail">
 
-                                    onclick="return confirm('Delete this candidate?')"
-                                >
-                                    Delete
-                                </a>
+                            <span>
+                                EDUCATION
+                            </span>
 
-                            </td>
+                            <strong>
+                                {{ candidate.education }}
+                            </strong>
 
-
-                        </tr>
-
-                    {% endfor %}
+                        </div>
 
 
-                </tbody>
+                        <div class="detail">
 
-            </table>
+                            <span>
+                                PROFESSION
+                            </span>
+
+                            <strong>
+                                {{ candidate.profession }}
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- Manifesto -->
+
+                    <div class="manifesto">
+
+                        <span>
+                            MANIFESTO
+                        </span>
+
+                        <p>
+                            {{ candidate.manifesto }}
+                        </p>
+
+                    </div>
+
+
+                    <!-- Delete -->
+
+                    <a
+                        href="/candidate/delete/{{ candidate.id }}"
+                        class="delete-button"
+                        onclick="return confirm('Are you sure you want to delete this candidate?');"
+                    >
+                        Delete Candidate
+                    </a>
+
+
+                </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+
+    {% elif election %}
+
+
+        <div class="no-candidates">
+
+            <h2>
+                No Candidates Found
+            </h2>
+
+            <p>
+                No candidates have been added to
+                <strong>{{ election.title }}</strong>.
+            </p>
 
         </div>
 
@@ -837,21 +738,17 @@
     {% else %}
 
 
-        {% if election %}
+        <div class="no-candidates">
 
-            <div class="empty">
+            <h2>
+                Select an Election
+            </h2>
 
-                <h2>
-                    No Candidates Found
-                </h2>
+            <p>
+                Select an election above to view its candidates.
+            </p>
 
-                <p>
-                    Start by adding your first candidate.
-                </p>
-
-            </div>
-
-        {% endif %}
+        </div>
 
 
     {% endif %}

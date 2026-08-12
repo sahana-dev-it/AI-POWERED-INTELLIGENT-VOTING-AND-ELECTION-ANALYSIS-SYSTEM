@@ -6313,3 +6313,44 @@ body {
     }
 
 }
+.candidate-position {
+    margin: 14px 0;
+    padding: 10px 12px;
+    background: #e8f4f1;
+    border-left: 4px solid #137b6d;
+    border-radius: 7px;
+}
+
+.candidate-position span {
+    display: block;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #6b7b78;
+    margin-bottom: 4px;
+}
+
+.candidate-position strong {
+    display: block;
+    font-size: 15px;
+    color: #137b6d;
+}
+
+.election-type-info {
+    margin: 20px 0;
+    padding: 15px 18px;
+    background: white;
+    border-left: 4px solid #137b6d;
+    border-radius: 8px;
+}
+
+.election-type-info strong {
+    color: #173b38;
+}
+
+.election-type-info p {
+    margin: 6px 0 0;
+    color: #657571;
+    font-size: 14px;
+    line-height: 1.5;
+}

@@ -4,6 +4,9 @@ from flask import Blueprint, render_template, abort
 # Import login_required and current_user
 from flask_login import login_required, current_user
 
+# Import datetime
+from datetime import datetime
+
 # Import models
 from app.models.election import Election
 from app.models.candidate import Candidate
@@ -44,9 +47,57 @@ def dashboard():
 
     total_elections = Election.query.count()
 
-    active_elections = Election.query.filter_by(
-        status="Active"
-    ).count()
+
+    # ----------------------------------
+    # Calculate Active Elections
+    # ----------------------------------
+    # An election is active only when
+    # the current date/time is between
+    # its start and end date/time.
+    # ----------------------------------
+
+    current_datetime = datetime.now()
+
+    active_elections = 0
+
+
+    for election in Election.query.all():
+
+        try:
+
+            # Combine date and time strings
+            # into one datetime object
+
+            start_datetime = datetime.strptime(
+                f"{election.start_date} {election.start_time}",
+                "%Y-%m-%d %H:%M"
+            )
+
+            end_datetime = datetime.strptime(
+                f"{election.end_date} {election.end_time}",
+                "%Y-%m-%d %H:%M"
+            )
+
+
+            # ----------------------------------
+            # Check whether election is active
+            # ----------------------------------
+
+            if (
+                start_datetime <= current_datetime
+                and
+                current_datetime < end_datetime
+            ):
+
+                active_elections += 1
+
+
+        except (ValueError, TypeError):
+
+            # Ignore elections with invalid
+            # date/time values
+
+            continue
 
 
     # ----------------------------------
@@ -85,7 +136,8 @@ def dashboard():
 
     if (
         total_voters > 0
-        and total_votes is not None
+        and
+        total_votes is not None
     ):
 
         voter_turnout = round(

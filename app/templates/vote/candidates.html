@@ -19,9 +19,12 @@
 
 </head>
 
+
 <body class="candidates-page">
 
+
 <div class="candidates-container">
+
 
     <!-- =====================================
          HEADER
@@ -40,11 +43,11 @@
             </h1>
 
             <p>
-                Review the candidates and their manifestos
-                before making your choice.
+                Review the candidates and make your selection.
             </p>
 
         </div>
+
 
         <a
             href="{{ url_for('vote.elections') }}"
@@ -90,10 +93,48 @@
 
 
     <!-- =====================================
-         VOTING COMPLETED
+         ELECTION TYPE INFORMATION
     ====================================== -->
 
-    {% if has_voted %}
+    {% if election.election_type == "multiple" %}
+
+        <div class="election-type-info">
+
+            <strong>
+                Multiple Positions Election
+            </strong>
+
+            <p>
+                Select one candidate for each position.
+                You can vote once for President, once for
+                Vice President, once for Secretary, and so on.
+            </p>
+
+        </div>
+
+    {% else %}
+
+        <div class="election-type-info">
+
+            <strong>
+                Single Choice Election
+            </strong>
+
+            <p>
+                Select one candidate for this election.
+                Once your vote is submitted, you cannot vote again.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- =====================================
+         VOTING COMPLETED - SINGLE CHOICE
+    ====================================== -->
+
+    {% if election.election_type != "multiple" and has_voted %}
 
         <div class="voting-completed">
 
@@ -125,6 +166,7 @@
 
     <section class="candidates-section">
 
+
         <div class="candidates-section-heading">
 
             <div>
@@ -139,12 +181,17 @@
 
             </div>
 
+
             <span class="candidate-count">
 
                 {% if candidates %}
+
                     {{ candidates|length }}
+
                 {% else %}
+
                     0
+
                 {% endif %}
 
                 Candidate{% if not candidates or candidates|length != 1 %}s{% endif %}
@@ -156,21 +203,29 @@
 
         {% if candidates %}
 
+
             <div class="candidate-grid">
+
 
                 {% for candidate in candidates %}
 
+
                     <article class="candidate-card">
 
-                        <!-- Candidate Header -->
+
+                        <!-- =================================
+                             CANDIDATE HEADER
+                        ================================== -->
 
                         <div class="candidate-card-top">
+
 
                             <div class="candidate-avatar">
 
                                 {{ candidate.name[0]|upper }}
 
                             </div>
+
 
                             <div class="candidate-name-area">
 
@@ -187,9 +242,33 @@
                         </div>
 
 
-                        <!-- Candidate Details -->
+                        <!-- =================================
+                             POSITION
+                        ================================== -->
+
+                        {% if election.election_type == "multiple" %}
+
+                            <div class="candidate-position">
+
+                                <span>
+                                    POSITION
+                                </span>
+
+                                <strong>
+                                    {{ candidate.position }}
+                                </strong>
+
+                            </div>
+
+                        {% endif %}
+
+
+                        <!-- =================================
+                             CANDIDATE DETAILS
+                        ================================== -->
 
                         <div class="candidate-details">
+
 
                             <div class="candidate-detail">
 
@@ -203,6 +282,7 @@
 
                             </div>
 
+
                             <div class="candidate-detail">
 
                                 <span>
@@ -215,10 +295,13 @@
 
                             </div>
 
+
                         </div>
 
 
-                        <!-- Manifesto -->
+                        <!-- =================================
+                             MANIFESTO
+                        ================================== -->
 
                         <div class="candidate-manifesto">
 
@@ -233,56 +316,129 @@
                         </div>
 
 
-                        <!-- Vote Button -->
+                        <!-- =================================
+                             VOTE BUTTON
+                        ================================== -->
 
                         <div class="candidate-action">
 
-                            {% if has_voted %}
 
-                                <div class="vote-completed-label">
+                            <!-- =================================
+                                 SINGLE CHOICE
+                            ================================== -->
 
-                                    <span>
-                                        ✓
-                                    </span>
+                            {% if election.election_type != "multiple" %}
 
-                                    Vote Submitted
 
-                                </div>
+                                {% if has_voted %}
+
+                                    <div class="vote-completed-label">
+
+                                        <span>
+                                            ✓
+                                        </span>
+
+                                        Vote Submitted
+
+                                    </div>
+
+                                {% else %}
+
+                                    <form
+                                        method="POST"
+                                        action="{{ url_for(
+                                            'vote.cast_vote',
+                                            election_id=election.id,
+                                            candidate_id=candidate.id
+                                        ) }}"
+                                    >
+
+                                        <button
+                                            type="submit"
+                                            class="candidate-vote-button"
+                                            onclick="return confirm('Are you sure you want to vote for {{ candidate.name }}?');"
+                                        >
+
+                                            Vote for {{ candidate.name }}
+
+                                            <span>
+                                                →
+                                            </span>
+
+                                        </button>
+
+                                    </form>
+
+                                {% endif %}
+
+
+                            <!-- =================================
+                                 MULTIPLE POSITIONS
+                            ================================== -->
 
                             {% else %}
 
-                                <form
-                                    method="POST"
-                                    action="/vote/cast/{{ election.id }}/{{ candidate.id }}"
-                                >
 
-                                    <button
-                                        type="submit"
-                                        class="candidate-vote-button"
-                                        onclick="return confirm('Are you sure you want to vote for {{ candidate.name }}?');"
-                                    >
+                                {% if candidate.position in voted_positions %}
 
-                                        Vote for {{ candidate.name }}
+                                    <div class="vote-completed-label">
 
                                         <span>
-                                            →
+                                            ✓
                                         </span>
 
-                                    </button>
+                                        {{ candidate.position }} Vote Submitted
 
-                                </form>
+                                    </div>
+
+
+                                {% else %}
+
+                                    <form
+                                        method="POST"
+                                        action="{{ url_for(
+                                            'vote.cast_vote',
+                                            election_id=election.id,
+                                            candidate_id=candidate.id
+                                        ) }}"
+                                    >
+
+                                        <button
+                                            type="submit"
+                                            class="candidate-vote-button"
+                                            onclick="return confirm('Are you sure you want to vote for {{ candidate.name }} for {{ candidate.position }}?');"
+                                        >
+
+                                            Vote for {{ candidate.name }}
+
+                                            <span>
+                                                →
+                                            </span>
+
+                                        </button>
+
+                                    </form>
+
+                                {% endif %}
+
 
                             {% endif %}
 
+
                         </div>
+
 
                     </article>
 
+
                 {% endfor %}
+
 
             </div>
 
+
         {% else %}
+
 
             <div class="no-candidates">
 
@@ -300,12 +456,16 @@
 
             </div>
 
+
         {% endif %}
+
 
     </section>
 
 
-    <!-- Footer -->
+    <!-- =====================================
+         FOOTER
+    ====================================== -->
 
     <footer class="candidates-footer">
 
@@ -319,7 +479,9 @@
 
     </footer>
 
+
 </div>
+
 
 </body>
 

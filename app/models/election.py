@@ -3,6 +3,8 @@ from app import db
 
 class Election(db.Model):
 
+    __tablename__ = "election"
+
     id = db.Column(
         db.Integer,
         primary_key=True
@@ -38,19 +40,11 @@ class Election(db.Model):
         nullable=False
     )
 
-    # ----------------------------------
-    # Election Type
-    # ----------------------------------
-
     election_type = db.Column(
         db.String(20),
         nullable=False,
         default="single"
     )
-
-    # ----------------------------------
-    # Election Status
-    # ----------------------------------
 
     status = db.Column(
         db.String(20),

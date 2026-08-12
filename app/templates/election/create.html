@@ -22,289 +22,161 @@
         }
 
         body {
-
             background: #eef6f3;
             color: #173b38;
-
             padding: 40px;
-
         }
 
         .container {
-
             max-width: 750px;
             margin: auto;
-
         }
-
-        /* =========================
-           CARD
-        ========================== */
 
         .form-card {
-
             background: white;
-
             padding: 35px;
-
             border-radius: 18px;
-
             box-shadow:
                 0 12px 30px rgba(0,0,0,0.08);
-
         }
 
-        /* =========================
-           HEADER
-        ========================== */
-
         .header {
-
             margin-bottom: 30px;
-
         }
 
         .header h1 {
-
             font-size: 34px;
-
             margin-bottom: 8px;
-
         }
 
         .header p {
-
             color: #6d7a78;
-
             font-size: 15px;
-
         }
 
-        /* =========================
-           FORM GROUP
-        ========================== */
-
         .form-group {
-
             margin-bottom: 22px;
-
         }
 
         label {
-
             display: block;
-
             margin-bottom: 8px;
-
             font-weight: bold;
-
             color: #173b38;
-
         }
 
         input,
         textarea,
         select {
-
             width: 100%;
-
             padding: 12px 14px;
-
             border: 1px solid #d5dfdc;
-
             border-radius: 9px;
-
             font-size: 15px;
-
             outline: none;
-
             background: white;
-
         }
 
         input:focus,
         textarea:focus,
         select:focus {
-
             border-color: #147869;
 
             box-shadow:
                 0 0 0 3px rgba(20,120,105,0.10);
-
         }
 
         textarea {
-
             resize: vertical;
-
             min-height: 120px;
-
         }
-
-        /* =========================
-           DATE TIME GRID
-        ========================== */
 
         .date-time-grid {
-
             display: grid;
-
             grid-template-columns: 1fr 1fr;
-
             gap: 18px;
-
         }
-
-        /* =========================
-           ELECTION TYPE
-        ========================== */
 
         .type-info {
-
             margin-top: 8px;
-
             padding: 12px 14px;
-
             background: #f1f8f6;
-
             border-left: 4px solid #147869;
-
             border-radius: 7px;
-
             color: #536965;
-
             font-size: 14px;
-
             line-height: 1.5;
-
         }
 
-        /* =========================
-           BUTTONS
-        ========================== */
-
         .button-area {
-
             display: flex;
-
             justify-content: space-between;
-
             align-items: center;
-
             margin-top: 30px;
-
             gap: 15px;
-
         }
 
         .back-button {
-
             text-decoration: none;
-
             padding: 12px 20px;
-
             border-radius: 9px;
-
             background: #e8eceb;
-
             color: #455653;
-
             font-weight: bold;
-
         }
 
         .back-button:hover {
-
             background: #dce3e1;
-
         }
 
         .submit-button {
-
             border: none;
-
             padding: 13px 25px;
-
             border-radius: 9px;
-
             background: #147869;
-
             color: white;
-
             font-weight: bold;
-
             font-size: 15px;
-
             cursor: pointer;
-
         }
 
         .submit-button:hover {
-
             background: #0f6255;
-
         }
-
-        /* =========================
-           FLASH MESSAGE
-        ========================== */
 
         .message {
-
             margin-bottom: 20px;
-
             padding: 14px 18px;
-
             background: white;
-
             border-left: 5px solid #d9534f;
-
             border-radius: 9px;
-
             box-shadow:
                 0 5px 15px rgba(0,0,0,0.06);
-
         }
-
-        /* =========================
-           RESPONSIVE
-        ========================== */
 
         @media (max-width: 650px) {
 
             body {
-
                 padding: 20px;
-
             }
 
             .form-card {
-
                 padding: 25px;
-
             }
 
             .date-time-grid {
-
                 grid-template-columns: 1fr;
-
             }
 
             .button-area {
-
                 flex-direction: column;
-
                 align-items: stretch;
-
             }
 
             .back-button,
             .submit-button {
-
                 text-align: center;
-
                 width: 100%;
-
             }
 
         }
@@ -313,15 +185,11 @@
 
 </head>
 
-
 <body>
 
 <div class="container">
 
-
-    <!-- =================================
-         FLASH MESSAGES
-    ================================== -->
+    <!-- FLASH MESSAGES -->
 
     {% with messages = get_flashed_messages(with_categories=true) %}
 
@@ -330,9 +198,7 @@
             {% for category, message in messages %}
 
                 <div class="message">
-
                     {{ message }}
-
                 </div>
 
             {% endfor %}
@@ -342,12 +208,9 @@
     {% endwith %}
 
 
-    <!-- =================================
-         FORM CARD
-    ================================== -->
+    <!-- FORM CARD -->
 
     <div class="form-card">
-
 
         <!-- HEADER -->
 
@@ -369,7 +232,7 @@
         <form method="POST">
 
 
-            <!-- Election Title -->
+            <!-- ELECTION TITLE -->
 
             <div class="form-group">
 
@@ -388,7 +251,7 @@
             </div>
 
 
-            <!-- Description -->
+            <!-- DESCRIPTION -->
 
             <div class="form-group">
 
@@ -406,7 +269,7 @@
             </div>
 
 
-            <!-- Election Type -->
+            <!-- ELECTION TYPE -->
 
             <div class="form-group">
 
@@ -420,11 +283,22 @@
                     required
                 >
 
-                    <option value="Single Choice">
+                    <!-- IMPORTANT:
+                         value MUST be "single"
+                         because Python expects "single"
+                    -->
+
+                    <option value="single">
                         Single Choice
                     </option>
 
-                    <option value="Multiple Positions">
+
+                    <!-- IMPORTANT:
+                         value MUST be "multiple"
+                         because Python expects "multiple"
+                    -->
+
+                    <option value="multiple">
                         Multiple Positions
                     </option>
 
@@ -437,7 +311,8 @@
                         Single Choice:
                     </strong>
 
-                    One election has candidates and the voter selects one candidate.
+                    One election has candidates and
+                    the voter selects one candidate.
 
                     <br><br>
 
@@ -445,9 +320,9 @@
                         Multiple Positions:
                     </strong>
 
-                    One election can contain positions such as President,
-                    Vice President, Secretary and Treasurer. The voter can
-                    select one candidate for each position.
+                    One election can contain positions such as
+                    President, Vice President, Secretary and Treasurer.
+                    The voter can select one candidate for each position.
 
                 </div>
 
@@ -459,7 +334,7 @@
             <div class="date-time-grid">
 
 
-                <!-- Start Date -->
+                <!-- START DATE -->
 
                 <div class="form-group">
 
@@ -477,7 +352,7 @@
                 </div>
 
 
-                <!-- Start Time -->
+                <!-- START TIME -->
 
                 <div class="form-group">
 
@@ -495,7 +370,7 @@
                 </div>
 
 
-                <!-- End Date -->
+                <!-- END DATE -->
 
                 <div class="form-group">
 
@@ -513,7 +388,7 @@
                 </div>
 
 
-                <!-- End Time -->
+                <!-- END TIME -->
 
                 <div class="form-group">
 
@@ -533,34 +408,17 @@
             </div>
 
 
-            <!-- STATUS -->
+            <!--
+                DO NOT ADD A STATUS DROPDOWN HERE.
 
-            <div class="form-group">
+                Python automatically decides:
 
-                <label for="status">
-                    Status
-                </label>
+                Upcoming
+                Active
+                Completed
 
-                <select
-                    id="status"
-                    name="status"
-                >
-
-                    <option value="Upcoming">
-                        Upcoming
-                    </option>
-
-                    <option value="Active">
-                        Active
-                    </option>
-
-                    <option value="Completed">
-                        Completed
-                    </option>
-
-                </select>
-
-            </div>
+                based on the election dates and times.
+            -->
 
 
             <!-- BUTTONS -->
@@ -573,6 +431,7 @@
                 >
                     ← Back to Elections
                 </a>
+
 
                 <button
                     type="submit"

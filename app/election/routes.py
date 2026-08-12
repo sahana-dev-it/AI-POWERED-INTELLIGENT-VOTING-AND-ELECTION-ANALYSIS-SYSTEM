@@ -1,32 +1,45 @@
+# ==========================================
+# app/election/routes.py
+# ==========================================
+
+# ------------------------------------------
 # Import Flask tools
+# ------------------------------------------
 
 from flask import (
     Blueprint,
     render_template,
     request,
     redirect,
-    flash
+    flash,
+    session
 )
 
 
+# ------------------------------------------
 # Import database
+# ------------------------------------------
 
 from app import db
 
 
+# ------------------------------------------
 # Import Election model
+# ------------------------------------------
 
 from app.models.election import Election
 
 
+# ------------------------------------------
 # Import datetime
+# ------------------------------------------
 
 from datetime import datetime
 
 
-# ----------------------------------
-# Election Blueprint
-# ----------------------------------
+# ==========================================
+# CREATE ELECTION BLUEPRINT
+# ==========================================
 
 election = Blueprint(
     "election",
@@ -35,19 +48,22 @@ election = Blueprint(
 )
 
 
-# ----------------------------------
-# Function to automatically update
-# election status
-# ----------------------------------
+# ==========================================
+# FUNCTION: UPDATE ELECTION STATUS
+# ==========================================
 
 def update_election_status(election_item):
 
+    # --------------------------------------
     # Get current date and time
+    # --------------------------------------
 
     now = datetime.now()
 
 
-    # Convert start date + time into datetime
+    # --------------------------------------
+    # Convert start date + time to datetime
+    # --------------------------------------
 
     start_datetime = datetime.strptime(
         f"{election_item.start_date} "
@@ -56,7 +72,9 @@ def update_election_status(election_item):
     )
 
 
-    # Convert end date + time into datetime
+    # --------------------------------------
+    # Convert end date + time to datetime
+    # --------------------------------------
 
     end_datetime = datetime.strptime(
         f"{election_item.end_date} "
@@ -65,30 +83,36 @@ def update_election_status(election_item):
     )
 
 
-    # Before election starts
+    # --------------------------------------
+    # Election has not started
+    # --------------------------------------
 
     if now < start_datetime:
 
         election_item.status = "Upcoming"
 
 
+    # --------------------------------------
     # Election is currently running
+    # --------------------------------------
 
     elif start_datetime <= now <= end_datetime:
 
         election_item.status = "Active"
 
 
+    # --------------------------------------
     # Election has ended
+    # --------------------------------------
 
     else:
 
         election_item.status = "Completed"
 
 
-# ==================================
+# ==========================================
 # CREATE ELECTION
-# ==================================
+# ==========================================
 
 @election.route(
     "/create",
@@ -96,37 +120,65 @@ def update_election_status(election_item):
 )
 def create():
 
+    # --------------------------------------
+    # If form is submitted
+    # --------------------------------------
+
     if request.method == "POST":
 
         # ----------------------------------
         # Get form data
         # ----------------------------------
 
-        title = request.form["title"]
+        title = request.form.get(
+            "title",
+            ""
+        ).strip()
 
-        description = request.form["description"]
 
-        start_date = request.form["start_date"]
+        description = request.form.get(
+            "description",
+            ""
+        ).strip()
 
-        start_time = request.form["start_time"]
 
-        end_date = request.form["end_date"]
+        start_date = request.form.get(
+            "start_date",
+            ""
+        ).strip()
 
-        end_time = request.form["end_time"]
+
+        start_time = request.form.get(
+            "start_time",
+            ""
+        ).strip()
+
+
+        end_date = request.form.get(
+            "end_date",
+            ""
+        ).strip()
+
+
+        end_time = request.form.get(
+            "end_time",
+            ""
+        ).strip()
 
 
         # ----------------------------------
-        # Get Election Type
+        # Get election type
         # ----------------------------------
 
         election_type = request.form.get(
             "election_type",
             "single"
-        )
+        ).strip()
 
 
-        # Make sure only valid types
-        # can be stored
+        # ----------------------------------
+        # Make sure election type is valid
+        # ----------------------------------
 
         if election_type not in [
             "single",
@@ -137,7 +189,23 @@ def create():
 
 
         # ----------------------------------
-        # Validate Date and Time
+        # Check required fields
+        # ----------------------------------
+
+        if not title or not description:
+
+            flash(
+                "Please fill in all required election information.",
+                "danger"
+            )
+
+            return render_template(
+                "election/create.html"
+            )
+
+
+        # ----------------------------------
+        # Convert dates and times
         # ----------------------------------
 
         try:
@@ -166,8 +234,7 @@ def create():
 
 
         # ----------------------------------
-        # End time must be after
-        # start time
+        # End must be after start
         # ----------------------------------
 
         if end_datetime <= start_datetime:
@@ -183,7 +250,7 @@ def create():
 
 
         # ----------------------------------
-        # Determine Initial Status
+        # Determine initial status
         # ----------------------------------
 
         now = datetime.now()
@@ -202,9 +269,9 @@ def create():
             status = "Completed"
 
 
-        # ----------------------------------
-        # Create Election
-        # ----------------------------------
+        # ==================================
+        # CREATE NEW ELECTION
+        # ==================================
 
         new_election = Election(
 
@@ -223,13 +290,12 @@ def create():
             election_type=election_type,
 
             status=status
-
         )
 
 
-        # ----------------------------------
-        # Save Election
-        # ----------------------------------
+        # ==================================
+        # SAVE NEW ELECTION
+        # ==================================
 
         db.session.add(
             new_election
@@ -238,56 +304,60 @@ def create():
         db.session.commit()
 
 
+        # ==================================
+        # IMPORTANT
+        # Remember the newly created
+        # election AFTER it has been saved.
+        # ==================================
+
+        session["selected_election"] = new_election.id
+
+
         # ----------------------------------
-        # Success Message
+        # Success message
         # ----------------------------------
 
         flash(
-            "Election created successfully!",
+            "Election created successfully! Now add candidates.",
             "success"
         )
 
 
-        # ----------------------------------
-        # Go directly to Add Candidate
-        # ----------------------------------
-        #
-        # The newly created election ID is
-        # passed to the candidate page.
-        #
-        # This avoids making the admin go
-        # back through the election list.
-        # ----------------------------------
+        # ==================================
+        # GO TO ADD CANDIDATE PAGE
+        # ==================================
 
         return redirect(
-            f"/candidate/create?election_id={new_election.id}"
+            "/candidate/create"
         )
 
 
-    # ----------------------------------
-    # Display Create Election Page
-    # ----------------------------------
+    # ==================================
+    # DISPLAY CREATE ELECTION PAGE
+    # ==================================
 
     return render_template(
         "election/create.html"
     )
 
 
-# ==================================
+# ==========================================
 # VIEW ALL ELECTIONS
-# ==================================
+# ==========================================
 
 @election.route("/list")
 def list_elections():
 
+    # --------------------------------------
     # Get all elections
+    # --------------------------------------
 
     elections = Election.query.all()
 
 
-    # ----------------------------------
-    # Automatically update status
-    # ----------------------------------
+    # --------------------------------------
+    # Automatically update their status
+    # --------------------------------------
 
     for election_item in elections:
 
@@ -296,14 +366,16 @@ def list_elections():
         )
 
 
+    # --------------------------------------
     # Save updated statuses
+    # --------------------------------------
 
     db.session.commit()
 
 
-    # ----------------------------------
-    # Display elections
-    # ----------------------------------
+    # --------------------------------------
+    # Display election list
+    # --------------------------------------
 
     return render_template(
         "election/list.html",
@@ -311,9 +383,9 @@ def list_elections():
     )
 
 
-# ==================================
+# ==========================================
 # EDIT ELECTION
-# ==================================
+# ==========================================
 
 @election.route(
     "/edit/<int:id>",
@@ -321,56 +393,74 @@ def list_elections():
 )
 def edit_election(id):
 
+    # --------------------------------------
+    # Find election
+    # --------------------------------------
+
     election_item = Election.query.get_or_404(
         id
     )
 
 
+    # ======================================
+    # UPDATE ELECTION
+    # ======================================
+
     if request.method == "POST":
 
         # ----------------------------------
-        # Update Election Information
+        # Get form data
         # ----------------------------------
 
-        election_item.title = request.form[
-            "title"
-        ]
+        election_item.title = request.form.get(
+            "title",
+            ""
+        ).strip()
 
 
-        election_item.description = request.form[
-            "description"
-        ]
+        election_item.description = request.form.get(
+            "description",
+            ""
+        ).strip()
 
 
-        election_item.start_date = request.form[
-            "start_date"
-        ]
+        election_item.start_date = request.form.get(
+            "start_date",
+            ""
+        ).strip()
 
 
-        election_item.start_time = request.form[
-            "start_time"
-        ]
+        election_item.start_time = request.form.get(
+            "start_time",
+            ""
+        ).strip()
 
 
-        election_item.end_date = request.form[
-            "end_date"
-        ]
+        election_item.end_date = request.form.get(
+            "end_date",
+            ""
+        ).strip()
 
 
-        election_item.end_time = request.form[
-            "end_time"
-        ]
+        election_item.end_time = request.form.get(
+            "end_time",
+            ""
+        ).strip()
 
 
         # ----------------------------------
-        # Update Election Type
+        # Get election type
         # ----------------------------------
 
         election_type = request.form.get(
             "election_type",
             "single"
-        )
+        ).strip()
 
+
+        # ----------------------------------
+        # Validate election type
+        # ----------------------------------
 
         if election_type not in [
             "single",
@@ -384,7 +474,7 @@ def edit_election(id):
 
 
         # ----------------------------------
-        # Validate Date and Time
+        # Validate date and time
         # ----------------------------------
 
         try:
@@ -416,8 +506,7 @@ def edit_election(id):
 
 
         # ----------------------------------
-        # End time must be after
-        # start time
+        # Check end time
         # ----------------------------------
 
         if end_datetime <= start_datetime:
@@ -434,7 +523,7 @@ def edit_election(id):
 
 
         # ----------------------------------
-        # Automatically determine status
+        # Automatically update status
         # ----------------------------------
 
         update_election_status(
@@ -443,14 +532,14 @@ def edit_election(id):
 
 
         # ----------------------------------
-        # Save Changes
+        # Save changes
         # ----------------------------------
 
         db.session.commit()
 
 
         # ----------------------------------
-        # Success Message
+        # Success message
         # ----------------------------------
 
         flash(
@@ -459,14 +548,18 @@ def edit_election(id):
         )
 
 
+        # ----------------------------------
+        # Return to election list
+        # ----------------------------------
+
         return redirect(
             "/election/list"
         )
 
 
-    # ----------------------------------
-    # Display Edit Page
-    # ----------------------------------
+    # ======================================
+    # DISPLAY EDIT PAGE
+    # ======================================
 
     return render_template(
         "election/edit.html",
@@ -474,37 +567,53 @@ def edit_election(id):
     )
 
 
-# ==================================
+# ==========================================
 # DELETE ELECTION
-# ==================================
+# ==========================================
 
 @election.route(
     "/delete/<int:id>"
 )
 def delete_election(id):
 
+    # --------------------------------------
+    # Find election
+    # --------------------------------------
+
     election_item = Election.query.get_or_404(
         id
     )
 
 
+    # --------------------------------------
     # Delete election
+    # --------------------------------------
 
     db.session.delete(
         election_item
     )
 
 
+    # --------------------------------------
+    # Save changes
+    # --------------------------------------
+
     db.session.commit()
 
 
-    # Success Message
+    # --------------------------------------
+    # Success message
+    # --------------------------------------
 
     flash(
         "Election deleted successfully!",
         "success"
     )
 
+
+    # --------------------------------------
+    # Return to election list
+    # --------------------------------------
 
     return redirect(
         "/election/list"

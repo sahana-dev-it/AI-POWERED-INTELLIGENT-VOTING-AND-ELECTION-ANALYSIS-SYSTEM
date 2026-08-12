@@ -15,589 +15,431 @@
 
     <style>
 
-        *{
-            box-sizing:border-box;
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #eef6f3;
+            color: #173b38;
+        }
+
+        .page {
+            min-height: 100vh;
+            padding: 45px 30px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1050px;
+            margin: auto;
         }
 
 
-        body{
+        /* =========================
+           HEADER
+        ========================== */
 
-            margin:0;
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            gap: 20px;
+        }
 
-            font-family:Arial,sans-serif;
+        .label {
+            color: #e97869;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
 
-            background:#eef6f3;
+        .header h1 {
+            margin: 0;
+            font-size: 38px;
+            color: #123b37;
+        }
 
-            color:#173b38;
+        .header p {
+            margin: 8px 0 0;
+            color: #687774;
+            font-size: 16px;
+        }
 
+        .view-button {
+            text-decoration: none;
+            background: #116f63;
+            color: white;
+            padding: 13px 20px;
+            border-radius: 9px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .view-button:hover {
+            background: #0d5b51;
         }
 
 
-        .page{
-
-            min-height:100vh;
-
-            padding:45px 30px;
-
-        }
-
-
-        .container{
-
-            width:100%;
-
-            max-width:1050px;
-
-            margin:auto;
-
-        }
-
-
-        .header{
-
-            display:flex;
-
-            justify-content:space-between;
-
-            align-items:center;
-
-            margin-bottom:28px;
-
-            gap:20px;
-
-        }
-
-
-        .label{
-
-            color:#e97869;
-
-            font-size:13px;
-
-            font-weight:bold;
-
-            letter-spacing:2px;
-
-            margin-bottom:8px;
-
-        }
-
-
-        .header h1{
-
-            margin:0;
-
-            font-size:38px;
-
-            color:#123b37;
-
-        }
-
-
-        .header p{
-
-            margin:8px 0 0;
-
-            color:#687774;
-
-            font-size:16px;
-
-        }
-
-
-        .view-button{
-
-            text-decoration:none;
-
-            background:#116f63;
-
-            color:white;
-
-            padding:13px 20px;
-
-            border-radius:9px;
-
-            font-weight:bold;
-
-            white-space:nowrap;
-
-        }
-
-
-        .view-button:hover{
-
-            background:#0d5b51;
-
-        }
-
+        /* =========================
+           FLASH MESSAGES
+        ========================== */
 
         .success-popup,
-        .error-popup{
+        .error-popup {
+            position: fixed;
+            top: 25px;
+            right: 30px;
 
-            position:fixed;
+            display: flex;
+            align-items: center;
 
-            top:25px;
+            gap: 12px;
 
-            right:30px;
+            padding: 14px 20px;
 
-            display:flex;
+            background: white;
 
-            align-items:center;
-
-            gap:12px;
-
-            padding:14px 20px;
-
-            background:white;
-
-            border-radius:9px;
-
-            box-shadow:0 8px 25px rgba(0,0,0,.15);
-
-            font-size:15px;
-
-            font-weight:600;
-
-            z-index:9999;
-
-            animation:
-
-                popupIn .35s ease,
-
-                popupOut .5s ease 3.5s forwards;
-
-        }
-
-
-        .success-popup{
-
-            color:#245c4d;
-
-            border-left:4px solid #168575;
-
-        }
-
-
-        .error-popup{
-
-            color:#963c3c;
-
-            border-left:4px solid #d9534f;
-
-        }
-
-
-        .success-icon,
-        .error-icon{
-
-            display:flex;
-
-            align-items:center;
-
-            justify-content:center;
-
-            width:25px;
-
-            height:25px;
-
-            border-radius:50%;
-
-            color:white;
-
-            font-size:15px;
-
-            font-weight:bold;
-
-        }
-
-
-        .success-icon{
-
-            background:#168575;
-
-        }
-
-
-        .error-icon{
-
-            background:#d9534f;
-
-        }
-
-
-        @keyframes popupIn{
-
-            from{
-
-                opacity:0;
-
-                transform:translateX(30px);
-
-            }
-
-            to{
-
-                opacity:1;
-
-                transform:translateX(0);
-
-            }
-
-        }
-
-
-        @keyframes popupOut{
-
-            from{
-
-                opacity:1;
-
-                transform:translateX(0);
-
-            }
-
-            to{
-
-                opacity:0;
-
-                transform:translateX(30px);
-
-            }
-
-        }
-
-
-        .card{
-
-            background:white;
-
-            border-radius:18px;
-
-            padding:38px 42px;
+            border-radius: 9px;
 
             box-shadow:
+                0 8px 25px rgba(0,0,0,.15);
 
+            font-size: 15px;
+            font-weight: 600;
+
+            z-index: 9999;
+
+            animation:
+                popupIn .35s ease,
+                popupOut .5s ease 3.5s forwards;
+        }
+
+        .success-popup {
+            color: #245c4d;
+            border-left: 4px solid #168575;
+        }
+
+        .error-popup {
+            color: #963c3c;
+            border-left: 4px solid #d9534f;
+        }
+
+        .success-icon,
+        .error-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 25px;
+            height: 25px;
+
+            border-radius: 50%;
+
+            color: white;
+
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .success-icon {
+            background: #168575;
+        }
+
+        .error-icon {
+            background: #d9534f;
+        }
+
+        @keyframes popupIn {
+
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+        }
+
+        @keyframes popupOut {
+
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+
+        }
+
+
+        /* =========================
+           CARD
+        ========================== */
+
+        .card {
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 38px 42px;
+
+            box-shadow:
                 0 12px 35px rgba(20,65,60,.10);
+        }
 
+        .card-title {
+            margin-bottom: 30px;
+        }
+
+        .card-title h2 {
+            margin: 0 0 6px;
+            font-size: 25px;
+            color: #173b38;
+        }
+
+        .card-title p {
+            margin: 0;
+            color: #74817f;
+            font-size: 15px;
         }
 
 
-        .card-title{
+        /* =========================
+           FORM
+        ========================== */
 
-            margin-bottom:30px;
-
+        .form-group {
+            margin-bottom: 21px;
         }
 
+        label {
+            display: block;
 
-        .card-title h2{
+            margin-bottom: 8px;
 
-            margin:0 0 6px;
+            font-size: 15px;
 
-            font-size:25px;
+            font-weight: bold;
 
-            color:#173b38;
-
+            color: #294541;
         }
-
-
-        .card-title p{
-
-            margin:0;
-
-            color:#74817f;
-
-            font-size:15px;
-
-        }
-
-
-        .form-group{
-
-            margin-bottom:21px;
-
-        }
-
-
-        label{
-
-            display:block;
-
-            margin-bottom:8px;
-
-            font-size:15px;
-
-            font-weight:bold;
-
-            color:#294541;
-
-        }
-
 
         input,
         select,
-        textarea{
+        textarea {
+            width: 100%;
 
-            width:100%;
+            border: 1px solid #d2dfdc;
 
-            border:1px solid #d2dfdc;
+            border-radius: 9px;
 
-            border-radius:9px;
+            padding: 13px 14px;
 
-            padding:13px 14px;
+            font-family: Arial, sans-serif;
 
-            font-family:Arial,sans-serif;
+            font-size: 15px;
 
-            font-size:15px;
+            color: #263d3a;
 
-            color:#263d3a;
+            background: #fbfdfc;
 
-            background:#fbfdfc;
-
-            outline:none;
-
+            outline: none;
         }
-
 
         input:focus,
         select:focus,
-        textarea:focus{
-
-            border-color:#168575;
+        textarea:focus {
+            border-color: #168575;
 
             box-shadow:
-
                 0 0 0 3px rgba(22,133,117,.10);
-
         }
 
-
-        textarea{
-
-            min-height:130px;
-
-            resize:vertical;
-
-            line-height:1.5;
-
+        textarea {
+            min-height: 130px;
+            resize: vertical;
+            line-height: 1.5;
         }
-
 
         input::placeholder,
-        textarea::placeholder{
+        textarea::placeholder {
+            color: #9aa7a5;
+        }
 
-            color:#9aa7a5;
+        .row {
+            display: grid;
 
+            grid-template-columns: 1fr 1fr;
+
+            gap: 22px;
         }
 
 
-        .row{
+        /* =========================
+           POSITION
+        ========================== */
 
-            display:grid;
+        #position-group {
+            display: none;
+        }
 
-            grid-template-columns:1fr 1fr;
+        .position-help {
+            margin-top: 7px;
 
-            gap:22px;
+            font-size: 13px;
 
+            color: #71807d;
         }
 
 
-        .actions{
+        /* =========================
+           BUTTONS
+        ========================== */
 
-            display:flex;
+        .actions {
+            display: flex;
 
-            justify-content:flex-end;
+            justify-content: flex-end;
 
-            align-items:center;
+            align-items: center;
 
-            gap:14px;
+            gap: 14px;
 
-            border-top:1px solid #e4ece9;
+            border-top: 1px solid #e4ece9;
 
-            padding-top:25px;
+            padding-top: 25px;
 
-            margin-top:28px;
+            margin-top: 28px;
+        }
 
+        .cancel-button {
+            text-decoration: none;
+
+            padding: 13px 22px;
+
+            border-radius: 9px;
+
+            background: #edf1ef;
+
+            color: #53615e;
+
+            font-weight: bold;
+        }
+
+        .cancel-button:hover {
+            background: #e2e8e5;
+        }
+
+        .add-button {
+            border: none;
+
+            padding: 13px 25px;
+
+            border-radius: 9px;
+
+            background: #137b6d;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .add-button:hover {
+            background: #0f675c;
         }
 
 
-        .cancel-button{
+        /* =========================
+           INFO
+        ========================== */
 
-            text-decoration:none;
+        .info {
+            margin-top: 20px;
 
-            padding:13px 22px;
+            padding: 17px 20px;
 
-            border-radius:9px;
+            background: #e7f2ef;
 
-            background:#edf1ef;
+            border-left: 4px solid #168575;
 
-            color:#53615e;
+            border-radius: 8px;
+        }
 
-            font-weight:bold;
+        .info strong {
+            font-size: 15px;
+            color: #28534d;
+        }
 
+        .info p {
+            margin: 6px 0 0;
+
+            font-size: 14px;
+
+            color: #657571;
+
+            line-height: 1.5;
         }
 
 
-        .cancel-button:hover{
+        /* =========================
+           RESPONSIVE
+        ========================== */
 
-            background:#e2e8e5;
+        @media(max-width:700px) {
 
-        }
-
-
-        .add-button{
-
-            border:none;
-
-            padding:13px 25px;
-
-            border-radius:9px;
-
-            background:#137b6d;
-
-            color:white;
-
-            font-size:15px;
-
-            font-weight:bold;
-
-            cursor:pointer;
-
-        }
-
-
-        .add-button:hover{
-
-            background:#0f675c;
-
-        }
-
-
-        .info{
-
-            margin-top:20px;
-
-            padding:17px 20px;
-
-            background:#e7f2ef;
-
-            border-left:4px solid #168575;
-
-            border-radius:8px;
-
-        }
-
-
-        .info strong{
-
-            font-size:15px;
-
-            color:#28534d;
-
-        }
-
-
-        .info p{
-
-            margin:6px 0 0;
-
-            font-size:14px;
-
-            color:#657571;
-
-            line-height:1.5;
-
-        }
-
-
-        /* POSITION FIELD */
-
-        #position-group{
-
-            display:none;
-
-        }
-
-
-        .position-help{
-
-            margin-top:7px;
-
-            font-size:13px;
-
-            color:#71807d;
-
-        }
-
-
-        @media(max-width:700px){
-
-            .page{
-
-                padding:25px 15px;
-
+            .page {
+                padding: 25px 15px;
             }
 
-
-            .header{
-
-                flex-direction:column;
-
-                align-items:flex-start;
-
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
             }
 
-
-            .header h1{
-
-                font-size:32px;
-
+            .header h1 {
+                font-size: 32px;
             }
 
-
-            .card{
-
-                padding:25px 20px;
-
+            .card {
+                padding: 25px 20px;
             }
 
-
-            .row{
-
-                grid-template-columns:1fr;
-
-                gap:0;
-
+            .row {
+                grid-template-columns: 1fr;
+                gap: 0;
             }
 
-
-            .actions{
-
-                flex-direction:column-reverse;
-
-                align-items:stretch;
-
+            .actions {
+                flex-direction: column-reverse;
+                align-items: stretch;
             }
-
 
             .cancel-button,
-            .add-button{
-
-                text-align:center;
-
-                width:100%;
-
+            .add-button {
+                text-align: center;
+                width: 100%;
             }
 
-
             .success-popup,
-            .error-popup{
-
-                left:20px;
-
-                right:20px;
-
-                top:20px;
-
+            .error-popup {
+                left: 20px;
+                right: 20px;
+                top: 20px;
             }
 
         }
@@ -612,11 +454,12 @@
 
 <div class="page">
 
-
 <div class="container">
 
 
-    <!-- HEADER -->
+    <!-- =========================
+         HEADER
+    ========================== -->
 
     <div class="header">
 
@@ -626,11 +469,9 @@
                 CANDIDATE MANAGEMENT
             </div>
 
-
             <h1>
                 Add Candidate
             </h1>
-
 
             <p>
                 Register candidates and add their election information.
@@ -649,8 +490,9 @@
     </div>
 
 
-
-    <!-- FLASH MESSAGES -->
+    <!-- =========================
+         FLASH MESSAGES
+    ========================== -->
 
     {% with messages = get_flashed_messages(with_categories=true) %}
 
@@ -695,8 +537,9 @@
     {% endwith %}
 
 
-
-    <!-- FORM CARD -->
+    <!-- =========================
+         FORM CARD
+    ========================== -->
 
     <div class="card">
 
@@ -714,18 +557,18 @@
         </div>
 
 
-
         <form method="POST">
 
 
-            <!-- ELECTION -->
+            <!-- =========================
+                 ELECTION
+            ========================== -->
 
             <div class="form-group">
 
-                <label>
+                <label for="election_id">
                     Select Election
                 </label>
-
 
                 <select
                     name="election_id"
@@ -760,18 +603,18 @@
             </div>
 
 
-
-            <!-- POSITION -->
+            <!-- =========================
+                 POSITION
+            ========================== -->
 
             <div
                 class="form-group"
                 id="position-group"
             >
 
-                <label>
+                <label for="position">
                     Candidate Position
                 </label>
-
 
                 <input
                     type="text"
@@ -780,28 +623,29 @@
                     placeholder="Example: President, Secretary, Treasurer"
                 >
 
-
                 <div class="position-help">
 
-                    This field is required only for a multiple-position election.
+                    This field is required only for a
+                    Multiple Positions election.
 
                 </div>
 
             </div>
 
 
-
-            <!-- NAME -->
+            <!-- =========================
+                 CANDIDATE NAME
+            ========================== -->
 
             <div class="form-group">
 
-                <label>
+                <label for="name">
                     Candidate Name
                 </label>
 
-
                 <input
                     type="text"
+                    id="name"
                     name="name"
                     placeholder="Enter candidate name"
                     required
@@ -810,21 +654,22 @@
             </div>
 
 
-
-            <!-- AGE + GENDER -->
+            <!-- =========================
+                 AGE + GENDER
+            ========================== -->
 
             <div class="row">
 
 
                 <div class="form-group">
 
-                    <label>
+                    <label for="age">
                         Age
                     </label>
 
-
                     <input
                         type="number"
+                        id="age"
                         name="age"
                         min="18"
                         placeholder="Enter age"
@@ -836,12 +681,14 @@
 
                 <div class="form-group">
 
-                    <label>
+                    <label for="gender">
                         Gender
                     </label>
 
-
-                    <select name="gender">
+                    <select
+                        name="gender"
+                        id="gender"
+                    >
 
                         <option value="Male">
                             Male
@@ -862,18 +709,19 @@
             </div>
 
 
-
-            <!-- PARTY -->
+            <!-- =========================
+                 PARTY
+            ========================== -->
 
             <div class="form-group">
 
-                <label>
+                <label for="party">
                     Party Name
                 </label>
 
-
                 <input
                     type="text"
+                    id="party"
                     name="party"
                     placeholder="Enter party name"
                     required
@@ -882,18 +730,19 @@
             </div>
 
 
-
-            <!-- EDUCATION -->
+            <!-- =========================
+                 EDUCATION
+            ========================== -->
 
             <div class="form-group">
 
-                <label>
+                <label for="education">
                     Education
                 </label>
 
-
                 <input
                     type="text"
+                    id="education"
                     name="education"
                     placeholder="Enter educational qualification"
                     required
@@ -902,18 +751,19 @@
             </div>
 
 
-
-            <!-- PROFESSION -->
+            <!-- =========================
+                 PROFESSION
+            ========================== -->
 
             <div class="form-group">
 
-                <label>
+                <label for="profession">
                     Profession
                 </label>
 
-
                 <input
                     type="text"
+                    id="profession"
                     name="profession"
                     placeholder="Enter profession"
                     required
@@ -922,17 +772,18 @@
             </div>
 
 
-
-            <!-- MANIFESTO -->
+            <!-- =========================
+                 MANIFESTO
+            ========================== -->
 
             <div class="form-group">
 
-                <label>
+                <label for="manifesto">
                     Manifesto
                 </label>
 
-
                 <textarea
+                    id="manifesto"
                     name="manifesto"
                     placeholder="Enter candidate manifesto and key priorities..."
                     required
@@ -941,18 +792,18 @@
             </div>
 
 
-
-            <!-- BUTTONS -->
+            <!-- =========================
+                 BUTTONS
+            ========================== -->
 
             <div class="actions">
 
                 <a
-                    href="/admin/dashboard"
-                    class="cancel-button"
-                >
-                    Cancel
-                </a>
-
+    href="/election/list"
+    class="cancel-button"
+>
+    ← Back to Elections
+</a>
 
                 <button
                     type="submit"
@@ -969,6 +820,9 @@
     </div>
 
 
+    <!-- =========================
+         INFORMATION
+    ========================== -->
 
     <div class="info">
 
@@ -976,12 +830,14 @@
             💡 Add multiple candidates
         </strong>
 
-
         <p>
 
-            For a multiple-position election, enter the position
-            for each candidate. For example, President, Secretary,
-            or Treasurer.
+            For a Multiple Positions election,
+            enter the position for each candidate.
+
+            For example:
+            President, Secretary, Treasurer,
+            Vice President.
 
         </p>
 
@@ -990,17 +846,14 @@
 
 </div>
 
-
 </div>
 
 
+<!-- =========================
+     POSITION JAVASCRIPT
+========================== -->
 
 <script>
-
-    /*
-       Show or hide Position field
-       depending on election type.
-    */
 
     const electionSelect =
         document.getElementById("election_id");
@@ -1012,7 +865,7 @@
         document.getElementById("position");
 
 
-    function updatePositionField(){
+    function updatePositionField() {
 
         const selectedOption =
             electionSelect.options[
@@ -1020,10 +873,15 @@
             ];
 
 
-        if(
+        /*
+            If the election is "multiple",
+            show the position field.
+        */
+
+        if (
             selectedOption &&
             selectedOption.dataset.type === "multiple"
-        ){
+        ) {
 
             positionGroup.style.display = "block";
 
@@ -1031,7 +889,13 @@
 
         }
 
-        else{
+
+        /*
+            If the election is "single",
+            hide the position field.
+        */
+
+        else {
 
             positionGroup.style.display = "none";
 
@@ -1044,6 +908,10 @@
     }
 
 
+    /*
+        Run whenever admin changes election.
+    */
+
     electionSelect.addEventListener(
         "change",
         updatePositionField
@@ -1051,9 +919,10 @@
 
 
     /*
-       Run when page loads.
-       This is important when an election
-       was already selected.
+        Run when page first loads.
+
+        This is important when the page
+        already has a selected election.
     */
 
     updatePositionField();

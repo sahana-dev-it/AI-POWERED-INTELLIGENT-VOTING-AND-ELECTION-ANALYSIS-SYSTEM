@@ -1,5 +1,3 @@
-# Import Flask tools
-
 from flask import (
     Blueprint,
     render_template,
@@ -9,21 +7,17 @@ from flask import (
     session
 )
 
-
-# Import database
-
 from app import db
 
-
-# Import Candidate model
-
 from app.models.candidate import Candidate
-
-
-# Import Election model
-
 from app.models.election import Election
 
+
+candidate = Blueprint(
+    "candidate",
+    __name__,
+    url_prefix="/candidate"
+)
 
 # ----------------------------------
 # Create Candidate Blueprint
@@ -191,20 +185,25 @@ def create():
         selected_election=selected_election
     )
 
-
-# ==================================
+# ==========================================
 # VIEW CANDIDATES
-# ==================================
+# ==========================================
 
 @candidate.route("/list")
 def list_candidates():
 
+    # --------------------------------------
     # Get all elections
+    # --------------------------------------
 
-    elections = Election.query.all()
+    elections = Election.query.order_by(
+        Election.id.desc()
+    ).all()
 
 
+    # --------------------------------------
     # Get selected election
+    # --------------------------------------
 
     selected_election = request.args.get(
         "election_id",
@@ -212,38 +211,77 @@ def list_candidates():
     )
 
 
+    # --------------------------------------
+    # Get selected position
+    # --------------------------------------
+
+    selected_position = request.args.get(
+        "position",
+        ""
+    ).strip()
+
+
+    # --------------------------------------
     # Default values
+    # --------------------------------------
 
     candidates = []
 
     election = None
 
 
-    # ----------------------------------
-    # If election selected
-    # ----------------------------------
+    # ======================================
+    # ELECTION SELECTED
+    # ======================================
 
     if selected_election:
 
+        # Find the selected election
         election = Election.query.get_or_404(
             selected_election
         )
 
 
-        # Get candidates for this election
+        # ----------------------------------
+        # IMPORTANT:
+        # Get ONLY candidates belonging
+        # to this election.
+        # ----------------------------------
 
-        candidates = Candidate.query.filter_by(
-            election_id=selected_election
-        ).order_by(
-            Candidate.id
+        candidates_query = Candidate.query.filter(
+            Candidate.election_id == election.id
+        )
+
+
+        # ----------------------------------
+        # Position filter
+        # ----------------------------------
+
+        if (
+            election.election_type == "multiple"
+            and selected_position
+        ):
+
+            candidates_query = candidates_query.filter(
+                Candidate.position == selected_position
+            )
+
+
+        # ----------------------------------
+        # Get final candidates
+        # ----------------------------------
+
+        candidates = candidates_query.order_by(
+            Candidate.id.asc()
         ).all()
 
 
-    # ----------------------------------
-    # Display Candidate List
-    # ----------------------------------
+    # ======================================
+    # DISPLAY PAGE
+    # ======================================
 
     return render_template(
+
         "candidate/list.html",
 
         elections=elections,
@@ -252,7 +290,10 @@ def list_candidates():
 
         selected_election=selected_election,
 
+        selected_position=selected_position,
+
         election=election
+
     )
 
 
@@ -332,7 +373,7 @@ def edit_candidate(id):
 
     if request.method == "POST":
 
-        # Get selected election
+        # Get selected election ID
 
         election_id = request.form.get(
             "election_id",
