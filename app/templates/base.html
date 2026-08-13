@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {% block title %}
+            AI Voting System
+        {% endblock %}
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- ==========================================
+         GLOBAL NAVIGATION
+    =========================================== -->
+
+    <header class="site-header">
+
+        <div class="site-brand">
+
+            <div class="site-logo">
+                ✓
+            </div>
+
+            <div>
+
+                <div class="site-title">
+                    AI Voting System
+                </div>
+
+                <div class="site-subtitle">
+                    Secure • Transparent • Intelligent
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <nav class="site-nav">
+
+            {% if current_user.is_authenticated %}
+
+                {% if current_user.role == "admin" %}
+
+                    <a href="{{ url_for('admin.dashboard') }}">
+                        Dashboard
+                    </a>
+
+                {% else %}
+
+                    <a href="{{ url_for('voter.dashboard') }}">
+                        Dashboard
+                    </a>
+
+                {% endif %}
+
+
+                <a href="{{ url_for('auth.logout') }}">
+                    Logout
+                </a>
+
+            {% endif %}
+
+        </nav>
+
+    </header>
+
+
+    <!-- ==========================================
+         ELECTION ATMOSPHERE
+    =========================================== -->
+
+    <div class="election-background">
+
+        <div class="election-orb election-orb-one"></div>
+
+        <div class="election-orb election-orb-two"></div>
+
+        <div class="election-orb election-orb-three"></div>
+
+        <div class="election-pattern"></div>
+
+    </div>
+
+
+    <!-- ==========================================
+         FLASH MESSAGES
+    =========================================== -->
+
+    <main class="site-main">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                <div class="global-messages">
+
+                    {% for category, message in messages %}
+
+                        <div class="global-message {{ category }}">
+
+                            <span class="global-message-icon">
+                                {% if category == "success" %}
+                                    ✓
+                                {% elif category == "danger" %}
+                                    !
+                                {% elif category == "warning" %}
+                                    ⚠
+                                {% else %}
+                                    i
+                                {% endif %}
+                            </span>
+
+                            <span>
+                                {{ message }}
+                            </span>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <!-- ======================================
+             PAGE CONTENT
+        ======================================= -->
+
+        {% block content %}
+
+        {% endblock %}
+
+    </main>
+
+
+    <!-- ==========================================
+         FOOTER
+    =========================================== -->
+
+    <footer class="site-footer">
+
+        <div>
+
+            <strong>
+                AI-Powered Intelligent Voting
+            </strong>
+
+            <span>
+                Secure elections • Fair participation • Transparent results
+            </span>
+
+        </div>
+
+        <div class="footer-status">
+
+            <span class="status-dot"></span>
+
+            Election Platform Online
+
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>

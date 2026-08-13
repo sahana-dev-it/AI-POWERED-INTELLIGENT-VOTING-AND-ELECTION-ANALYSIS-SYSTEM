@@ -20,7 +20,7 @@
 </head>
 
 
-<body class="auth-page">
+<body class="auth-page login-page">
 
 
 <div class="auth-container">
@@ -38,9 +38,11 @@
                 SECURE ELECTION PLATFORM
             </p>
 
+
             <h1>
                 Welcome Back
             </h1>
+
 
             <p class="auth-description">
                 Access your voting account and continue
@@ -51,18 +53,29 @@
             <div class="auth-features">
 
                 <div class="auth-feature">
+
                     <span></span>
+
                     Secure user authentication
+
                 </div>
 
+
                 <div class="auth-feature">
+
                     <span></span>
+
                     Role-based access control
+
                 </div>
 
+
                 <div class="auth-feature">
+
                     <span></span>
+
                     Protected online voting
+
                 </div>
 
             </div>
@@ -80,15 +93,48 @@
 
         <div class="auth-form">
 
+
             <h2>
                 Login
             </h2>
+
 
             <p class="form-subtitle">
                 Sign in to continue to your dashboard.
             </p>
 
 
+            <!-- =================================
+                 LOGIN ERROR / SUCCESS MESSAGE
+            ================================== -->
+
+            {% if message %}
+
+                <div class="login-message">
+
+                    <span class="login-message-icon">
+                        !
+                    </span>
+
+                    <span>
+                        {{ message }}
+                    </span>
+
+                </div>
+
+            {% endif %}
+
+
+
+            <!-- =================================
+                 LOGIN FORM
+            ================================== -->
+
+            {% if message %}
+    <div class="auth-message">
+        {{ message }}
+    </div>
+{% endif %}
             <form
                 method="POST"
                 action="{{ url_for('auth.login') }}"
@@ -103,11 +149,13 @@
                         Email Address
                     </label>
 
+
                     <input
                         type="email"
                         id="email"
                         name="email"
                         placeholder="Enter your email"
+                        value="{{ request.form.get('email', '') }}"
                         required
                     >
 
@@ -132,6 +180,7 @@
                             placeholder="Enter your password"
                             required
                         >
+
 
                         <button
                             type="button"
@@ -166,7 +215,9 @@
 
                 Don't have an account?
 
-                <a href="{{ url_for('auth.register') }}">
+                <a
+                    href="{{ url_for('auth.register') }}"
+                >
                     Create an account
                 </a>
 

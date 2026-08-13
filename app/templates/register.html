@@ -27,10 +27,50 @@
 
 
     <!-- =========================================
-         LEFT BRANDING PANEL
+         LEFT ELECTION BRANDING PANEL
     ========================================== -->
 
     <section class="auth-info register-info">
+
+        <div class="election-decoration">
+
+            <div class="ballot-paper">
+
+                <div class="ballot-header">
+                    ELECTION
+                </div>
+
+                <div class="ballot-line"></div>
+                <div class="ballot-line short"></div>
+
+                <div class="ballot-option">
+                    <span class="ballot-box">✓</span>
+                    <span></span>
+                </div>
+
+                <div class="ballot-option">
+                    <span class="ballot-box"></span>
+                    <span></span>
+                </div>
+
+                <div class="ballot-option">
+                    <span class="ballot-box"></span>
+                    <span></span>
+                </div>
+
+            </div>
+
+
+            <div class="vote-symbol vote-symbol-one">
+                🗳️
+            </div>
+
+            <div class="vote-symbol vote-symbol-two">
+                ✓
+            </div>
+
+        </div>
+
 
         <div class="auth-info-content">
 
@@ -40,31 +80,39 @@
 
 
             <h1>
+
                 Your voice.
                 <br>
+
                 Your vote.
                 <br>
+
                 Your choice.
+
             </h1>
 
 
             <p class="auth-description">
 
-                Create your account and take part in
+                Create your account and participate in
                 secure, transparent and accessible
-                online elections.
+                digital elections.
 
             </p>
 
 
-            <!-- FEATURES -->
+            <!-- =================================
+                 FEATURES
+            ================================== -->
 
             <div class="auth-features">
 
 
                 <div class="auth-feature">
 
-                    <span class="feature-dot"></span>
+                    <span class="feature-dot">
+                        ✓
+                    </span>
 
                     <div>
 
@@ -73,7 +121,7 @@
                         </strong>
 
                         <small>
-                            Your account is protected.
+                            Your account information is protected.
                         </small>
 
                     </div>
@@ -83,7 +131,9 @@
 
                 <div class="auth-feature">
 
-                    <span class="feature-dot"></span>
+                    <span class="feature-dot">
+                        ✓
+                    </span>
 
                     <div>
 
@@ -92,7 +142,7 @@
                         </strong>
 
                         <small>
-                            Access elections with your account.
+                            Your email is verified before voting.
                         </small>
 
                     </div>
@@ -102,7 +152,9 @@
 
                 <div class="auth-feature">
 
-                    <span class="feature-dot"></span>
+                    <span class="feature-dot">
+                        ✓
+                    </span>
 
                     <div>
 
@@ -122,7 +174,9 @@
             </div>
 
 
-            <!-- INFORMATION CARD -->
+            <!-- =================================
+                 MINI INFORMATION CARD
+            ================================== -->
 
             <div class="auth-mini-card">
 
@@ -153,7 +207,7 @@
 
 
     <!-- =========================================
-         RIGHT FORM PANEL
+         RIGHT REGISTRATION FORM
     ========================================== -->
 
     <section class="auth-form-container register-form-container">
@@ -166,9 +220,15 @@
 
             <div class="form-header">
 
+                <p class="form-eyebrow">
+                    JOIN THE ELECTION
+                </p>
+
+
                 <h2>
                     Create your account
                 </h2>
+
 
                 <p class="form-subtitle">
                     Enter your details to get started.
@@ -181,7 +241,13 @@
 
                     <div class="auth-message">
 
-                        {{ message }}
+                        <span class="auth-message-icon">
+                            !
+                        </span>
+
+                        <span>
+                            {{ message }}
+                        </span>
 
                     </div>
 
@@ -216,6 +282,7 @@
                         name="name"
                         placeholder="Enter your full name"
                         autocomplete="name"
+                        value="{{ request.form.get('name', '') }}"
                         required
                     >
 
@@ -237,6 +304,7 @@
                         name="email"
                         placeholder="Enter your email address"
                         autocomplete="email"
+                        value="{{ request.form.get('email', '') }}"
                         required
                     >
 
@@ -310,7 +378,7 @@
 
 
 
-                    <!-- PASSWORD REQUIREMENTS -->
+                    <!-- PASSWORD RULES -->
 
                     <div class="password-rules">
 
@@ -427,7 +495,7 @@
 
 
 
-                <!-- CREATE ACCOUNT BUTTON -->
+                <!-- CREATE ACCOUNT -->
 
                 <button
                     type="submit"

@@ -13,15 +13,9 @@ from app.models.candidate import Candidate
 from app.models.election import Election
 
 
-candidate = Blueprint(
-    "candidate",
-    __name__,
-    url_prefix="/candidate"
-)
-
-# ----------------------------------
-# Create Candidate Blueprint
-# ----------------------------------
+# ==========================================
+# CREATE CANDIDATE BLUEPRINT
+# ==========================================
 
 candidate = Blueprint(
     "candidate",
@@ -30,9 +24,9 @@ candidate = Blueprint(
 )
 
 
-# ==================================
+# ==========================================
 # CREATE CANDIDATE
-# ==================================
+# ==========================================
 
 @candidate.route(
     "/create",
@@ -41,45 +35,51 @@ candidate = Blueprint(
 def create():
 
     # Get all elections
-
-    elections = Election.query.all()
-
+    elections = Election.query.order_by(
+        Election.id.desc()
+    ).all()
 
     # Previously selected election
-
     selected_election = session.get(
         "selected_election"
     )
 
-
-    # ----------------------------------
-    # Add Candidate
-    # ----------------------------------
+    # ======================================
+    # ADD CANDIDATE
+    # ======================================
 
     if request.method == "POST":
 
-        # Get selected election ID
-
+        # Get election ID
         election_id = request.form.get(
             "election_id",
             type=int
         )
 
+        # Make sure election was selected
+        if not election_id:
 
-        # Make sure election exists
+            flash(
+                "Please select an election.",
+                "danger"
+            )
 
+            return render_template(
+                "candidate/create.html",
+                elections=elections,
+                selected_election=selected_election
+            )
+
+        # Find election
         election = Election.query.get_or_404(
             election_id
         )
 
-
         # Remember selected election
-
         session["selected_election"] = election_id
 
-
         # ----------------------------------
-        # Get Position
+        # Get position
         # ----------------------------------
 
         position = request.form.get(
@@ -87,13 +87,9 @@ def create():
             ""
         ).strip()
 
-
         # ----------------------------------
         # Position rules
         # ----------------------------------
-
-        # Multiple-position election
-        # must have a position
 
         if election.election_type == "multiple":
 
@@ -107,77 +103,82 @@ def create():
                 return render_template(
                     "candidate/create.html",
                     elections=elections,
-                    selected_election=selected_election
+                    selected_election=election_id
                 )
-
-
-        # Single-position election
-        # does not need position
 
         else:
 
+            # Single Choice election
+            # does not use position
             position = None
 
-
         # ----------------------------------
-        # Create Candidate
+        # Create candidate
         # ----------------------------------
 
         new_candidate = Candidate(
 
             election_id=election_id,
 
-            name=request.form["name"],
+            name=request.form.get(
+                "name",
+                ""
+            ).strip(),
 
-            age=request.form["age"],
+            age=request.form.get(
+                "age",
+                ""
+            ).strip(),
 
-            gender=request.form["gender"],
+            gender=request.form.get(
+                "gender",
+                ""
+            ).strip(),
 
-            party=request.form["party"],
+            party=request.form.get(
+                "party",
+                ""
+            ).strip(),
 
-            education=request.form["education"],
+            education=request.form.get(
+                "education",
+                ""
+            ).strip(),
 
-            profession=request.form["profession"],
+            profession=request.form.get(
+                "profession",
+                ""
+            ).strip(),
 
-            manifesto=request.form["manifesto"],
+            manifesto=request.form.get(
+                "manifesto",
+                ""
+            ).strip(),
 
             position=position
-
         )
 
-
-        # Add candidate
-
+        # Save candidate
         db.session.add(
             new_candidate
         )
 
-
-        # Save candidate
-
         db.session.commit()
 
-
-        # ----------------------------------
-        # Success Message
-        # ----------------------------------
-
+        # Success message
         flash(
             "Candidate added successfully! You can add another candidate.",
             "success"
         )
 
-
-        # Stay on same page
-
+        # Stay on candidate creation page
         return redirect(
             "/candidate/create"
         )
 
-
-    # ----------------------------------
-    # Display Create Page
-    # ----------------------------------
+    # ======================================
+    # DISPLAY CREATE PAGE
+    # ======================================
 
     return render_template(
         "candidate/create.html",
@@ -185,103 +186,116 @@ def create():
         selected_election=selected_election
     )
 
+
 # ==========================================
 # VIEW CANDIDATES
 # ==========================================
 
-@candidate.route("/list")
+@candidate.route(
+    "/list"
+)
 def list_candidates():
 
-    # --------------------------------------
-    # Get all elections
-    # --------------------------------------
+    # ======================================
+    # GET ALL ELECTIONS
+    # ======================================
 
     elections = Election.query.order_by(
         Election.id.desc()
     ).all()
 
-
-    # --------------------------------------
-    # Get selected election
-    # --------------------------------------
+    # ======================================
+    # GET SELECTED ELECTION
+    # ======================================
 
     selected_election = request.args.get(
         "election_id",
         type=int
     )
 
-
-    # --------------------------------------
-    # Get selected position
-    # --------------------------------------
+    # ======================================
+    # GET SELECTED POSITION
+    # ======================================
 
     selected_position = request.args.get(
         "position",
         ""
     ).strip()
 
-
-    # --------------------------------------
     # Default values
-    # --------------------------------------
-
+    election = None
     candidates = []
 
-    election = None
-
-
     # ======================================
-    # ELECTION SELECTED
+    # IF ELECTION IS SELECTED
     # ======================================
 
     if selected_election:
 
-        # Find the selected election
+        # Find ONLY the selected election
         election = Election.query.get_or_404(
             selected_election
         )
 
-
         # ----------------------------------
         # IMPORTANT:
-        # Get ONLY candidates belonging
-        # to this election.
+        #
+        # Only candidates whose
+        # election_id matches the selected
+        # election are loaded.
         # ----------------------------------
 
         candidates_query = Candidate.query.filter(
-            Candidate.election_id == election.id
+            Candidate.election_id == selected_election
         )
 
-
         # ----------------------------------
-        # Position filter
-        # ----------------------------------
-
-        if (
-            election.election_type == "multiple"
-            and selected_position
-        ):
-
-            candidates_query = candidates_query.filter(
-                Candidate.position == selected_position
-            )
-
-
-        # ----------------------------------
-        # Get final candidates
+        # POSITION FILTER
         # ----------------------------------
 
+        if election.election_type == "multiple":
+
+            if selected_position:
+
+                candidates_query = candidates_query.filter(
+                    Candidate.position == selected_position
+                )
+
+        # Get candidates
         candidates = candidates_query.order_by(
             Candidate.id.asc()
         ).all()
 
+    # ======================================
+    # GET AVAILABLE POSITIONS
+    # FOR SELECTED ELECTION
+    # ======================================
+
+    positions = []
+
+    if election and election.election_type == "multiple":
+
+        positions = db.session.query(
+            Candidate.position
+        ).filter(
+            Candidate.election_id == election.id,
+            Candidate.position.isnot(None),
+            Candidate.position != ""
+        ).distinct().order_by(
+            Candidate.position.asc()
+        ).all()
+
+        # Convert tuples into simple strings
+        positions = [
+            position[0]
+            for position in positions
+        ]
 
     # ======================================
-    # DISPLAY PAGE
+    # DISPLAY CANDIDATE LIST
     # ======================================
 
     return render_template(
-
         "candidate/list.html",
 
         elections=elections,
@@ -292,14 +306,15 @@ def list_candidates():
 
         selected_position=selected_position,
 
-        election=election
+        election=election,
 
+        positions=positions
     )
 
 
-# ==================================
+# ==========================================
 # DELETE CANDIDATE
-# ==================================
+# ==========================================
 
 @candidate.route(
     "/delete/<int:id>"
@@ -307,47 +322,35 @@ def list_candidates():
 def delete_candidate(id):
 
     # Find candidate
-
     candidate_item = Candidate.query.get_or_404(
         id
     )
 
-
     # Remember election
-
     election_id = candidate_item.election_id
 
-
     # Delete candidate
-
     db.session.delete(
         candidate_item
     )
 
-
-    # Save changes
-
     db.session.commit()
 
-
     # Success message
-
     flash(
         "Candidate deleted successfully!",
         "success"
     )
 
-
     # Return to same election
-
     return redirect(
         f"/candidate/list?election_id={election_id}"
     )
 
 
-# ==================================
+# ==========================================
 # EDIT CANDIDATE
-# ==================================
+# ==========================================
 
 @candidate.route(
     "/edit/<int:id>",
@@ -355,38 +358,49 @@ def delete_candidate(id):
 )
 def edit_candidate(id):
 
-    # Find candidate
+    # ======================================
+    # FIND CANDIDATE
+    # ======================================
 
     candidate_item = Candidate.query.get_or_404(
         id
     )
 
-
     # Get all elections
+    elections = Election.query.order_by(
+        Election.id.desc()
+    ).all()
 
-    elections = Election.query.all()
-
-
-    # ----------------------------------
-    # Update Candidate
-    # ----------------------------------
+    # ======================================
+    # UPDATE CANDIDATE
+    # ======================================
 
     if request.method == "POST":
 
         # Get selected election ID
-
         election_id = request.form.get(
             "election_id",
             type=int
         )
 
+        # Make sure election was selected
+        if not election_id:
 
-        # Make sure election exists
+            flash(
+                "Please select an election.",
+                "danger"
+            )
 
+            return render_template(
+                "candidate/edit.html",
+                candidate=candidate_item,
+                elections=elections
+            )
+
+        # Find election
         election = Election.query.get_or_404(
             election_id
         )
-
 
         # ----------------------------------
         # Get position
@@ -396,7 +410,6 @@ def edit_candidate(id):
             "position",
             ""
         ).strip()
-
 
         # ----------------------------------
         # Position rules
@@ -413,95 +426,77 @@ def edit_candidate(id):
 
                 return render_template(
                     "candidate/edit.html",
-
                     candidate=candidate_item,
-
                     elections=elections
                 )
-
 
         else:
 
             position = None
 
-
-        # ----------------------------------
-        # Update candidate information
-        # ----------------------------------
+        # ==================================
+        # UPDATE CANDIDATE DATA
+        # ==================================
 
         candidate_item.election_id = election_id
 
+        candidate_item.name = request.form.get(
+            "name",
+            ""
+        ).strip()
 
-        candidate_item.name = request.form[
-            "name"
-        ]
+        candidate_item.age = request.form.get(
+            "age",
+            ""
+        ).strip()
 
+        candidate_item.gender = request.form.get(
+            "gender",
+            ""
+        ).strip()
 
-        candidate_item.age = request.form[
-            "age"
-        ]
+        candidate_item.party = request.form.get(
+            "party",
+            ""
+        ).strip()
 
+        candidate_item.education = request.form.get(
+            "education",
+            ""
+        ).strip()
 
-        candidate_item.gender = request.form[
-            "gender"
-        ]
+        candidate_item.profession = request.form.get(
+            "profession",
+            ""
+        ).strip()
 
-
-        candidate_item.party = request.form[
-            "party"
-        ]
-
-
-        candidate_item.education = request.form[
-            "education"
-        ]
-
-
-        candidate_item.profession = request.form[
-            "profession"
-        ]
-
-
-        candidate_item.manifesto = request.form[
-            "manifesto"
-        ]
-
-
-        # Save position
+        candidate_item.manifesto = request.form.get(
+            "manifesto",
+            ""
+        ).strip()
 
         candidate_item.position = position
 
-
         # Save changes
-
         db.session.commit()
 
-
-        # ----------------------------------
         # Success message
-        # ----------------------------------
-
         flash(
             "Candidate updated successfully!",
             "success"
         )
 
-
         # Return to selected election
-
         return redirect(
-            f"/candidate/list?election_id={candidate_item.election_id}"
+            f"/candidate/list?election_id={election_id}"
         )
 
-
-    # ----------------------------------
-    # Display Edit Page
-    # ----------------------------------
+    # ======================================
+    # DISPLAY EDIT PAGE
+    # ======================================
 
     return render_template(
         "candidate/edit.html",
-
         candidate=candidate_item,
-
         elections=elections
     )

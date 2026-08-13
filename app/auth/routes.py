@@ -1,39 +1,89 @@
-# Import Flask tools
-from flask import Blueprint, render_template, request, redirect, url_for, session
+# ==========================================
+# FLASK IMPORTS
+# ==========================================
 
-# Import Flask-Login
-from flask_login import login_user
+from flask import (
+    Blueprint,
+    render_template,
+    request,
+    redirect,
+    url_for,
+    session
+)
 
-# Import password hashing
-from werkzeug.security import generate_password_hash, check_password_hash
 
-# Import SQLAlchemy IntegrityError
+# ==========================================
+# FLASK-LOGIN
+# ==========================================
+
+from flask_login import (
+    login_user,
+    logout_user
+)
+
+
+# ==========================================
+# PASSWORD HASHING
+# ==========================================
+
+from werkzeug.security import (
+    generate_password_hash,
+    check_password_hash
+)
+
+
+# ==========================================
+# SQLALCHEMY
+# ==========================================
+
 from sqlalchemy.exc import IntegrityError
 
-# Import Flask-Mail
+
+# ==========================================
+# FLASK-MAIL
+# ==========================================
+
 from flask_mail import Message
 
-# Import database and User model
+
+# ==========================================
+# DATABASE AND USER MODEL
+# ==========================================
+
 from app import db, mail
 from app.models.user import User
 
-# Import OTP tools
+
+# ==========================================
+# OTP TOOLS
+# ==========================================
+
 import random
-from datetime import datetime, timedelta
+
+from datetime import (
+    datetime,
+    timedelta
+)
 
 
 # ==========================================
 # AUTHENTICATION BLUEPRINT
 # ==========================================
 
-auth = Blueprint("auth", __name__)
+auth = Blueprint(
+    "auth",
+    __name__
+)
 
 
-# ==========================================
-# REGISTRATION
-# ==========================================
+# ============================================================
+# REGISTER
+# ============================================================
 
-@auth.route("/register", methods=["GET", "POST"])
+@auth.route(
+    "/register",
+    methods=["GET", "POST"]
+)
 def register():
 
     message = ""
@@ -44,28 +94,36 @@ def register():
         # Get form data
         # ----------------------------------
 
-        name = request.form.get("name", "").strip()
+        name = request.form.get(
+            "name",
+            ""
+        ).strip()
 
         email = request.form.get(
-            "email", ""
+            "email",
+            ""
         ).strip().lower()
 
         password = request.form.get(
-            "password", ""
+            "password",
+            ""
         )
 
         confirm_password = request.form.get(
-            "confirm_password", ""
+            "confirm_password",
+            ""
         )
 
 
         # ----------------------------------
-        # Check required fields
+        # Required fields
         # ----------------------------------
 
         if not name or not email or not password:
 
-            message = "Please fill in all required fields."
+            message = (
+                "Please fill in all required fields."
+            )
 
             return render_template(
                 "register.html",
@@ -74,12 +132,14 @@ def register():
 
 
         # ----------------------------------
-        # Check password confirmation
+        # Password confirmation
         # ----------------------------------
 
         if password != confirm_password:
 
-            message = "Passwords do not match."
+            message = (
+                "Passwords do not match."
+            )
 
             return render_template(
                 "register.html",
@@ -88,14 +148,23 @@ def register():
 
 
         # ----------------------------------
-        # Check password requirements
+        # Password requirements
         # ----------------------------------
 
         if (
             len(password) < 8
-            or not any(c.isupper() for c in password)
-            or not any(c.islower() for c in password)
-            or not any(c.isdigit() for c in password)
+            or not any(
+                c.isupper()
+                for c in password
+            )
+            or not any(
+                c.islower()
+                for c in password
+            )
+            or not any(
+                c.isdigit()
+                for c in password
+            )
         ):
 
             message = (
@@ -121,7 +190,9 @@ def register():
 
         if existing_user:
 
-            message = "This email is already registered."
+            message = (
+                "This email is already registered."
+            )
 
             return render_template(
                 "register.html",
@@ -130,7 +201,7 @@ def register():
 
 
         # ----------------------------------
-        # Generate password hash
+        # Create password hash
         # ----------------------------------
 
         hashed_password = generate_password_hash(
@@ -143,20 +214,22 @@ def register():
         # ==================================
 
         verification_code = str(
-            random.randint(100000, 999999)
+            random.randint(
+                100000,
+                999999
+            )
         )
 
 
-        # OTP valid for 10 minutes
         verification_expiry = (
             datetime.utcnow()
             + timedelta(minutes=10)
         )
 
 
-        # ----------------------------------
-        # Create voter
-        # ----------------------------------
+        # ==================================
+        # CREATE USER
+        # ==================================
 
         new_user = User(
 
@@ -173,7 +246,6 @@ def register():
             verification_code=verification_code,
 
             verification_expiry=verification_expiry
-
         )
 
 
@@ -183,7 +255,9 @@ def register():
             # Save user
             # ----------------------------------
 
-            db.session.add(new_user)
+            db.session.add(
+                new_user
+            )
 
             db.session.commit()
 
@@ -194,10 +268,12 @@ def register():
 
             msg = Message(
 
-                subject="Voting System - Email Verification OTP",
+                subject=(
+                    "Voting System - "
+                    "Email Verification OTP"
+                ),
 
                 recipients=[email]
-
             )
 
 
@@ -228,15 +304,19 @@ Voting System
             # Store email in session
             # ----------------------------------
 
-            session["verification_email"] = email
+            session[
+                "verification_email"
+            ] = email
 
 
             # ----------------------------------
-            # Redirect to OTP page
+            # Go to OTP page
             # ----------------------------------
 
             return redirect(
-                url_for("auth.verify_otp")
+                url_for(
+                    "auth.verify_otp"
+                )
             )
 
 
@@ -271,9 +351,9 @@ Voting System
     )
 
 
-# ==========================================
+# ============================================================
 # OTP VERIFICATION
-# ==========================================
+# ============================================================
 
 @auth.route(
     "/verify-otp",
@@ -290,11 +370,16 @@ def verify_otp():
     )
 
 
-    # If email is not available
+    # ----------------------------------
+    # Email not available
+    # ----------------------------------
+
     if not email:
 
         return redirect(
-            url_for("auth.register")
+            url_for(
+                "auth.register"
+            )
         )
 
 
@@ -307,7 +392,6 @@ def verify_otp():
     ).first()
 
 
-    # If user does not exist
     if not user:
 
         session.pop(
@@ -316,12 +400,14 @@ def verify_otp():
         )
 
         return redirect(
-            url_for("auth.register")
+            url_for(
+                "auth.register"
+            )
         )
 
 
     # ----------------------------------
-    # If already verified
+    # Already verified
     # ----------------------------------
 
     if user.email_verified:
@@ -332,7 +418,9 @@ def verify_otp():
         )
 
         return redirect(
-            url_for("auth.login")
+            url_for(
+                "auth.login"
+            )
         )
 
 
@@ -352,7 +440,7 @@ def verify_otp():
 
 
         # ----------------------------------
-        # Check OTP format
+        # OTP format
         # ----------------------------------
 
         if (
@@ -372,22 +460,28 @@ def verify_otp():
 
 
         # ----------------------------------
-        # Check stored OTP
+        # Stored OTP
         # ----------------------------------
 
         stored_code = (
-            str(user.verification_code).strip()
+            str(
+                user.verification_code
+            ).strip()
             if user.verification_code
             else ""
         )
 
 
         # ----------------------------------
-        # Check expiry
+        # Current time
         # ----------------------------------
 
         current_time = datetime.utcnow()
 
+
+        # ----------------------------------
+        # Expiry check
+        # ----------------------------------
 
         if not user.verification_expiry:
 
@@ -413,32 +507,20 @@ def verify_otp():
             current_time <= user.verification_expiry
         ):
 
-            # Mark email verified
             user.email_verified = True
 
-
-            # Remove OTP
             user.verification_code = None
 
-
-            # Remove expiry
             user.verification_expiry = None
 
-
-            # Save changes
             db.session.commit()
 
 
-            # Remove session email
             session.pop(
                 "verification_email",
                 None
             )
 
-
-            # ----------------------------------
-            # Success page
-            # ----------------------------------
 
             return render_template(
                 "verification_success.html"
@@ -446,7 +528,7 @@ def verify_otp():
 
 
         # ==================================
-        # INVALID / EXPIRED OTP
+        # INVALID OTP
         # ==================================
 
         if stored_code != entered_code:
@@ -456,17 +538,16 @@ def verify_otp():
                 "6-digit code sent to your email."
             )
 
-        elif current_time > user.verification_expiry:
+        elif (
+            current_time >
+            user.verification_expiry
+        ):
 
             message = (
                 "This OTP has expired. "
                 "Please register again."
             )
 
-
-    # ----------------------------------
-    # Display OTP page
-    # ----------------------------------
 
     return render_template(
         "verify_otp.html",
@@ -475,9 +556,9 @@ def verify_otp():
     )
 
 
-# ==========================================
+# ============================================================
 # LOGIN
-# ==========================================
+# ============================================================
 
 @auth.route(
     "/login",
@@ -487,8 +568,15 @@ def login():
 
     message = ""
 
+    # ==================================
+    # LOGIN FORM SUBMITTED
+    # ==================================
 
     if request.method == "POST":
+
+        # ----------------------------------
+        # Get email
+        # ----------------------------------
 
         email = request.form.get(
             "email",
@@ -496,106 +584,174 @@ def login():
         ).strip().lower()
 
 
+        # ----------------------------------
+        # Get password
+        # ----------------------------------
+
         password = request.form.get(
             "password",
             ""
         )
 
 
-        # ----------------------------------
-        # Find user
-        # ----------------------------------
+        # ==================================
+        # VALIDATE EMAIL FIELD
+        # ==================================
+
+        if not email:
+
+            message = (
+                "Please enter your email address."
+            )
+
+            return render_template(
+                "login.html",
+                message=message
+            )
+
+
+        # ==================================
+        # VALIDATE PASSWORD FIELD
+        # ==================================
+
+        if not password:
+
+            message = (
+                "Please enter your password."
+            )
+
+            return render_template(
+                "login.html",
+                message=message
+            )
+
+
+        # ==================================
+        # FIND USER
+        # ==================================
 
         user = User.query.filter_by(
             email=email
         ).first()
 
 
-        if user:
+        # ==================================
+        # EMAIL NOT REGISTERED
+        # ==================================
 
-            # ----------------------------------
-            # Check password
-            # ----------------------------------
+        if not user:
 
-            if check_password_hash(
-                user.password,
-                password
-            ):
+            message = (
+                "No account found with this "
+                "email address. Please register first."
+            )
 
-                # ----------------------------------
-                # Check email verification
-                # ----------------------------------
-
-                if not user.email_verified:
-
-                    message = (
-                        "Please verify your email "
-                        "before logging in."
-                    )
-
-                    return render_template(
-                        "login.html",
-                        message=message
-                    )
+            return render_template(
+                "login.html",
+                message=message
+            )
 
 
-                # ----------------------------------
-                # Login user
-                # ----------------------------------
+        # ==================================
+        # CHECK PASSWORD
+        # ==================================
 
-                login_user(user)
-
-
-                # ----------------------------------
-                # Admin
-                # ----------------------------------
-
-                if user.role == "admin":
-
-                    return redirect(
-                        url_for(
-                            "admin.dashboard"
-                        )
-                    )
-
-
-                # ----------------------------------
-                # Voter
-                # ----------------------------------
-
-                return redirect(
-                    url_for(
-                        "voter.dashboard"
-                    )
-                )
-
-
-        # ----------------------------------
-        # Invalid login
-        # ----------------------------------
-
-        message = (
-            "Invalid email or password."
+        password_correct = check_password_hash(
+            user.password,
+            password
         )
 
+
+        # ==================================
+        # WRONG PASSWORD
+        # ==================================
+
+        if not password_correct:
+
+            message = (
+                "Incorrect password. "
+                "Please try again."
+            )
+
+            return render_template(
+                "login.html",
+                message=message
+            )
+
+
+        # ==================================
+        # CHECK EMAIL VERIFICATION
+        # ==================================
+
+        if not user.email_verified:
+
+            message = (
+                "Please verify your email "
+                "before logging in."
+            )
+
+            return render_template(
+                "login.html",
+                message=message
+            )
+
+
+        # ==================================
+        # LOGIN SUCCESS
+        # ==================================
+
+        login_user(
+            user
+        )
+
+
+        # ==================================
+        # ADMIN
+        # ==================================
+
+        if user.role == "admin":
+
+            return redirect(
+                url_for(
+                    "admin.dashboard"
+                )
+            )
+
+
+        # ==================================
+        # VOTER
+        # ==================================
+
+        return redirect(
+            url_for(
+                "voter.dashboard"
+            )
+        )
+
+
+    # ==================================
+    # DISPLAY LOGIN PAGE
+    # ==================================
 
     return render_template(
         "login.html",
         message=message
     )
-# ==========================================
-# LOGOUT
-# ==========================================
 
-@auth.route("/logout")
+
+# ============================================================
+# LOGOUT
+# ============================================================
+
+@auth.route(
+    "/logout"
+)
 def logout():
 
-    from flask_login import logout_user
-
-    # Log out the current user
     logout_user()
 
-    # Return to login page
     return redirect(
-        url_for("auth.login")
+        url_for(
+            "auth.login"
+        )
     )

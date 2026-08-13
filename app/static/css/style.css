@@ -6354,3 +6354,1621 @@ body {
     font-size: 14px;
     line-height: 1.5;
 }
+/* ==========================================
+   LOGIN MESSAGE
+   ========================================== */
+
+.login-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    width: 100%;
+    box-sizing: border-box;
+
+    margin: 18px 0;
+
+    padding: 12px 14px;
+
+    border-radius: 10px;
+
+    background: #fff1f0;
+
+    border: 1px solid #f5b7b1;
+
+    color: #b42318;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    font-weight: 500;
+}
+
+
+.login-message-icon {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 22px;
+    height: 22px;
+
+    border-radius: 50%;
+
+    background: #e74c3c;
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+/* =========================================================
+   ELECTION THEME - LOGIN & REGISTER PAGES
+   ========================================================= */
+
+/* ---------- Main authentication background ---------- */
+
+.auth-page {
+    min-height: 100vh;
+    margin: 0;
+    padding: 40px 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(20, 137, 119, 0.18),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(238, 104, 82, 0.13),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #eef8f5 0%,
+            #f8faf9 50%,
+            #f6f1ee 100%
+        );
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    color: #073b3a;
+
+    position: relative;
+    overflow: hidden;
+}
+
+
+/* ---------- Decorative background circles ---------- */
+
+.auth-page::before {
+    content: "";
+    position: fixed;
+
+    width: 520px;
+    height: 520px;
+
+    border-radius: 50%;
+
+    top: -260px;
+    left: -220px;
+
+    border: 1px solid rgba(18, 125, 108, 0.12);
+
+    box-shadow:
+        0 0 0 80px rgba(18, 125, 108, 0.025),
+        0 0 0 160px rgba(18, 125, 108, 0.02);
+
+    pointer-events: none;
+}
+
+
+.auth-page::after {
+    content: "";
+    position: fixed;
+
+    width: 420px;
+    height: 420px;
+
+    border-radius: 50%;
+
+    right: -220px;
+    bottom: -220px;
+
+    border: 1px solid rgba(238, 104, 82, 0.13);
+
+    box-shadow:
+        0 0 0 70px rgba(238, 104, 82, 0.025),
+        0 0 0 140px rgba(238, 104, 82, 0.018);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   AUTH CONTAINER
+   ========================================================= */
+
+.auth-container {
+    width: min(1100px, 100%);
+
+    min-height: 650px;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        0.95fr;
+
+    background: rgba(255, 255, 255, 0.96);
+
+    border-radius: 28px;
+
+    overflow: hidden;
+
+    position: relative;
+
+    z-index: 2;
+
+    border: 1px solid rgba(10, 75, 70, 0.08);
+
+    box-shadow:
+        0 30px 80px rgba(13, 76, 70, 0.14),
+        0 8px 25px rgba(13, 76, 70, 0.08);
+}
+
+
+/* =========================================================
+   LEFT ELECTION VISUAL PANEL
+   ========================================================= */
+
+.auth-info {
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            #086b60 0%,
+            #087f70 48%,
+            #15927d 100%
+        );
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+
+    padding: 70px 58px;
+}
+
+
+/* Large decorative circle */
+
+.auth-info::before {
+    content: "";
+
+    position: absolute;
+
+    width: 420px;
+    height: 420px;
+
+    border-radius: 50%;
+
+    right: -220px;
+    top: -210px;
+
+    border: 1px solid rgba(255,255,255,0.18);
+
+    box-shadow:
+        0 0 0 80px rgba(255,255,255,0.035),
+        0 0 0 160px rgba(255,255,255,0.025);
+}
+
+
+/* Bottom decorative circle */
+
+.auth-info::after {
+    content: "";
+
+    position: absolute;
+
+    width: 170px;
+    height: 170px;
+
+    border-radius: 50%;
+
+    bottom: -95px;
+    left: 45%;
+
+    background: rgba(255,255,255,0.14);
+
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+
+/* =========================================================
+   ELECTION SYMBOL / BALLOT DECORATION
+   ========================================================= */
+
+.auth-info-content {
+    position: relative;
+
+    z-index: 3;
+
+    max-width: 470px;
+}
+
+
+/* Small election label */
+
+.auth-label {
+    margin: 0 0 20px;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 3px;
+
+    color: #ff9c87;
+}
+
+
+/* Main heading */
+
+.auth-info h1 {
+    margin: 0 0 20px;
+
+    font-size: clamp(42px, 5vw, 64px);
+
+    line-height: 0.98;
+
+    letter-spacing: -2px;
+
+    font-weight: 850;
+
+    color: #ffffff;
+}
+
+
+/* Description */
+
+.auth-description {
+    max-width: 440px;
+
+    margin: 0 0 35px;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+
+    color: rgba(255,255,255,0.86);
+}
+
+
+/* =========================================================
+   FEATURE LIST
+   ========================================================= */
+
+.auth-features {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 16px;
+}
+
+
+.auth-feature {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    font-size: 13px;
+
+    font-weight: 650;
+
+    color: rgba(255,255,255,0.94);
+}
+
+
+.auth-feature span {
+    width: 9px;
+    height: 9px;
+
+    flex: 0 0 9px;
+
+    border-radius: 50%;
+
+    background: #ff806d;
+
+    box-shadow:
+        0 0 0 5px rgba(255,128,109,0.12);
+}
+
+
+/* =========================================================
+   BALLOT CARD DECORATION
+   ========================================================= */
+
+/*
+   This creates a ballot-paper style visual
+   without needing an external image.
+*/
+
+.auth-info-content::after {
+    content: "✓  VOTE";
+
+    position: absolute;
+
+    right: -55px;
+    bottom: -125px;
+
+    width: 145px;
+    height: 185px;
+
+    background: #ffffff;
+
+    color: #087b6d;
+
+    border-radius: 10px;
+
+    transform: rotate(8deg);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    box-shadow:
+        0 20px 40px rgba(0,0,0,0.16);
+
+    border-left: 8px solid #ff806d;
+}
+
+
+/* =========================================================
+   RIGHT FORM AREA
+   ========================================================= */
+
+.auth-form-container {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 55px 50px;
+
+    background:
+        rgba(255,255,255,0.98);
+}
+
+
+.auth-form {
+    width: 100%;
+
+    max-width: 390px;
+}
+
+
+/* Heading */
+
+.auth-form h2 {
+    margin: 0 0 8px;
+
+    font-size: 34px;
+
+    line-height: 1.1;
+
+    color: #073b3a;
+
+    font-weight: 850;
+
+    letter-spacing: -1px;
+}
+
+
+/* Subtitle */
+
+.form-subtitle {
+    margin: 0 0 30px;
+
+    color: #6d7d7b;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   FORM GROUP
+   ========================================================= */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 12px;
+
+    font-weight: 750;
+
+    color: #164d49;
+}
+
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+.form-group input,
+.password-wrapper input {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    height: 48px;
+
+    padding: 0 14px;
+
+    border: 1px solid #cbdcd8;
+
+    border-radius: 9px;
+
+    background: #fbfdfc;
+
+    color: #123f3c;
+
+    font-size: 13px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.form-group input::placeholder {
+    color: #9aaaa7;
+}
+
+
+.form-group input:focus,
+.password-wrapper input:focus {
+    border-color: #148977;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 4px rgba(20,137,119,0.10);
+}
+
+
+/* =========================================================
+   PASSWORD FIELD
+   ========================================================= */
+
+.password-wrapper {
+    position: relative;
+}
+
+
+.password-wrapper input {
+    padding-right: 48px;
+}
+
+
+.password-toggle {
+    position: absolute;
+
+    right: 10px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 32px;
+    height: 32px;
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+    opacity: 0.65;
+
+    transition: opacity 0.2s ease;
+}
+
+
+.password-toggle:hover {
+    opacity: 1;
+}
+
+
+/* =========================================================
+   LOGIN / REGISTER BUTTON
+   ========================================================= */
+
+.auth-button {
+    width: 100%;
+
+    min-height: 50px;
+
+    margin-top: 8px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d806f,
+            #117f70
+        );
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 22px rgba(13,128,111,0.20);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
+
+
+.auth-button:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.05);
+
+    box-shadow:
+        0 14px 28px rgba(13,128,111,0.27);
+}
+
+
+.auth-button:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   REGISTER / LOGIN SWITCH
+   ========================================================= */
+
+.auth-switch {
+    margin-top: 22px;
+
+    text-align: center;
+
+    font-size: 12px;
+
+    color: #71817e;
+}
+
+
+.auth-switch a {
+    color: #ef6955;
+
+    font-weight: 800;
+
+    text-decoration: none;
+}
+
+
+.auth-switch a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   ERROR / SUCCESS MESSAGE
+   ========================================================= */
+
+.auth-message {
+    margin-bottom: 20px;
+
+    padding: 12px 14px;
+
+    border-radius: 9px;
+
+    background: #fff4f1;
+
+    border-left: 4px solid #ef6955;
+
+    color: #9c392a;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+    font-weight: 650;
+}
+
+
+/* Success message */
+
+.auth-message.success {
+    background: #edf9f5;
+
+    border-left-color: #148977;
+
+    color: #096355;
+}
+
+
+/* =========================================================
+   REGISTER PAGE - MORE ROOM
+   ========================================================= */
+
+body.register-page .auth-container {
+    min-height: 720px;
+}
+
+
+body.register-page .auth-info {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+
+body.register-page .auth-form-container {
+    padding-top: 45px;
+    padding-bottom: 45px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .auth-page {
+        padding: 20px;
+    }
+
+    .auth-container {
+        grid-template-columns: 1fr;
+
+        max-width: 560px;
+
+        min-height: auto;
+    }
+
+    .auth-info {
+        min-height: 430px;
+
+        padding: 50px 40px;
+    }
+
+    .auth-info h1 {
+        font-size: 46px;
+    }
+
+    .auth-form-container {
+        padding: 45px 35px;
+    }
+
+}
+
+
+@media (max-width: 520px) {
+
+    .auth-page {
+        padding: 10px;
+    }
+
+    .auth-container {
+        border-radius: 18px;
+    }
+
+    .auth-info {
+        min-height: 380px;
+
+        padding: 40px 28px;
+    }
+
+    .auth-info h1 {
+        font-size: 38px;
+    }
+
+    .auth-description {
+        font-size: 13px;
+    }
+
+    .auth-form-container {
+        padding: 35px 25px;
+    }
+
+    .auth-form h2 {
+        font-size: 29px;
+    }
+
+}
+/* =========================================================
+   LOGIN PAGE — ELECTION THEME
+   ========================================================= */
+
+body.auth-page {
+    margin: 0;
+    min-height: 100vh;
+
+    font-family: "Segoe UI", Arial, sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 12% 20%,
+            rgba(20, 140, 125, 0.16),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 88% 78%,
+            rgba(240, 120, 80, 0.12),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #eef8f5 0%,
+            #f8fbfa 50%,
+            #fffaf7 100%
+        );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px 20px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   MAIN LOGIN CARD
+   ========================================================= */
+
+.auth-container {
+    width: min(100%, 920px);
+    min-height: 560px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    background: #ffffff;
+
+    border-radius: 26px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 30px 80px rgba(12, 72, 63, 0.16),
+        0 8px 25px rgba(12, 72, 63, 0.08);
+
+    position: relative;
+}
+
+
+/* =========================================================
+   LEFT ELECTION INFORMATION PANEL
+   ========================================================= */
+
+.auth-info {
+    position: relative;
+
+    background:
+        linear-gradient(
+            145deg,
+            #075f53 0%,
+            #0c7869 48%,
+            #168879 100%
+        );
+
+    color: white;
+
+    overflow: hidden;
+}
+
+
+/* Decorative election circles */
+
+.auth-info::before {
+    content: "";
+
+    position: absolute;
+
+    width: 280px;
+    height: 280px;
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    border-radius: 50%;
+
+    top: -110px;
+    right: -90px;
+}
+
+
+.auth-info::after {
+    content: "";
+
+    position: absolute;
+
+    width: 170px;
+    height: 170px;
+
+    background: rgba(255, 255, 255, 0.10);
+
+    border-radius: 50%;
+
+    bottom: -90px;
+    left: 55%;
+}
+
+
+/* =========================================================
+   LEFT CONTENT
+   ========================================================= */
+
+.auth-info-content {
+    position: relative;
+
+    z-index: 2;
+
+    padding: 65px 55px;
+
+    height: 100%;
+
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.auth-label {
+    margin: 0 0 18px;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 3px;
+
+    color: #ff8b78;
+}
+
+
+.auth-info h1 {
+    margin: 0;
+
+    max-width: 390px;
+
+    font-size: clamp(38px, 4vw, 54px);
+
+    line-height: 1.02;
+
+    font-weight: 800;
+
+    letter-spacing: -1.5px;
+}
+
+
+.auth-description {
+    margin-top: 24px;
+
+    max-width: 400px;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+
+    color: rgba(255, 255, 255, 0.88);
+}
+
+
+/* =========================================================
+   ELECTION FEATURES
+   ========================================================= */
+
+.auth-features {
+    margin-top: 32px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+
+.auth-feature {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: rgba(255, 255, 255, 0.95);
+}
+
+
+.auth-feature span {
+    width: 9px;
+    height: 9px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #ff806d;
+
+    box-shadow:
+        0 0 0 5px rgba(255, 128, 109, 0.13);
+}
+
+
+/* =========================================================
+   RIGHT LOGIN AREA
+   ========================================================= */
+
+.auth-form-container {
+    background: #ffffff;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 55px 50px;
+
+    box-sizing: border-box;
+}
+
+
+.auth-form {
+    width: 100%;
+
+    max-width: 360px;
+}
+
+
+.auth-form h2 {
+    margin: 0;
+
+    color: #073e39;
+
+    font-size: 34px;
+
+    line-height: 1.1;
+
+    font-weight: 800;
+}
+
+
+.form-subtitle {
+    margin: 10px 0 30px;
+
+    color: #6c817d;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   FORM GROUP
+   ========================================================= */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #173f3b;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+.form-group input {
+    width: 100%;
+
+    height: 48px;
+
+    padding: 0 14px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #cfdfdc;
+
+    border-radius: 9px;
+
+    background: #fbfdfc;
+
+    color: #173f3b;
+
+    font-size: 13px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.form-group input::placeholder {
+    color: #9aaca8;
+}
+
+
+.form-group input:focus {
+    border-color: #108675;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 4px rgba(16, 134, 117, 0.10);
+}
+
+
+/* =========================================================
+   PASSWORD FIELD
+   ========================================================= */
+
+.password-wrapper {
+    position: relative;
+}
+
+
+.password-wrapper input {
+    padding-right: 48px;
+}
+
+
+.password-toggle {
+    position: absolute;
+
+    top: 50%;
+    right: 10px;
+
+    transform: translateY(-50%);
+
+    width: 34px;
+    height: 34px;
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+    opacity: 0.65;
+
+    transition: opacity 0.2s ease;
+}
+
+
+.password-toggle:hover {
+    opacity: 1;
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+   ========================================================= */
+
+.auth-button {
+    width: 100%;
+
+    height: 50px;
+
+    margin-top: 8px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #138a78,
+            #096b5e
+        );
+
+    color: #ffffff;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 20px rgba(9, 107, 94, 0.20);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
+
+
+.auth-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 25px rgba(9, 107, 94, 0.28);
+
+    filter: brightness(1.04);
+}
+
+
+.auth-button:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   LOGIN ERROR / SUCCESS MESSAGE
+   ========================================================= */
+
+.auth-message {
+    margin-bottom: 20px;
+
+    padding: 12px 14px;
+
+    border-left: 4px solid #ef765f;
+
+    border-radius: 7px;
+
+    background: #fff4f1;
+
+    color: #9d4335;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   REGISTER LINK
+   ========================================================= */
+
+.auth-switch {
+    margin-top: 24px;
+
+    text-align: center;
+
+    color: #71817e;
+
+    font-size: 12px;
+}
+
+
+.auth-switch a {
+    color: #e76550;
+
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+
+.auth-switch a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 760px) {
+
+    .auth-container {
+        grid-template-columns: 1fr;
+
+        min-height: auto;
+
+        max-width: 520px;
+    }
+
+
+    .auth-info {
+        min-height: 330px;
+    }
+
+
+    .auth-info-content {
+        padding: 45px 35px;
+    }
+
+
+    .auth-info h1 {
+        font-size: 40px;
+    }
+
+
+    .auth-form-container {
+        padding: 45px 35px;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    body.auth-page {
+        padding: 15px;
+    }
+
+
+    .auth-container {
+        border-radius: 18px;
+    }
+
+
+    .auth-info-content {
+        padding: 38px 25px;
+    }
+
+
+    .auth-info h1 {
+        font-size: 34px;
+    }
+
+
+    .auth-form-container {
+        padding: 35px 25px;
+    }
+
+}
+/* =========================================================
+   ELECTION VISUAL - LOGIN / REGISTER
+   ========================================================= */
+
+.election-symbol {
+    position: absolute;
+
+    top: 45px;
+    right: 55px;
+
+    width: 150px;
+    height: 180px;
+
+    z-index: 1;
+}
+
+
+/* ---------------------------------------------------------
+   BALLOT PAPER
+   --------------------------------------------------------- */
+
+.ballot-paper {
+    position: relative;
+
+    width: 115px;
+    height: 145px;
+
+    padding: 18px 15px;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    border-radius: 7px;
+
+    transform: rotate(7deg);
+
+    box-shadow:
+        0 18px 35px rgba(0,0,0,0.18);
+
+    color: #176b60;
+}
+
+
+/* Paper top line */
+
+.ballot-line {
+    width: 75px;
+    height: 5px;
+
+    margin-bottom: 8px;
+
+    border-radius: 10px;
+
+    background: #d5e4e1;
+}
+
+
+.ballot-line.short {
+    width: 48px;
+
+    margin-bottom: 15px;
+}
+
+
+/* ---------------------------------------------------------
+   BALLOT OPTIONS
+   --------------------------------------------------------- */
+
+.ballot-choice {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-bottom: 10px;
+
+    font-size: 7px;
+
+    font-weight: 800;
+
+    color: #55716c;
+}
+
+
+.checkbox {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 14px;
+    height: 14px;
+
+    border-radius: 3px;
+
+    background: #148878;
+
+    color: white;
+
+    font-size: 10px;
+
+    font-weight: 900;
+}
+
+
+.checkbox.empty {
+    background: transparent;
+
+    border: 1px solid #bdd1cc;
+}
+
+
+/* ---------------------------------------------------------
+   BIG CHECK MARK
+   --------------------------------------------------------- */
+
+.vote-mark {
+    position: absolute;
+
+    right: -10px;
+    bottom: 4px;
+
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #ff806d;
+
+    color: white;
+
+    font-size: 25px;
+
+    font-weight: 900;
+
+    border: 5px solid #0b7667;
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,0.20);
+}
+
+
+/* =========================================================
+   LOGIN TEXT POSITION
+   ========================================================= */
+
+.login-page .auth-info-content {
+    padding-top: 210px;
+}
+
+
+/* =========================================================
+   REGISTER VISUAL
+   ========================================================= */
+
+.register-page .election-symbol {
+    top: 35px;
+}
+
+
+.register-page .auth-info-content {
+    padding-top: 190px;
+}
+
+
+/* =========================================================
+   ELECTION BADGE
+   ========================================================= */
+
+.auth-info-content::before {
+    content: "●  LIVE ELECTION SYSTEM";
+
+    position: absolute;
+
+    left: 0;
+    top: 25px;
+
+    padding: 7px 12px;
+
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.10);
+
+    border: 1px solid rgba(255,255,255,0.15);
+
+    color: rgba(255,255,255,0.85);
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   SMALL DECORATIVE ELECTION DOTS
+   ========================================================= */
+
+.auth-info-content::after {
+    content: "✦";
+
+    position: absolute;
+
+    right: 35px;
+    bottom: 40px;
+
+    color: #ff806d;
+
+    font-size: 30px;
+
+    opacity: 0.8;
+}
+
+
+/* =========================================================
+   LOGIN PAGE TAGLINE
+   ========================================================= */
+
+.login-page .auth-label {
+    color: #ff9a87;
+}
+
+
+/* =========================================================
+   REGISTER PAGE TAGLINE
+   ========================================================= */
+
+.register-page .auth-label {
+    color: #ff9a87;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .election-symbol {
+        right: 35px;
+        top: 30px;
+
+        transform: scale(0.8);
+        transform-origin: top right;
+    }
+
+    .login-page .auth-info-content,
+    .register-page .auth-info-content {
+        padding-top: 180px;
+    }
+
+}
+
+
+@media (max-width: 520px) {
+
+    .election-symbol {
+        right: 20px;
+        top: 25px;
+
+        transform: scale(0.65);
+    }
+
+    .login-page .auth-info-content,
+    .register-page .auth-info-content {
+        padding-top: 160px;
+    }
+
+    .auth-info-content::before {
+        font-size: 8px;
+    }
+
+}
