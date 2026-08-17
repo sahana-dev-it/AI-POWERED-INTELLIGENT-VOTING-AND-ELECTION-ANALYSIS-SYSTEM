@@ -1,0 +1,1232 @@
+/* =========================================================
+   REGISTER PAGE
+   Secure Election Platform
+========================================================= */
+
+.register-page {
+    min-height: 100vh;
+    margin: 0;
+    padding: 35px 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+}
+
+
+/* =========================================================
+   MAIN AUTH CONTAINER
+========================================================= */
+
+.register-page .auth-container {
+
+    width: min(1120px, 92%);
+    min-height: 680px;
+
+    display: grid;
+    grid-template-columns: 0.92fr 1.08fr;
+
+    overflow: hidden;
+
+    border-radius: 24px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 25px 70px rgba(30, 67, 58, 0.18);
+
+    position: relative;
+    z-index: 10;
+}
+
+
+/* =========================================================
+   LEFT GREEN ELECTION PANEL
+========================================================= */
+
+.register-info {
+
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 55px 48px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            145deg,
+            #075f52 0%,
+            #086b5c 45%,
+            #075448 100%
+        );
+}
+
+
+/* Decorative glow */
+
+.register-info::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 330px;
+    height: 330px;
+
+    top: -150px;
+    right: -120px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(255,255,255,0.10);
+
+    box-shadow:
+        0 0 0 35px rgba(255,255,255,0.025),
+        0 0 0 75px rgba(255,255,255,0.018);
+}
+
+
+.register-info::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+    height: 220px;
+
+    bottom: -130px;
+    left: -100px;
+
+    border-radius: 50%;
+
+    border-top: 1px solid rgba(255,255,255,0.13);
+
+    transform: rotate(-8deg);
+}
+
+
+/* =========================================================
+   DECORATIVE ELECTION ILLUSTRATION
+========================================================= */
+
+.election-decoration {
+
+    position: relative;
+
+    min-height: 220px;
+
+    margin-bottom: 20px;
+}
+
+
+/* Ballot paper */
+
+.register-info .ballot-paper {
+
+    position: absolute;
+
+    left: 20px;
+    top: 5px;
+
+    width: 145px;
+    min-height: 190px;
+
+    padding: 17px;
+
+    border-radius: 7px;
+
+    background: #ffffff;
+
+    color: #25463f;
+
+    transform: rotate(-5deg);
+
+    box-shadow:
+        0 16px 30px rgba(0,0,0,0.18);
+
+    z-index: 2;
+}
+
+
+.ballot-header {
+
+    margin-bottom: 13px;
+
+    color: #0d6254;
+
+    font-size: 11px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+}
+
+
+.ballot-line {
+
+    width: 100%;
+    height: 5px;
+
+    margin-bottom: 7px;
+
+    border-radius: 5px;
+
+    background: #dce7e3;
+}
+
+
+.ballot-line.short {
+
+    width: 65%;
+}
+
+
+.ballot-option {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 13px;
+}
+
+
+.register-info .ballot-box {
+
+    width: 17px;
+    height: 17px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border: 2px solid #3e8b73;
+
+    border-radius: 4px;
+
+    color: #3e8b73;
+
+    font-size: 11px;
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   FLOATING VOTING SYMBOLS
+========================================================= */
+
+.vote-symbol {
+
+    position: absolute;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.13);
+
+    backdrop-filter: blur(4px);
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,0.10);
+}
+
+
+.vote-symbol-one {
+
+    width: 58px;
+    height: 58px;
+
+    top: 25px;
+    right: 45px;
+
+    font-size: 28px;
+
+    transform: rotate(8deg);
+}
+
+
+.vote-symbol-two {
+
+    width: 43px;
+    height: 43px;
+
+    right: 15px;
+    bottom: 20px;
+
+    background: #70b85c;
+
+    color: white;
+
+    font-size: 21px;
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   BRANDING CONTENT
+========================================================= */
+
+.register-info .auth-info-content {
+
+    position: relative;
+
+    z-index: 5;
+
+    max-width: 390px;
+}
+
+
+.register-info .auth-label {
+
+    margin: 0 0 12px;
+
+    color: #a7d86c;
+
+    font-size: 11px;
+
+    font-weight: 900;
+
+    letter-spacing: 2.5px;
+}
+
+
+.register-info h1 {
+
+    margin: 0 0 18px;
+
+    color: #ffffff;
+
+    font-size: 39px;
+
+    line-height: 1.12;
+
+    letter-spacing: -0.8px;
+}
+
+
+.register-info .auth-description {
+
+    max-width: 370px;
+
+    margin: 0 0 28px;
+
+    color: rgba(255,255,255,0.78);
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   FEATURES
+========================================================= */
+
+.register-info .auth-features {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+
+.register-info .auth-feature {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.register-info .feature-dot {
+
+    width: 31px;
+    height: 31px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: rgba(129,191,91,0.95);
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 900;
+
+    box-shadow:
+        0 4px 10px rgba(0,0,0,0.12);
+}
+
+
+.register-info .auth-feature strong {
+
+    display: block;
+
+    margin-bottom: 2px;
+
+    color: white;
+
+    font-size: 12px;
+}
+
+
+.register-info .auth-feature small {
+
+    display: block;
+
+    color: rgba(255,255,255,0.66);
+
+    font-size: 10px;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   MINI INFORMATION CARD
+========================================================= */
+
+.register-info .auth-mini-card {
+
+    position: relative;
+
+    z-index: 5;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 25px;
+
+    padding: 13px 15px;
+
+    border: 1px solid rgba(255,255,255,0.12);
+
+    border-radius: 11px;
+
+    background: rgba(255,255,255,0.08);
+
+    backdrop-filter: blur(6px);
+}
+
+
+.register-info .mini-icon {
+
+    width: 31px;
+    height: 31px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #69a950;
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 900;
+}
+
+
+.register-info .auth-mini-card strong {
+
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: white;
+
+    font-size: 11px;
+}
+
+
+.register-info .auth-mini-card small {
+
+    display: block;
+
+    color: rgba(255,255,255,0.65);
+
+    font-size: 9px;
+
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   RIGHT FORM AREA
+========================================================= */
+
+.register-form-container {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 45px 52px;
+
+    background: #ffffff;
+}
+
+
+.register-form {
+
+    width: min(100%, 430px);
+}
+
+
+/* =========================================================
+   FORM HEADER
+========================================================= */
+
+.register-form .form-header {
+
+    margin-bottom: 25px;
+}
+
+
+.register-form .form-eyebrow {
+
+    margin: 0 0 7px;
+
+    color: #3c916f;
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+}
+
+
+.register-form .form-header h2 {
+
+    margin: 0 0 7px;
+
+    color: #173f37;
+
+    font-size: 27px;
+
+    line-height: 1.25;
+}
+
+
+.register-form .form-subtitle {
+
+    margin: 0;
+
+    color: #778681;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   SERVER MESSAGE
+========================================================= */
+
+.register-form .auth-message {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 18px;
+
+    padding: 11px 13px;
+
+    border: 1px solid #f0d2d2;
+
+    border-radius: 9px;
+
+    background: #fff1f1;
+
+    color: #9d4444;
+
+    font-size: 11px;
+}
+
+
+.auth-message-icon {
+
+    width: 20px;
+    height: 20px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #e05252;
+
+    color: white;
+
+    font-size: 11px;
+
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   FORM GROUPS
+========================================================= */
+
+.register-form .form-group {
+
+    margin-bottom: 17px;
+}
+
+
+.register-form label {
+
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #30443f;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+
+.register-form input {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 11px 13px;
+
+    border: 1px solid #dce4e1;
+
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #29463f;
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.register-form input::placeholder {
+
+    color: #a5afac;
+}
+
+
+.register-form input:focus {
+
+    border-color: #4c9b7c;
+
+    box-shadow:
+        0 0 0 3px rgba(76,155,124,0.10);
+}
+
+
+/* =========================================================
+   PASSWORD FIELD
+========================================================= */
+
+.password-wrapper {
+
+    position: relative;
+}
+
+
+.password-wrapper input {
+
+    padding-right: 42px;
+}
+
+
+.password-toggle {
+
+    position: absolute;
+
+    top: 50%;
+    right: 8px;
+
+    width: 30px;
+    height: 30px;
+
+    transform: translateY(-50%);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    opacity: 0.65;
+}
+
+
+.password-toggle:hover {
+
+    opacity: 1;
+}
+
+
+.eye-icon {
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   PASSWORD STRENGTH
+========================================================= */
+
+.password-strength {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin-top: 8px;
+}
+
+
+.strength-bars {
+
+    flex: 1;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 4px;
+}
+
+
+.strength-bars span {
+
+    height: 4px;
+
+    border-radius: 5px;
+
+    background: #e5ebe8;
+
+    transition:
+        background 0.2s ease;
+}
+
+
+.strength-bars span.strength-active {
+
+    background: #4d9a76;
+}
+
+
+.strength-text {
+
+    min-width: 92px;
+
+    color: #87948f;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    text-align: right;
+}
+
+
+/* =========================================================
+   PASSWORD RULES
+========================================================= */
+
+.password-rules {
+
+    margin-top: 12px;
+
+    padding: 12px 13px;
+
+    border-radius: 9px;
+
+    background: #edf7f2;
+}
+
+
+.rules-title {
+
+    margin: 0 0 7px;
+
+    color: #47685e;
+
+    font-size: 9px;
+
+    font-weight: 800;
+}
+
+
+.password-rule {
+
+    margin-top: 5px;
+
+    color: #73847e;
+
+    font-size: 9px;
+}
+
+
+.rule-icon {
+
+    display: inline-block;
+
+    width: 17px;
+
+    color: #9aac a6;
+
+    font-weight: 900;
+}
+
+
+.password-rule.rule-valid {
+
+    color: #39805f;
+
+    font-weight: 700;
+}
+
+
+.password-rule.rule-valid .rule-icon {
+
+    color: #4ca26f;
+}
+
+
+/* =========================================================
+   PASSWORD MATCH
+========================================================= */
+
+.password-match {
+
+    min-height: 15px;
+
+    margin-top: 6px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+
+.match-success {
+
+    color: #3e8b68;
+}
+
+
+.match-error {
+
+    color: #c65b5b;
+}
+
+
+/* =========================================================
+   CREATE ACCOUNT BUTTON
+========================================================= */
+
+.register-button {
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 12px 16px;
+
+    margin-top: 7px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #087563;
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.register-button:hover {
+
+    transform: translateY(-2px);
+
+    background: #066454;
+
+    box-shadow:
+        0 9px 20px rgba(8,117,99,0.20);
+}
+
+
+.button-arrow {
+
+    font-size: 17px;
+}
+
+
+/* =========================================================
+   LOGIN SWITCH
+========================================================= */
+
+.register-form .auth-switch {
+
+    margin: 16px 0 0;
+
+    color: #788781;
+
+    font-size: 10px;
+
+    text-align: center;
+}
+
+
+.register-form .auth-switch a {
+
+    color: #388b68;
+
+    font-weight: 800;
+
+    text-decoration: none;
+}
+
+
+.register-form .auth-switch a:hover {
+
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .register-page {
+
+        padding: 25px 0;
+    }
+
+
+    .register-page .auth-container {
+
+        grid-template-columns: 1fr;
+
+        width: min(620px, 92%);
+
+    }
+
+
+    .register-info {
+
+        min-height: 430px;
+
+        padding: 38px 35px;
+    }
+
+
+    .election-decoration {
+
+        min-height: 150px;
+    }
+
+
+    .register-info .ballot-paper {
+
+        transform: scale(0.82) rotate(-5deg);
+
+        transform-origin: top left;
+    }
+
+
+    .register-form-container {
+
+        padding: 40px 35px;
+    }
+
+}
+
+
+@media (max-width: 550px) {
+
+    .register-page {
+
+        padding: 15px 0;
+    }
+
+
+    .register-page .auth-container {
+
+        width: 94%;
+
+        border-radius: 18px;
+    }
+
+
+    .register-info {
+
+        padding: 32px 25px;
+
+        min-height: 470px;
+    }
+
+
+    .register-info h1 {
+
+        font-size: 32px;
+    }
+
+
+    .register-info .auth-description {
+
+        font-size: 13px;
+    }
+
+
+    .register-form-container {
+
+        padding: 32px 24px;
+    }
+
+
+    .register-form .form-header h2 {
+
+        font-size: 24px;
+    }
+
+
+    .password-strength {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .strength-bars {
+
+        width: 100%;
+    }
+
+
+    .strength-text {
+
+        text-align: left;
+    }
+
+}
+/* =========================================================
+   REGISTER PAGE - IMPROVED SCALE
+========================================================= */
+
+.register-page .auth-container {
+    width: min(1050px, 92vw);
+    min-height: 700px;
+
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+
+    border-radius: 24px;
+    overflow: hidden;
+
+    box-shadow:
+        0 25px 60px rgba(31, 70, 61, 0.16);
+}
+
+
+/* LEFT GREEN PANEL */
+
+.register-page .register-info {
+    min-height: 700px;
+    padding: 50px 48px;
+}
+
+
+/* RIGHT REGISTER AREA */
+
+.register-page .register-form-container {
+    min-height: 700px;
+    padding: 40px 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* FORM */
+
+.register-page .register-form {
+    width: 100%;
+    max-width: 430px;
+}
+
+
+/* HEADER */
+
+.register-page .form-header h2 {
+    font-size: 30px;
+    line-height: 1.25;
+}
+
+
+.register-page .form-subtitle {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* INPUTS */
+
+.register-page .form-group input {
+    min-height: 46px;
+
+    padding: 11px 15px;
+
+    font-size: 14px;
+}
+
+
+/* LABELS */
+
+.register-page .form-group label {
+    font-size: 13px;
+    margin-bottom: 7px;
+}
+
+
+/* CREATE ACCOUNT BUTTON */
+
+.register-page .register-button {
+    min-height: 50px;
+
+    font-size: 14px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 850px) {
+
+    .register-page .auth-container {
+        width: min(600px, 92vw);
+
+        display: block;
+
+        min-height: auto;
+    }
+
+    .register-page .register-info {
+        min-height: auto;
+    }
+
+    .register-page .register-form-container {
+        min-height: auto;
+        padding: 40px 35px;
+    }
+
+}
+
+
+@media (max-width: 550px) {
+
+    .register-page .auth-container {
+        width: 94vw;
+        border-radius: 18px;
+    }
+
+    .register-page .register-info {
+        padding: 35px 25px;
+    }
+
+    .register-page .register-form-container {
+        padding: 35px 22px;
+    }
+
+    .register-page .form-header h2 {
+        font-size: 26px;
+    }
+
+}

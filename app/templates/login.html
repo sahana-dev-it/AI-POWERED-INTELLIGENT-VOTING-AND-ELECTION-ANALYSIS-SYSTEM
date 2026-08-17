@@ -17,736 +17,593 @@
         href="{{ url_for('static', filename='css/style.css') }}"
     >
 
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/login.css') }}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/election_background.css') }}"
+    >
+
 </head>
 
 
 <body class="auth-page login-page">
 
+
     <!-- =====================================================
-         OUTER ELECTION DECORATIONS
-         These stay OUTSIDE the login container
+         ELECTION BACKGROUND DECORATIONS
     ====================================================== -->
 
     <div class="outer-election-decoration">
 
-        <!-- Inked voting finger -->
 
-        <div class="outer-ink-card">
+        <!-- =================================================
+             FLOATING BALLOT CARD - LEFT
+        ================================================== -->
 
-            <div class="outer-ink-hand">
-                🖐️
+        <div class="bg-ballot-card ballot-card-one">
+
+            <div class="bg-ballot-header">
+
+                <span>🗳️</span>
+
+                <strong>BALLOT</strong>
+
             </div>
 
-            <div>
-                <strong>I VOTED</strong>
-                <small>Vote with your voice</small>
+
+            <div class="bg-ballot-line"></div>
+
+            <div class="bg-ballot-line"></div>
+
+
+            <div class="bg-ballot-option">
+
+                <span class="bg-check checked">
+                    ✓
+                </span>
+
+                <span></span>
+
             </div>
 
-        </div>
 
+            <div class="bg-ballot-option">
 
-        <!-- EVM -->
+                <span class="bg-check"></span>
 
-        <div class="outer-evm">
+                <span></span>
 
-            <div class="outer-evm-title">
-                EVM
             </div>
 
-            <div class="outer-evm-row">
-                <span>01</span>
-                <b>●</b>
-            </div>
 
-            <div class="outer-evm-row selected">
-                <span>02</span>
-                <b>✓</b>
-            </div>
+            <div class="bg-ballot-option">
 
-            <div class="outer-evm-row">
-                <span>03</span>
-                <b>●</b>
-            </div>
+                <span class="bg-check"></span>
 
-            <div class="outer-vvpat">
-                VVPAT
-            </div>
-
-        </div>
-
-
-        <!-- Election symbols -->
-
-        <div class="outer-symbols">
-
-            <span class="outer-symbol-title">
-                ELECTION SYMBOLS
-            </span>
-
-            <div class="outer-symbol-list">
-
-                <span>🪷</span>
-                <span>✋</span>
-                <span>🌾</span>
+                <span></span>
 
             </div>
 
         </div>
 
 
-        <!-- Vote result -->
 
-        <div class="outer-results">
+        <!-- =================================================
+             FLOATING VOTE CARD - RIGHT
+        ================================================== -->
 
-            <strong>VOTE COUNT</strong>
+        <div class="bg-ballot-card ballot-card-two">
 
-            <div class="result-bar">
-                <span style="width:72%"></span>
+            <div class="bg-ballot-header">
+
+                <span>✓</span>
+
+                <strong>VOTE</strong>
+
             </div>
 
-            <div class="result-bar">
-                <span style="width:54%"></span>
+
+            <div class="bg-ballot-line"></div>
+
+
+            <div class="bg-ballot-option">
+
+                <span class="bg-check checked">
+                    ✓
+                </span>
+
+                <span></span>
+
             </div>
 
-            <div class="result-bar">
-                <span style="width:38%"></span>
-            </div>
 
-            <small>VOTES COUNTED</small>
+            <div class="bg-ballot-option">
+
+                <span class="bg-check"></span>
+
+                <span></span>
+
+            </div>
 
         </div>
+
 
     </div>
 
 
+
+    <!-- =====================================================
+         MAIN AUTH CONTAINER
+    ====================================================== -->
+
     <div class="auth-container">
 
 
-    <!-- =====================================================
-         LEFT ELECTION VISUAL PANEL
-    ====================================================== -->
-
-    <section class="auth-info login-info">
-
-
-        <!-- Decorative election circles -->
-
-        <div class="election-orbit orbit-one"></div>
-
-        <div class="election-orbit orbit-two"></div>
-
-
-        <!-- Floating election symbols -->
-
-        <div class="floating-symbol symbol-ballot">
-            🗳️
-        </div>
-
-        <div class="floating-symbol symbol-check">
-            ✓
-        </div>
-
-        <div class="floating-symbol symbol-star">
-            ★
-        </div>
-
-
         <!-- =================================================
-             LARGE BALLOT ILLUSTRATION
+             LEFT ELECTION VISUAL PANEL
         ================================================== -->
 
-        <div class="election-visual">
+        <section class="auth-info login-info">
 
 
-            <!-- Ballot paper -->
+            <!-- Decorative election circles -->
 
-            <div class="ballot-paper">
+            <div class="election-orbit orbit-one"></div>
 
-
-                <div class="ballot-paper-header">
-
-                    <div class="ballot-logo">
-                        ✓
-                    </div>
-
-                    <div>
-
-                        <strong>
-                            ELECTION
-                        </strong>
-
-                        <small>
-                            OFFICIAL BALLOT
-                        </small>
-
-                    </div>
-
-                </div>
-
-
-                <div class="ballot-divider"></div>
-
-
-                <div class="ballot-title">
-                    CAST YOUR VOTE
-                </div>
-
-
-                <!-- Candidate 1 -->
-
-                <div class="ballot-option">
-
-                    <span class="ballot-box checked">
-                        ✓
-                    </span>
-
-                    <div class="ballot-text">
-
-                        <strong>
-                            Candidate A
-                        </strong>
-
-                        <small>
-                            Democratic Choice
-                        </small>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Candidate 2 -->
-
-                <div class="ballot-option">
-
-                    <span class="ballot-box"></span>
-
-                    <div class="ballot-text">
-
-                        <strong>
-                            Candidate B
-                        </strong>
-
-                        <small>
-                            Public Service
-                        </small>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Candidate 3 -->
-
-                <div class="ballot-option">
-
-                    <span class="ballot-box"></span>
-
-                    <div class="ballot-text">
-
-                        <strong>
-                            Candidate C
-                        </strong>
-
-                        <small>
-                            Community Choice
-                        </small>
-
-                    </div>
-
-                </div>
-
-
-                <div class="ballot-footer">
-
-                    <span>
-                        SECURE
-                    </span>
-
-                    <span>
-                        VERIFIED
-                    </span>
-
-                    <span>
-                        ONE VOTE
-                    </span>
-
-                </div>
-
-
-            </div>
-
-
-            <!-- Ballot box -->
-
-            <div class="ballot-box-visual">
-
-
-                <div class="ballot-slot"></div>
-
-
-                <div class="ballot-box-body">
-
-                    <div class="ballot-box-check">
-                        ✓
-                    </div>
-
-                    <strong>
-                        YOUR
-                        <br>
-                        VOTE
-                    </strong>
-
-                </div>
-
-
-            </div>
-
-
-            <!-- Vote confirmation card -->
-
-            <div class="vote-confirmation">
-
-                <div class="confirmation-icon">
-                    ✓
-                </div>
-
-                <div>
-
-                    <strong>
-                        Vote Recorded
-                    </strong>
-
-                    <small>
-                        Your voice has been counted.
-                    </small>
-
-                </div>
-
-            </div>
-
-
-        </div>
-        
-
-
-        <!-- =================================================
-             BRANDING
-        ================================================== -->
-
-        <div class="auth-info-content">
-
-
-            <p class="auth-label">
-                SECURE ELECTION PLATFORM
-            </p>
-
-
-            <h1>
-
-                Welcome
-                <br>
-
-                <span>Back.</span>
-
-            </h1>
-
-
-            <p class="auth-description">
-
-                Your voice matters.
-                Sign in securely and participate
-                in transparent digital elections.
-
-            </p>
-
-
-            <!-- Features -->
-
-            <div class="auth-features">
-
-
-                <div class="auth-feature">
-
-                    <span class="feature-dot">
-                        ✓
-                    </span>
-
-                    <div>
-
-                        <strong>
-                            Secure Authentication
-                        </strong>
-
-                        <small>
-                            Your account is protected.
-                        </small>
-
-                    </div>
-
-                </div>
-
-
-                <div class="auth-feature">
-
-                    <span class="feature-dot">
-                        ✓
-                    </span>
-
-                    <div>
-
-                        <strong>
-                            Verified Voters
-                        </strong>
-
-                        <small>
-                            Only verified users can participate.
-                        </small>
-
-                    </div>
-
-                </div>
-
-
-                <div class="auth-feature">
-
-                    <span class="feature-dot">
-                        ✓
-                    </span>
-
-                    <div>
-
-                        <strong>
-                            Fair Elections
-                        </strong>
-
-                        <small>
-                            One person, one vote.
-                        </small>
-
-                    </div>
-
-                </div>
-
-
-            </div>
-
-
-            <!-- Live election card -->
-
-            <div class="auth-mini-card">
-
-
-                <span class="mini-live-dot"></span>
-
-
-                <div>
-
-                    <strong>
-                        Your voice matters
-                    </strong>
-
-                    <small>
-                        Sign in to view eligible elections
-                        and cast your vote.
-                    </small>
-
-                </div>
-
-
-            </div>
-
-
-        </div>
-
-
-    </section>
-
-
-
-    <!-- =====================================================
-         RIGHT LOGIN FORM
-    ====================================================== -->
-
-    <section class="auth-form-container login-form-container">
-
-
-        <div class="auth-form login-form">
-
-
-            <!-- Header -->
-
-            <div class="form-header">
-
-
-                <p class="form-eyebrow">
-                    WELCOME BACK
-                </p>
-
-
-                <h2>
-                    Login to your account
-                </h2>
-
-
-                <p class="form-subtitle">
-
-                    Sign in to continue to your
-                    election dashboard.
-
-                </p>
-
-
-            </div>
+            <div class="election-orbit orbit-two"></div>
 
 
 
             <!-- =================================================
-                 ERROR MESSAGE
+                 BRANDING
             ================================================== -->
 
-            {% if message %}
-
-                <div class="auth-message login-message">
+            <div class="auth-info-content">
 
 
-                    <span class="auth-message-icon">
-                        !
-                    </span>
+                <p class="auth-label">
+                    SECURE ELECTION PLATFORM
+                </p>
 
 
-                    <span>
-                        {{ message }}
-                    </span>
+                <h1>
+
+                    Welcome
+
+                    <br>
+
+                    <span>Back.</span>
+
+                </h1>
+
+
+                <p class="auth-description">
+
+                    Your voice matters.
+                    Sign in securely and participate
+                    in transparent digital elections.
+
+                </p>
+
+
+
+                <!-- =================================================
+                     FEATURES
+                ================================================== -->
+
+                <div class="auth-features">
+
+
+                    <div class="auth-feature">
+
+                        <span class="feature-dot">
+                            ✓
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Secure Authentication
+                            </strong>
+
+                            <small>
+                                Your account is protected.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="auth-feature">
+
+                        <span class="feature-dot">
+                            ✓
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Verified Voters
+                            </strong>
+
+                            <small>
+                                Only verified users can participate.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="auth-feature">
+
+                        <span class="feature-dot">
+                            ✓
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Fair Elections
+                            </strong>
+
+                            <small>
+                                One person, one vote.
+                            </small>
+
+                        </div>
+
+                    </div>
 
 
                 </div>
 
-            {% endif %}
+
+
+                <!-- =================================================
+                     LIVE ELECTION CARD
+                ================================================== -->
+
+                <div class="auth-mini-card">
+
+
+                    <span class="mini-live-dot"></span>
+
+
+                    <div>
+
+                        <strong>
+                            Your voice matters
+                        </strong>
+
+                        <small>
+
+                            Sign in to view eligible elections
+                            and cast your vote.
+
+                        </small>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
 
 
 
-            <!-- =================================================
-                 LOGIN FORM
-            ================================================== -->
+        <!-- =====================================================
+             RIGHT LOGIN FORM
+        ====================================================== -->
 
-            <form
-                method="POST"
-                action="{{ url_for('auth.login') }}"
-            >
+        <section class="auth-form-container login-form-container">
 
 
-                <!-- EMAIL -->
-
-                <div class="form-group">
+            <div class="auth-form login-form">
 
 
-                    <label for="email">
-                        Email Address
-                    </label>
+                <!-- =================================================
+                     FORM HEADER
+                ================================================== -->
+
+                <div class="form-header">
 
 
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="Enter your email"
-                        value="{{ request.form.get('email', '') }}"
-                        autocomplete="email"
-                        required
-                    >
+                    <p class="form-eyebrow">
+                        WELCOME BACK
+                    </p>
+
+
+                    <h2>
+                        Login to your account
+                    </h2>
+
+
+                    <p class="form-subtitle">
+
+                        Sign in to continue to your
+                        election dashboard.
+
+                    </p>
 
 
                 </div>
 
 
 
-                <!-- PASSWORD -->
+                <!-- =================================================
+                     ERROR MESSAGE
+                ================================================== -->
 
-                <div class="form-group">
+                {% if message %}
+
+                    <div class="auth-message login-message">
 
 
-                    <label for="password">
-                        Password
-                    </label>
+                        <span class="auth-message-icon">
+                            !
+                        </span>
 
 
-                    <div class="password-wrapper">
+                        <span>
+                            {{ message }}
+                        </span>
+
+
+                    </div>
+
+                {% endif %}
+
+
+
+                <!-- =================================================
+                     LOGIN FORM
+                ================================================== -->
+
+                <form
+                    method="POST"
+                    action="{{ url_for('auth.login') }}"
+                >
+
+
+                    <!-- EMAIL -->
+
+                    <div class="form-group">
+
+
+                        <label for="email">
+                            Email Address
+                        </label>
 
 
                         <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            placeholder="Enter your password"
-                            autocomplete="current-password"
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            value="{{ request.form.get('email', '') }}"
+                            autocomplete="email"
                             required
                         >
 
 
-                        <button
-                            type="button"
-                            class="password-toggle"
-                            onclick="togglePassword()"
-                            aria-label="Show password"
-                        >
+                    </div>
 
-                            <span
-                                id="passwordEye"
-                                class="eye-icon"
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="form-group">
+
+
+                        <label for="password">
+                            Password
+                        </label>
+
+
+                        <div class="password-wrapper">
+
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
                             >
-                                👁
-                            </span>
 
-                        </button>
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                onclick="togglePassword()"
+                                aria-label="Show password"
+                            >
+
+                                <span
+                                    id="passwordEye"
+                                    class="eye-icon"
+                                >
+                                    👁
+                                </span>
+
+                            </button>
+
+
+                        </div>
 
 
                     </div>
 
 
-                </div>
+
+                    <!-- =================================================
+                         SECURITY NOTE
+                    ================================================== -->
+
+                    <div class="login-security-note">
 
 
-
-                <!-- Security note -->
-
-                <div class="login-security-note">
-
-
-                    <span class="security-icon">
-                        🔒
-                    </span>
+                        <span class="security-icon">
+                            🔒
+                        </span>
 
 
-                    <div>
+                        <div>
 
-                        <strong>
-                            Secure login
-                        </strong>
+                            <strong>
+                                Secure login
+                            </strong>
 
-                        <small>
-                            Your credentials are protected
-                            using secure authentication.
-                        </small>
+                            <small>
+
+                                Your credentials are protected
+                                using secure authentication.
+
+                            </small>
+
+                        </div>
+
 
                     </div>
 
 
-                </div>
+
+                    <!-- =================================================
+                         LOGIN BUTTON
+                    ================================================== -->
+
+                    <button
+                        type="submit"
+                        class="auth-button login-button"
+                    >
+
+                        <span>
+                            Login to Dashboard
+                        </span>
+
+                        <span class="button-arrow">
+                            →
+                        </span>
+
+                    </button>
+
+
+                </form>
 
 
 
-                <!-- Login button -->
+                <!-- =================================================
+                     REGISTER LINK
+                ================================================== -->
 
-                <button
-                    type="submit"
-                    class="auth-button login-button"
-                >
+                <p class="auth-switch">
+
+
+                    Don't have an account?
+
+
+                    <a
+                        href="{{ url_for('auth.register') }}"
+                    >
+                        Create an account
+                    </a>
+
+
+                </p>
+
+
+
+                <!-- =================================================
+                     FOOTER
+                ================================================== -->
+
+                <div class="auth-form-footer">
+
 
                     <span>
-                        Login to Dashboard
+                        🗳️
                     </span>
 
-                    <span class="button-arrow">
-                        →
+
+                    <span>
+                        Secure • Transparent • Democratic
                     </span>
 
-                </button>
 
+                </div>
 
-            </form>
-
-
-
-            <!-- Register -->
-
-            <p class="auth-switch">
-
-                Don't have an account?
-
-                <a
-                    href="{{ url_for('auth.register') }}"
-                >
-                    Create an account
-                </a>
-
-            </p>
-
-
-
-            <!-- Footer -->
-
-            <div class="auth-form-footer">
-
-                <span>
-                    🗳️
-                </span>
-
-                <span>
-                    Secure • Transparent • Democratic
-                </span>
 
             </div>
 
 
-        </div>
+        </section>
 
 
-    </section>
-
-
-</div>
+    </div>
 
 
 
-<!-- =========================================================
-     PASSWORD SCRIPT
-========================================================= -->
+    <!-- =========================================================
+         PASSWORD TOGGLE SCRIPT
+    ========================================================== -->
 
-<script>
+    <script>
 
-function togglePassword() {
+        function togglePassword() {
 
-    const password =
-        document.getElementById("password");
+            const password =
+                document.getElementById("password");
 
-    const eye =
-        document.getElementById("passwordEye");
+            const eye =
+                document.getElementById("passwordEye");
 
 
-    if (password.type === "password") {
+            if (password.type === "password") {
 
-        password.type = "text";
+                password.type = "text";
 
-        eye.textContent = "🙈";
+                eye.textContent = "🙈";
 
-        document
-            .querySelector(".password-toggle")
-            .setAttribute(
-                "aria-label",
-                "Hide password"
-            );
+                document
+                    .querySelector(".password-toggle")
+                    .setAttribute(
+                        "aria-label",
+                        "Hide password"
+                    );
 
-    }
+            }
 
-    else {
+            else {
 
-        password.type = "password";
+                password.type = "password";
 
-        eye.textContent = "👁";
+                eye.textContent = "👁";
 
-        document
-            .querySelector(".password-toggle")
-            .setAttribute(
-                "aria-label",
-                "Show password"
-            );
+                document
+                    .querySelector(".password-toggle")
+                    .setAttribute(
+                        "aria-label",
+                        "Show password"
+                    );
 
-    }
+            }
 
-}
+        }
 
-</script>
+    </script>
 
 
 </body>

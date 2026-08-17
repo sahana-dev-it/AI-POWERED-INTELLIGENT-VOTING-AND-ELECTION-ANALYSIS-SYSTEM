@@ -12,11 +12,11 @@
 
     <title>Create Account | Secure Election Platform</title>
 
-    <link
-        rel="stylesheet"
-        href="{{ url_for('static', filename='css/style.css') }}"
-    >
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='css/register.css') }}">
 
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/election_background.css') }}">
 </head>
 
 
@@ -441,6 +441,16 @@
                             One number
 
                         </div>
+                        <div
+    class="password-rule"
+    id="rule-special"
+>
+    <span class="rule-icon">
+        ○
+    </span>
+
+    One special character
+</div>
 
                     </div>
 

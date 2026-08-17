@@ -1,0 +1,1912 @@
+/* =========================================================
+   LOGIN PAGE
+   Secure Election Platform
+========================================================= */
+
+.login-page {
+    min-height: 100vh;
+    margin: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 55px 30px;
+
+    background: transparent;
+
+    color: #29463f;
+}
+
+
+/* =========================================================
+   MAIN AUTH CONTAINER
+========================================================= */
+
+.login-page .auth-container {
+
+    position: relative;
+    z-index: 10;
+
+    width: min(900px, 94vw);
+
+    min-height: 540px;
+
+    display: grid;
+
+    grid-template-columns: 1.02fr 0.98fr;
+
+    overflow: hidden;
+
+    border-radius: 22px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 25px 70px rgba(28, 65, 57, 0.18),
+        0 8px 25px rgba(28, 65, 57, 0.08);
+}
+
+
+/* =========================================================
+   LEFT GREEN PANEL
+========================================================= */
+
+.login-info {
+
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 42px 38px;
+
+    background:
+        radial-gradient(
+            circle at 90% 8%,
+            rgba(255,255,255,0.10),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 5% 90%,
+            rgba(255,255,255,0.07),
+            transparent 30%
+        ),
+        linear-gradient(
+            145deg,
+            #075c4f,
+            #086b5b 48%,
+            #075548
+        );
+
+    color: white;
+}
+
+
+/* Decorative curves */
+
+.login-info::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 310px;
+    height: 310px;
+
+    right: -155px;
+    top: -115px;
+
+    border: 1px solid rgba(255,255,255,0.10);
+
+    border-radius: 50%;
+}
+
+
+.login-info::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 430px;
+    height: 170px;
+
+    left: -120px;
+    bottom: -95px;
+
+    border: 1px solid rgba(255,255,255,0.10);
+
+    border-radius: 50%;
+
+    transform: rotate(-8deg);
+}
+
+
+/* =========================================================
+   ORBITS
+========================================================= */
+
+.election-orbit {
+
+    position: absolute;
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+
+.orbit-one {
+
+    width: 220px;
+    height: 220px;
+
+    top: -95px;
+    right: -90px;
+}
+
+
+.orbit-two {
+
+    width: 330px;
+    height: 330px;
+
+    bottom: -220px;
+    left: -120px;
+}
+
+
+/* =========================================================
+   FLOATING SYMBOLS
+========================================================= */
+
+.floating-symbol {
+
+    position: absolute;
+
+    z-index: 3;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 36px;
+    height: 36px;
+
+    border-radius: 10px;
+
+    background: rgba(255,255,255,0.10);
+
+    border: 1px solid rgba(255,255,255,0.13);
+
+    color: white;
+
+    font-size: 17px;
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,0.10);
+
+    backdrop-filter: blur(5px);
+}
+
+
+.symbol-ballot {
+
+    top: 42px;
+    right: 38px;
+}
+
+
+.symbol-check {
+
+    top: 145px;
+    right: 30px;
+
+    color: #dcefc2;
+}
+
+
+.symbol-star {
+
+    bottom: 85px;
+    left: 32px;
+
+    color: #e6c477;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   ELECTION VISUAL
+========================================================= */
+
+.election-visual {
+
+    position: relative;
+
+    z-index: 4;
+
+    height: 245px;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================================
+   BALLOT PAPER
+========================================================= */
+
+.login-info .ballot-paper {
+
+    position: absolute;
+
+    top: 8px;
+    left: 50%;
+
+    width: 170px;
+
+    padding: 17px 17px 14px;
+
+    background: #fff;
+
+    color: #29463f;
+
+    border-radius: 6px;
+
+    transform:
+        translateX(-50%)
+        rotate(-5deg);
+
+    box-shadow:
+        0 18px 30px rgba(0,0,0,0.18);
+}
+
+
+.ballot-paper-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 10px;
+}
+
+
+.ballot-logo {
+
+    width: 25px;
+    height: 25px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 6px;
+
+    background: #08705f;
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 900;
+}
+
+
+.ballot-paper-header strong {
+
+    display: block;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+}
+
+
+.ballot-paper-header small {
+
+    display: block;
+
+    margin-top: 2px;
+
+    color: #8a968f;
+
+    font-size: 6px;
+
+    letter-spacing: .5px;
+}
+
+
+.ballot-divider {
+
+    height: 1px;
+
+    margin-bottom: 11px;
+
+    background: #dce5df;
+}
+
+
+.ballot-title {
+
+    margin-bottom: 10px;
+
+    color: #0b6657;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   BALLOT OPTIONS
+========================================================= */
+
+.login-info .ballot-option {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 8px;
+}
+
+
+.login-info .ballot-box {
+
+    width: 15px;
+    height: 15px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border: 1px solid #b7c9c1;
+
+    border-radius: 3px;
+
+    background: white;
+
+    color: white;
+
+    font-size: 9px;
+
+    font-weight: 900;
+}
+
+
+.login-info .ballot-box.checked {
+
+    background: #3f806d;
+
+    border-color: #3f806d;
+}
+
+
+.ballot-text strong {
+
+    display: block;
+
+    color: #405a53;
+
+    font-size: 7px;
+}
+
+
+.ballot-text small {
+
+    display: block;
+
+    margin-top: 2px;
+
+    color: #9aa49f;
+
+    font-size: 5px;
+}
+
+
+/* =========================================================
+   BALLOT FOOTER
+========================================================= */
+
+.ballot-footer {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 13px;
+
+    padding-top: 8px;
+
+    border-top: 1px solid #e4e9e5;
+
+    color: #82918b;
+
+    font-size: 5px;
+
+    font-weight: 900;
+
+    letter-spacing: .5px;
+}
+
+
+/* =========================================================
+   BALLOT BOX
+========================================================= */
+
+.ballot-box-visual {
+
+    position: absolute;
+
+    z-index: 2;
+
+    left: calc(50% + 52px);
+
+    bottom: 2px;
+
+    width: 90px;
+}
+
+
+.ballot-slot {
+
+    width: 72px;
+    height: 10px;
+
+    margin: 0 auto -2px;
+
+    border-radius: 8px 8px 2px 2px;
+
+    background: #063e36;
+
+    box-shadow:
+        inset 0 2px 3px rgba(0,0,0,0.25);
+}
+
+
+.ballot-box-body {
+
+    width: 90px;
+    height: 78px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-direction: column;
+
+    border-radius: 5px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #0b725f,
+            #075648
+        );
+
+    color: white;
+
+    box-shadow:
+        0 15px 25px rgba(0,0,0,0.18);
+}
+
+
+.ballot-box-check {
+
+    width: 25px;
+    height: 25px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 5px;
+
+    border-radius: 7px;
+
+    background: rgba(255,255,255,0.14);
+
+    font-size: 14px;
+
+    font-weight: 900;
+}
+
+
+.ballot-box-body strong {
+
+    font-size: 8px;
+
+    line-height: 1.15;
+
+    letter-spacing: 1px;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   VOTE CONFIRMATION
+========================================================= */
+
+.vote-confirmation {
+
+    position: absolute;
+
+    z-index: 6;
+
+    left: 50%;
+
+    bottom: 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    width: 150px;
+
+    padding: 9px 11px;
+
+    border: 1px solid rgba(255,255,255,0.25);
+
+    border-radius: 9px;
+
+    background: rgba(255,255,255,0.96);
+
+    color: #315f54;
+
+    transform: translateX(20px);
+
+    box-shadow:
+        0 12px 25px rgba(0,0,0,0.16);
+}
+
+
+.confirmation-icon {
+
+    width: 24px;
+    height: 24px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #dcefe6;
+
+    color: #3f806d;
+
+    font-size: 12px;
+
+    font-weight: 900;
+}
+
+
+.vote-confirmation strong {
+
+    display: block;
+
+    font-size: 8px;
+}
+
+
+.vote-confirmation small {
+
+    display: block;
+
+    margin-top: 2px;
+
+    color: #84918c;
+
+    font-size: 6px;
+}
+
+
+/* =========================================================
+   LEFT PANEL CONTENT
+========================================================= */
+
+.login-info-content {
+
+    position: relative;
+
+    z-index: 5;
+
+    max-width: 310px;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.login-info .auth-label {
+
+    margin: 0 0 8px;
+
+    color: #e2bd63;
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.login-info h1 {
+
+    margin: 0 0 12px;
+
+    color: white;
+
+    font-size: 28px;
+
+    line-height: 1.08;
+
+    letter-spacing: -.5px;
+}
+
+
+.login-info h1 span {
+
+    color: #b8dc59;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.login-info .auth-description {
+
+    max-width: 270px;
+
+    margin: 0 0 20px;
+
+    color: rgba(255,255,255,0.78);
+
+    font-size: 11px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   FEATURES
+========================================================= */
+
+.login-info .auth-features {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 11px;
+}
+
+
+.login-info .auth-feature {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.login-info .feature-dot {
+
+    width: 25px;
+    height: 25px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: rgba(114,180,75,0.25);
+
+    color: #d9efbd;
+
+    font-size: 11px;
+
+    font-weight: 900;
+}
+
+
+.login-info .auth-feature strong {
+
+    display: block;
+
+    margin-bottom: 2px;
+
+    color: white;
+
+    font-size: 9px;
+}
+
+
+.login-info .auth-feature small {
+
+    display: block;
+
+    color: rgba(255,255,255,0.62);
+
+    font-size: 7px;
+
+    line-height: 1.35;
+}
+
+
+/* =========================================================
+   MINI CARD
+========================================================= */
+
+.login-info .auth-mini-card {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin-top: 20px;
+
+    padding: 10px 12px;
+
+    border: 1px solid rgba(255,255,255,0.16);
+
+    border-radius: 9px;
+
+    background: rgba(255,255,255,0.08);
+}
+
+
+.mini-live-dot {
+
+    width: 8px;
+    height: 8px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #e6c45f;
+
+    box-shadow:
+        0 0 0 4px rgba(230,196,95,0.12);
+}
+
+
+.login-info .auth-mini-card strong {
+
+    display: block;
+
+    color: white;
+
+    font-size: 8px;
+}
+
+
+.login-info .auth-mini-card small {
+
+    display: block;
+
+    margin-top: 2px;
+
+    color: rgba(255,255,255,0.62);
+
+    font-size: 6px;
+
+    line-height: 1.35;
+}
+
+
+/* =========================================================
+   RIGHT LOGIN FORM AREA
+========================================================= */
+
+.login-form-container {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #ffffff;
+
+    padding: 38px 48px;
+}
+
+
+.login-form {
+
+    width: 100%;
+
+    max-width: 330px;
+}
+
+
+/* =========================================================
+   FORM HEADER
+========================================================= */
+
+.login-form .form-header {
+
+    margin-bottom: 25px;
+}
+
+
+.login-form .form-eyebrow {
+
+    margin: 0 0 7px;
+
+    color: #3f806d;
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+}
+
+
+.login-form h2 {
+
+    margin: 0 0 7px;
+
+    color: #193e36;
+
+    font-size: 24px;
+
+    line-height: 1.2;
+}
+
+
+.login-form .form-subtitle {
+
+    margin: 0;
+
+    color: #7a8983;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   ERROR MESSAGE
+========================================================= */
+
+.login-message {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin-bottom: 17px;
+
+    padding: 10px 11px;
+
+    border: 1px solid #f2cfd4;
+
+    border-radius: 8px;
+
+    background: #fff1f3;
+
+    color: #b54856;
+
+    font-size: 8px;
+}
+
+
+.auth-message-icon {
+
+    width: 20px;
+    height: 20px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #dc5262;
+
+    color: white;
+
+    font-size: 10px;
+
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   FORM GROUP
+========================================================= */
+
+.login-form .form-group {
+
+    margin-bottom: 17px;
+}
+
+
+.login-form label {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #29463f;
+
+    font-size: 8px;
+
+    font-weight: 800;
+}
+
+
+.login-form input {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 11px 12px;
+
+    border: 1px solid #d9e2de;
+
+    border-radius: 7px;
+
+    outline: none;
+
+    background: #ffffff;
+
+    color: #29463f;
+
+    font-family: inherit;
+
+    font-size: 10px;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+
+.login-form input::placeholder {
+
+    color: #a4afab;
+}
+
+
+.login-form input:focus {
+
+    border-color: #3f806d;
+
+    box-shadow:
+        0 0 0 3px rgba(63,128,109,0.10);
+}
+
+
+/* =========================================================
+   PASSWORD
+========================================================= */
+
+.password-wrapper {
+
+    position: relative;
+}
+
+
+.password-wrapper input {
+
+    padding-right: 40px;
+}
+
+
+.password-toggle {
+
+    position: absolute;
+
+    top: 50%;
+    right: 9px;
+
+    width: 25px;
+    height: 25px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: none;
+
+    background: transparent;
+
+    color: #83918c;
+
+    cursor: pointer;
+
+    transform: translateY(-50%);
+}
+
+
+.password-toggle:hover {
+
+    color: #315f54;
+}
+
+
+.eye-icon {
+
+    font-size: 12px;
+
+    line-height: 1;
+}
+
+
+/* =========================================================
+   SECURITY NOTE
+========================================================= */
+
+.login-security-note {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin: 3px 0 18px;
+
+    padding: 10px 11px;
+
+    border: 1px solid #d9ebe2;
+
+    border-radius: 8px;
+
+    background: #eff8f4;
+}
+
+
+.login-security-note .security-icon {
+
+    width: 23px;
+    height: 23px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #dcefe5;
+
+    color: #347660;
+
+    font-size: 10px;
+}
+
+
+.login-security-note strong {
+
+    display: block;
+
+    margin-bottom: 2px;
+
+    color: #315f54;
+
+    font-size: 8px;
+}
+
+
+.login-security-note small {
+
+    display: block;
+
+    color: #7b8d86;
+
+    font-size: 6px;
+
+    line-height: 1.35;
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+========================================================= */
+
+.login-button {
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 12px 14px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #08705f,
+            #0a806c
+        );
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 18px rgba(8,112,95,0.16);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+
+.login-button:hover {
+
+    transform: translateY(-2px);
+
+    background:
+        linear-gradient(
+            135deg,
+            #075e51,
+            #08705f
+        );
+
+    box-shadow:
+        0 12px 22px rgba(8,112,95,0.22);
+}
+
+
+.button-arrow {
+
+    font-size: 15px;
+
+    line-height: 1;
+}
+
+
+/* =========================================================
+   REGISTER SWITCH
+========================================================= */
+
+.login-form .auth-switch {
+
+    margin: 15px 0 0;
+
+    text-align: center;
+
+    color: #82908b;
+
+    font-size: 8px;
+}
+
+
+.login-form .auth-switch a {
+
+    color: #32806c;
+
+    font-weight: 800;
+
+    text-decoration: none;
+}
+
+
+.login-form .auth-switch a:hover {
+
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   FORM FOOTER
+========================================================= */
+
+.login-form .auth-form-footer {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
+    margin-top: 22px;
+
+    padding-top: 15px;
+
+    border-top: 1px solid #e6ebe8;
+
+    color: #9aa49f;
+
+    font-size: 6px;
+}
+
+
+.login-form .auth-form-footer span:first-child {
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 850px) {
+
+    .login-page {
+
+        padding: 35px 20px;
+    }
+
+
+    .login-page .auth-container {
+
+        width: min(620px, 94vw);
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .login-info {
+
+        min-height: 510px;
+
+        padding: 38px 35px;
+    }
+
+
+    .login-form-container {
+
+        padding: 42px 35px;
+    }
+
+}
+
+
+@media (max-width: 550px) {
+
+    .login-page {
+
+        padding: 20px 12px;
+    }
+
+
+    .login-page .auth-container {
+
+        width: 100%;
+
+        border-radius: 16px;
+    }
+
+
+    .login-info {
+
+        min-height: 470px;
+
+        padding: 30px 25px;
+    }
+
+
+    .login-info h1 {
+
+        font-size: 25px;
+    }
+
+
+    .election-visual {
+
+        height: 220px;
+    }
+
+
+    .login-info .ballot-paper {
+
+        width: 155px;
+    }
+
+
+    .ballot-box-visual {
+
+        left: calc(50% + 42px);
+
+        transform: scale(.9);
+
+        transform-origin: bottom left;
+    }
+
+
+    .vote-confirmation {
+
+        transform:
+            translateX(5px)
+            scale(.9);
+
+        transform-origin: left bottom;
+    }
+
+
+    .login-form-container {
+
+        padding: 35px 25px;
+    }
+
+
+    .login-form h2 {
+
+        font-size: 22px;
+    }
+
+}
+
+
+@media (max-width: 400px) {
+
+    .login-info {
+
+        padding: 27px 21px;
+    }
+
+
+    .election-visual {
+
+        height: 205px;
+    }
+
+
+    .login-info .ballot-paper {
+
+        width: 145px;
+
+        transform:
+            translateX(-50%)
+            rotate(-4deg)
+            scale(.92);
+    }
+
+
+    .ballot-box-visual {
+
+        left: calc(50% + 35px);
+
+        transform: scale(.78);
+    }
+
+
+    .vote-confirmation {
+
+        bottom: 15px;
+
+        transform:
+            translateX(0)
+            scale(.78);
+    }
+
+
+    .login-form-container {
+
+        padding: 30px 20px;
+    }
+
+}
+/* =========================================================
+   LOGIN PAGE - IMPROVED SCALE
+========================================================= */
+
+.login-page .auth-container {
+    width: min(1050px, 92vw);
+    min-height: 620px;
+
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+
+    border-radius: 24px;
+    overflow: hidden;
+
+    box-shadow:
+        0 25px 60px rgba(31, 70, 61, 0.16);
+}
+
+
+/* LEFT GREEN PANEL */
+
+.login-page .login-info {
+    min-height: 620px;
+    padding: 50px 48px;
+}
+
+
+/* RIGHT LOGIN AREA */
+
+.login-page .login-form-container {
+    min-height: 620px;
+    padding: 45px 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.login-page .login-form {
+    width: 100%;
+    max-width: 430px;
+}
+
+
+/* FORM TEXT */
+
+.login-page .form-header h2 {
+    font-size: 30px;
+    line-height: 1.25;
+}
+
+
+.login-page .form-subtitle {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* INPUTS */
+
+.login-page .form-group input {
+    min-height: 48px;
+
+    padding: 12px 15px;
+
+    font-size: 14px;
+}
+
+
+/* LABELS */
+
+.login-page .form-group label {
+    font-size: 13px;
+    margin-bottom: 7px;
+}
+
+
+/* LOGIN BUTTON */
+
+.login-page .login-button {
+    min-height: 50px;
+
+    font-size: 14px;
+}
+
+
+/* SECURITY BOX */
+
+.login-page .login-security-note {
+    padding: 14px 16px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 850px) {
+
+    .login-page .auth-container {
+        width: min(600px, 92vw);
+
+        display: block;
+
+        min-height: auto;
+    }
+
+    .login-page .login-info {
+        min-height: auto;
+    }
+
+    .login-page .login-form-container {
+        min-height: auto;
+        padding: 40px 35px;
+    }
+
+}
+
+
+@media (max-width: 550px) {
+
+    .login-page .auth-container {
+        width: 94vw;
+        border-radius: 18px;
+    }
+
+    .login-page .login-info {
+        padding: 35px 25px;
+    }
+
+    .login-page .login-form-container {
+        padding: 35px 22px;
+    }
+
+    .login-page .form-header h2 {
+        font-size: 26px;
+    }
+
+}
+/* =========================================================
+   LOGIN - GREEN VISUAL PANEL
+========================================================= */
+
+.login-page .login-info {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 85% 12%,
+            rgba(255,255,255,0.08),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 15% 85%,
+            rgba(255,255,255,0.06),
+            transparent 30%
+        ),
+        linear-gradient(
+            145deg,
+            #075f51,
+            #056a5a 55%,
+            #075247
+        );
+
+    color: white;
+}
+
+
+/* Decorative curved lines */
+
+.login-page .login-info::before {
+    content: "";
+
+    position: absolute;
+
+    width: 430px;
+    height: 430px;
+
+    right: -230px;
+    top: -130px;
+
+    border: 1px solid rgba(255,255,255,0.10);
+
+    border-radius: 50%;
+}
+
+
+.login-page .login-info::after {
+    content: "";
+
+    position: absolute;
+
+    width: 520px;
+    height: 260px;
+
+    left: -180px;
+    bottom: -150px;
+
+    border: 1px solid rgba(255,255,255,0.10);
+
+    border-radius: 50%;
+}
+
+
+/* Keep content above decoration */
+
+.login-page .login-info-content {
+    position: relative;
+    z-index: 5;
+
+    max-width: 300px;
+}
+
+
+/* Eyebrow */
+
+.login-page .auth-label {
+    color: #9edc55;
+
+    font-size: 10px;
+    font-weight: 900;
+
+    letter-spacing: 2.5px;
+
+    margin-bottom: 10px;
+}
+
+
+/* Main heading */
+
+.login-page .auth-info-content h1 {
+    color: white;
+
+    font-size: 38px;
+    line-height: 1.08;
+
+    margin: 0 0 16px;
+}
+
+
+.login-page .auth-info-content h1 span {
+    color: #b7df59;
+}
+
+
+/* Description */
+
+.login-page .auth-description {
+    color: rgba(255,255,255,0.78);
+
+    font-size: 13px;
+    line-height: 1.65;
+
+    max-width: 270px;
+}
+
+
+/* =========================================================
+   FEATURES
+========================================================= */
+
+.login-page .auth-features {
+    margin-top: 25px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+
+.login-page .auth-feature {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 11px;
+}
+
+
+.login-page .feature-dot {
+    width: 25px;
+    height: 25px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(164,213,82,0.18);
+
+    color: #b8df60;
+
+    font-size: 12px;
+    font-weight: 900;
+}
+
+
+.login-page .auth-feature strong {
+    display: block;
+
+    margin-bottom: 2px;
+
+    color: white;
+
+    font-size: 12px;
+}
+
+
+.login-page .auth-feature small {
+    display: block;
+
+    color: rgba(255,255,255,0.62);
+
+    font-size: 10px;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   MINI CARD
+========================================================= */
+
+.login-page .auth-mini-card {
+    position: relative;
+    z-index: 5;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 25px;
+
+    padding: 12px 14px;
+
+    border: 1px solid rgba(255,255,255,0.13);
+
+    border-radius: 10px;
+
+    background: rgba(255,255,255,0.07);
+
+    backdrop-filter: blur(8px);
+}
+
+
+.login-page .auth-mini-card strong {
+    display: block;
+
+    color: white;
+
+    font-size: 11px;
+}
+
+
+.login-page .auth-mini-card small {
+    display: block;
+
+    margin-top: 3px;
+
+    color: rgba(255,255,255,0.60);
+
+    font-size: 9px;
+}
+/* =========================================================
+   LOGIN - BALLOT ILLUSTRATION POSITIONING
+========================================================= */
+
+.login-page .election-visual {
+    position: absolute;
+
+    right: 28px;
+    bottom: 35px;
+
+    width: 250px;
+    height: 300px;
+
+    z-index: 3;
+
+    pointer-events: none;
+}
+
+
+/* Ballot paper */
+
+.login-page .ballot-paper {
+    position: absolute;
+
+    width: 145px;
+
+    left: 25px;
+    top: 5px;
+
+    transform: rotate(-5deg);
+
+    z-index: 3;
+}
+
+
+/* Ballot box */
+
+.login-page .ballot-box-visual {
+    position: absolute;
+
+    right: 0;
+    bottom: 12px;
+
+    z-index: 2;
+}
+
+
+/* Confirmation card */
+
+.login-page .vote-confirmation {
+    position: absolute;
+
+    right: -15px;
+    top: 145px;
+
+    z-index: 5;
+
+    white-space: nowrap;
+}
+
+
+/* Keep the branding readable */
+
+.login-page .auth-info-content {
+    position: relative;
+
+    z-index: 10;
+
+    width: 48%;
+}
+
+
+/* Don't let the illustration interfere on smaller screens */
+
+@media (max-width: 850px) {
+
+    .login-page .election-visual {
+        display: none;
+    }
+
+    .login-page .auth-info-content {
+        width: 100%;
+        max-width: 420px;
+    }
+
+}
