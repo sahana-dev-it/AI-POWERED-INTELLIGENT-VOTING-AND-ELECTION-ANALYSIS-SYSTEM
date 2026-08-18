@@ -1,544 +1,173 @@
 /* =========================================================
    ELECTION BACKGROUND
-   Shared background for Login / Register / Auth pages
+   Shared by LOGIN + REGISTER pages
 ========================================================= */
 
-body.auth-page {
+.auth-page {
     position: relative;
-    overflow-x: hidden;
+    min-height: 100vh;
+    overflow: hidden;
 
     background:
         radial-gradient(
-            circle at 10% 10%,
-            rgba(194, 138, 77, 0.12),
-            transparent 25%
+            circle at 12% 18%,
+            rgba(194, 138, 77, 0.13),
+            transparent 24%
         ),
         radial-gradient(
-            circle at 90% 85%,
+            circle at 88% 80%,
             rgba(49, 95, 84, 0.13),
-            transparent 28%
+            transparent 27%
         ),
-        #f7f3ed;
+        linear-gradient(
+            135deg,
+            #f8f3ea,
+            #f5f1e9 45%,
+            #f7f4ee
+        );
+
+    color: #29463f;
 }
 
 
 /* =========================================================
-   OUTER DECORATION AREA
+   SUBTLE BACKGROUND GRID
 ========================================================= */
 
-.outer-election-decoration {
+.auth-page::before {
+
+    content: "";
+
     position: fixed;
 
     inset: 0;
 
-    z-index: 0;
-
     pointer-events: none;
 
-    overflow: hidden;
+    opacity: 0.38;
+
+    background-image:
+        linear-gradient(
+            rgba(49, 95, 84, 0.035) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(49, 95, 84, 0.035) 1px,
+            transparent 1px
+        );
+
+    background-size: 55px 55px;
+
+    z-index: 0;
 }
 
 
 /* =========================================================
-   COMMON FLOATING ELECTION OBJECT
+   DECORATIVE DOT PATTERN
+========================================================= */
+
+.auth-page::after {
+
+    content: "";
+
+    position: fixed;
+
+    width: 240px;
+    height: 180px;
+
+    top: 25px;
+    left: 30px;
+
+    pointer-events: none;
+
+    opacity: 0.45;
+
+    background-image:
+        radial-gradient(
+            circle,
+            rgba(194, 138, 77, 0.30) 1.5px,
+            transparent 1.5px
+        );
+
+    background-size: 18px 18px;
+
+    z-index: 0;
+}
+
+
+/* =========================================================
+   OUTER DECORATION WRAPPER
+========================================================= */
+
+.outer-election-decoration {
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 1;
+}
+
+
+/* =========================================================
+   COMMON FLOATING CARD
 ========================================================= */
 
 .outer-election-decoration > div {
+
     position: absolute;
 
-    pointer-events: none;
+    box-sizing: border-box;
+
+    border: 1px solid rgba(49, 95, 84, 0.10);
+
+    background:
+        rgba(255, 255, 255, 0.82);
+
+    box-shadow:
+        0 12px 30px rgba(48, 69, 62, 0.08);
+
+    backdrop-filter: blur(5px);
+
+    -webkit-backdrop-filter: blur(5px);
 }
+
 
 
 /* =========================================================
-   POLLING BOOTH
+   TABLET
 ========================================================= */
 
-.outer-polling-scene {
-    top: 7%;
-    left: 3%;
+@media (max-width: 1100px) {
 
-    width: 190px;
-    height: 170px;
+    .outer-polling-scene {
+        left: 2%;
+        transform: scale(0.85) rotate(-3deg);
+    }
 
-    opacity: 0.75;
+    .outer-ballot-paper {
+        left: 2% !important;
+    }
 
-    transform: rotate(-4deg);
-}
+    .outer-evm {
+        right: 2%;
+    }
 
+    .outer-ballot-slip {
+        right: 2%;
+    }
 
-/* Booth roof */
+    .outer-symbols {
+        left: 2%;
+    }
 
-.polling-roof {
-    width: 170px;
-    height: 18px;
+    .outer-results {
+        right: 2%;
+    }
 
-    margin: 0 auto;
-
-    border-radius: 10px 10px 3px 3px;
-
-    background: #315f54;
-
-    box-shadow:
-        0 6px 0 #244b43;
-}
-
-
-/* Booth */
-
-.polling-booth {
-    position: relative;
-
-    width: 150px;
-    height: 115px;
-
-    margin: 0 auto;
-
-    border: 2px solid #d8c8b3;
-
-    border-radius: 5px;
-
-    background: #fffaf3;
-
-    box-shadow:
-        0 12px 25px rgba(55,66,61,0.10);
-}
-
-
-/* Polling sign */
-
-.polling-sign {
-    padding: 7px;
-
-    background: #c28a4d;
-
-    color: white;
-
-    text-align: center;
-
-    font-size: 10px;
-    font-weight: 900;
-    letter-spacing: 1px;
-}
-
-
-/* Counter */
-
-.polling-counter {
-    position: absolute;
-
-    left: 20px;
-    right: 20px;
-    bottom: 25px;
-
-    height: 22px;
-
-    border-radius: 5px;
-
-    background: #e8dccb;
-}
-
-
-/* Voter */
-
-.polling-voter {
-    position: absolute;
-
-    bottom: 42px;
-    left: 48px;
-
-    font-size: 27px;
-
-    opacity: 0.8;
-}
-
-
-/* EVM */
-
-.polling-machine {
-    position: absolute;
-
-    right: 12px;
-    bottom: 31px;
-
-    padding: 5px 7px;
-
-    border-radius: 4px;
-
-    background: #315f54;
-
-    color: white;
-
-    font-size: 8px;
-    font-weight: 900;
-}
-
-
-/* Label */
-
-.polling-label {
-    margin-top: 8px;
-
-    color: #8f765b;
-
-    text-align: center;
-
-    font-size: 9px;
-    font-weight: 900;
-
-    letter-spacing: 1.5px;
-}
-
-
-/* =========================================================
-   I VOTED CARD
-========================================================= */
-
-.outer-ink-card {
-    top: 32%;
-    left: 5%;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-    padding: 12px 15px;
-
-    border: 1px solid #e2d6c6;
-
-    border-radius: 13px;
-
-    background: rgba(255,255,255,0.82);
-
-    box-shadow:
-        0 10px 25px rgba(55,66,61,0.08);
-
-    transform: rotate(5deg);
-
-    opacity: 0.8;
-}
-
-
-.outer-ink-hand {
-    font-size: 30px;
-}
-
-
-.outer-ink-card strong {
-    display: block;
-
-    color: #315f54;
-
-    font-size: 12px;
-}
-
-
-.outer-ink-card small {
-    color: #9a8c7d;
-
-    font-size: 9px;
-}
-
-
-/* =========================================================
-   EVM
-========================================================= */
-
-.outer-evm {
-    top: 12%;
-    right: 4%;
-
-    width: 135px;
-
-    padding: 15px;
-
-    border: 2px solid #d8c8b3;
-
-    border-radius: 12px;
-
-    background: #fffaf3;
-
-    box-shadow:
-        0 14px 30px rgba(55,66,61,0.09);
-
-    transform: rotate(5deg);
-
-    opacity: 0.78;
-}
-
-
-.outer-evm-title {
-    margin-bottom: 10px;
-
-    color: #315f54;
-
-    text-align: center;
-
-    font-size: 13px;
-    font-weight: 900;
-}
-
-
-.outer-evm-row {
-    display: flex;
-
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 7px 4px;
-
-    border-top: 1px solid #eee4d8;
-
-    color: #697a75;
-
-    font-size: 10px;
-}
-
-
-.outer-evm-row.selected {
-    background: #e9f3ef;
-
-    color: #315f54;
-}
-
-
-.outer-vvpat {
-    margin-top: 8px;
-
-    padding: 5px;
-
-    border-radius: 4px;
-
-    background: #c28a4d;
-
-    color: white;
-
-    text-align: center;
-
-    font-size: 8px;
-    font-weight: 900;
-}
-
-
-/* =========================================================
-   ELECTION SYMBOLS
-========================================================= */
-
-.outer-symbols {
-    right: 5%;
-    top: 42%;
-
-    padding: 14px 18px;
-
-    border: 1px solid #e4d8c9;
-
-    border-radius: 14px;
-
-    background: rgba(255,255,255,0.78);
-
-    box-shadow:
-        0 10px 25px rgba(55,66,61,0.06);
-
-    transform: rotate(-4deg);
-
-    opacity: 0.72;
-}
-
-
-.outer-symbol-title {
-    display: block;
-
-    margin-bottom: 10px;
-
-    color: #9a6b38;
-
-    font-size: 8px;
-    font-weight: 900;
-    letter-spacing: 1.3px;
-}
-
-
-.outer-symbol-list {
-    display: flex;
-
-    justify-content: space-between;
-
-    gap: 18px;
-
-    font-size: 25px;
-}
-
-
-/* =========================================================
-   BALLOT / VVPAT SLIP
-========================================================= */
-
-.outer-ballot-slip {
-    left: 4%;
-    bottom: 12%;
-
-    width: 145px;
-
-    padding: 14px;
-
-    border: 1px solid #ded2c2;
-
-    background: #fffdf9;
-
-    box-shadow:
-        0 12px 30px rgba(55,66,61,0.08);
-
-    transform: rotate(-5deg);
-
-    opacity: 0.72;
-}
-
-
-.vvpat-header {
-    color: #315f54;
-
-    font-size: 11px;
-    font-weight: 900;
-}
-
-
-.vvpat-title {
-    margin: 6px 0 10px;
-
-    color: #a06b2f;
-
-    font-size: 8px;
-    font-weight: 900;
-    letter-spacing: 1px;
-}
-
-
-.vvpat-line {
-    display: flex;
-
-    justify-content: space-between;
-
-    padding: 6px 3px;
-
-    border-top: 1px solid #eee6db;
-
-    color: #687a74;
-
-    font-size: 10px;
-}
-
-
-.vvpat-line.selected {
-    background: #edf5f1;
-
-    color: #315f54;
-
-    font-weight: 900;
-}
-
-
-.vvpat-footer {
-    margin-top: 9px;
-
-    padding-top: 7px;
-
-    border-top: 1px dashed #d9cdbc;
-
-    color: #3f806d;
-
-    text-align: center;
-
-    font-size: 8px;
-    font-weight: 900;
-}
-
-
-/* =========================================================
-   VOTE COUNT
-========================================================= */
-
-.outer-results {
-    right: 4%;
-    bottom: 10%;
-
-    width: 155px;
-
-    padding: 16px;
-
-    border: 1px solid #dfd5c7;
-
-    border-radius: 14px;
-
-    background: rgba(255,255,255,0.82);
-
-    box-shadow:
-        0 12px 28px rgba(55,66,61,0.07);
-
-    transform: rotate(4deg);
-
-    opacity: 0.72;
-}
-
-
-.outer-results strong {
-    display: block;
-
-    margin-bottom: 12px;
-
-    color: #315f54;
-
-    font-size: 10px;
-    letter-spacing: 1.5px;
-}
-
-
-.result-bar {
-    height: 7px;
-
-    margin: 8px 0;
-
-    overflow: hidden;
-
-    border-radius: 20px;
-
-    background: #e9e3da;
-}
-
-
-.result-bar span {
-    display: block;
-
-    height: 100%;
-
-    border-radius: inherit;
-
-    background: #c28a4d;
-}
-
-
-.outer-results small {
-    display: block;
-
-    margin-top: 10px;
-
-    color: #9a8c7d;
-
-    font-size: 8px;
-    font-weight: 800;
-    letter-spacing: 1px;
-}
-
-
-/* =========================================================
-   KEEP REAL PAGE CONTENT ABOVE DECORATIONS
-========================================================= */
-
-.auth-container {
-    position: relative;
-
-    z-index: 2;
 }
 
 
@@ -546,313 +175,1347 @@ body.auth-page {
    MOBILE
 ========================================================= */
 
-@media (max-width: 1100px) {
-
-    .outer-election-decoration {
-        opacity: 0.55;
-    }
-
-}
-
-
 @media (max-width: 800px) {
 
-    .outer-election-decoration {
-        opacity: 0.28;
+    .outer-election-decoration > div {
+
+        opacity: 0.32;
+
+    }
+
+
+    .outer-polling-scene,
+    .outer-ballot-paper,
+    .outer-ink-card,
+    .outer-symbols {
+
+        transform: scale(0.75);
+
+    }
+
+
+    .outer-polling-scene {
+        left: -25px;
+        top: 5%;
+    }
+
+
+    .outer-ballot-paper {
+        left: -20px !important;
+    }
+
+
+    .outer-ink-card {
+        left: -20px;
+    }
+
+
+    .outer-symbols {
+        left: -20px;
+        bottom: 8%;
+    }
+
+
+    .outer-evm {
+        right: -25px;
+        top: 8%;
+    }
+
+
+    .outer-ballot-slip {
+        right: -20px;
+        top: 42%;
+    }
+
+
+    .outer-results {
+        right: -20px;
+        bottom: 8%;
+    }
+
+
+    .outer-election-decoration::before,
+    .outer-election-decoration::after {
+
+        opacity: 0.35;
+
     }
 
 }
 
 
-@media (max-width: 600px) {
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
 
-    .outer-election-decoration {
-        display: none;
+@media (max-width: 550px) {
+
+    .outer-election-decoration > div {
+
+        opacity: 0.18;
+
+    }
+
+
+    .outer-polling-scene,
+    .outer-ballot-paper,
+    .outer-ink-card,
+    .outer-symbols,
+    .outer-evm,
+    .outer-ballot-slip,
+    .outer-results {
+
+        transform: scale(0.55);
+
+    }
+
+
+    .outer-polling-scene {
+        left: -45px;
+    }
+
+
+    .outer-ballot-paper {
+        left: -45px !important;
+    }
+
+
+    .outer-ink-card {
+        left: -45px;
+    }
+
+
+    .outer-symbols {
+        left: -45px;
+    }
+
+
+    .outer-evm {
+        right: -45px;
+    }
+
+
+    .outer-ballot-slip {
+        right: -45px;
+    }
+
+
+    .outer-results {
+        right: -45px;
     }
 
 }
-/* =========================================================
-   ELECTION BACKGROUND - ATMOSPHERE
-========================================================= */
-
-/* Soft election grid */
-
-.outer-election-decoration::before {
-    content: "";
-
-    position: absolute;
-    inset: 0;
-
-    background-image:
-        linear-gradient(
-            rgba(49,95,84,0.025) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(49,95,84,0.025) 1px,
-            transparent 1px
-        );
-
-    background-size: 45px 45px;
-
-    mask-image: linear-gradient(
-        to bottom,
-        transparent,
-        black 15%,
-        black 85%,
-        transparent
-    );
-}
 
 
 /* =========================================================
-   FLOATING VOTE SYMBOLS
+   BUILDING COLUMNS
 ========================================================= */
 
-.outer-election-decoration::after {
-    content: "✓     🗳️     ○     ✓     🗳️";
+.building-columns {
 
     position: absolute;
 
-    right: 8%;
-    bottom: 3%;
+    left: 15px;
 
-    color: rgba(49,95,84,0.055);
+    right: 15px;
 
-    font-size: 34px;
-    font-weight: 900;
+    bottom: 0;
 
-    letter-spacing: 20px;
+    height: 48px;
 
-    transform: rotate(-7deg);
+    display: flex;
 
-    white-space: nowrap;
+    justify-content: space-between;
+
+    align-items: flex-end;
+
+}
+
+
+.building-columns span {
+
+    width: 10px;
+
+    height: 43px;
+
+    border-radius: 2px;
+
+    background: #a9a093;
+
 }
 
 
 /* =========================================================
-   SMALL DECORATIVE DOTS
+   VOTER CROWD
 ========================================================= */
 
-.outer-election-decoration {
-    background-image:
-        radial-gradient(
-            circle,
-            rgba(194,138,77,0.16) 2px,
-            transparent 2px
-        ),
-        radial-gradient(
-            circle,
-            rgba(49,95,84,0.11) 1.5px,
-            transparent 1.5px
-        );
+.voter-crowd {
 
-    background-size:
-        75px 75px,
-        110px 110px;
-
-    background-position:
-        20px 20px,
-        50px 40px;
-}
-
-
-/* =========================================================
-   ELECTION RINGS
-========================================================= */
-
-.outer-election-decoration .election-ring {
     position: absolute;
 
-    width: 130px;
-    height: 130px;
+    left: -70px;
 
-    border: 1px solid rgba(49,95,84,0.10);
+    right: -70px;
 
-    border-radius: 50%;
+    bottom: 0;
+
+    height: 100px;
+
 }
 
 
-.outer-election-decoration .election-ring::before,
-.outer-election-decoration .election-ring::after {
+/* common person */
+
+.voter {
+
+    position: absolute;
+
+    bottom: 0;
+
+    width: 35px;
+
+    height: 82px;
+
+}
+
+
+/* head */
+
+.voter::before {
+
     content: "";
 
     position: absolute;
 
-    border: 1px solid rgba(194,138,77,0.10);
+    left: 11px;
+
+    top: 0;
+
+    width: 14px;
+
+    height: 14px;
 
     border-radius: 50%;
+
+    background: #52655f;
+
 }
 
 
-.outer-election-decoration .election-ring::before {
-    inset: 15px;
-}
+/* body */
 
+.voter::after {
 
-.outer-election-decoration .election-ring::after {
-    inset: 30px;
-}
-/* =========================================================
-   FLOATING BALLOT CARDS
-========================================================= */
+    content: "";
 
-.bg-ballot-card {
     position: absolute;
 
-    width: 155px;
+    left: 5px;
 
-    padding: 16px;
+    top: 16px;
 
-    border: 1px solid rgba(49, 95, 84, 0.12);
+    width: 25px;
 
-    border-radius: 14px;
+    height: 58px;
 
-    background: rgba(255, 255, 255, 0.62);
+    border-radius: 13px 13px 4px 4px;
 
-    box-shadow:
-        0 12px 30px rgba(55, 66, 61, 0.06);
+    background: #315f54;
 
-    opacity: 0.72;
+}
 
-    backdrop-filter: blur(3px);
 
+/* =========================================================
+   DIFFERENT PEOPLE
+========================================================= */
+
+.voter-one {
+    left: 0;
+    transform: scale(0.82);
+}
+
+.voter-two {
+    left: 38px;
+    transform: scale(1.05);
+}
+
+.voter-three {
+    left: 80px;
+    transform: scale(0.9);
+}
+
+.voter-four {
+    right: 80px;
+    transform: scale(1.05);
+}
+
+.voter-five {
+    right: 38px;
+    transform: scale(0.86);
+}
+
+.voter-six {
+    right: 0;
+    transform: scale(0.95);
+}
+
+
+/* =========================================================
+   RAISED HANDS
+========================================================= */
+
+.voter-hand {
+
+    position: absolute;
+
+    width: 5px;
+
+    height: 38px;
+
+    border-radius: 10px;
+
+    background: #52655f;
+
+    transform-origin: bottom center;
+
+}
+
+
+.voter-hand::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: -8px;
+
+    left: -3px;
+
+    width: 11px;
+
+    height: 12px;
+
+    border-radius: 50%;
+
+    background: #52655f;
+
+}
+
+
+.voter-one .voter-hand {
+
+    left: 4px;
+
+    top: 14px;
+
+    transform: rotate(-28deg);
+
+}
+
+
+.voter-four .voter-hand {
+
+    right: 3px;
+
+    top: 8px;
+
+    transform: rotate(25deg);
+
+}
+
+
+/* =========================================================
+   FLAGS
+========================================================= */
+
+.election-flag {
+
+    position: absolute;
+
+    bottom: 45px;
+
+    width: 65px;
+
+    height: 45px;
+
+}
+
+
+.flag-pole {
+
+    position: absolute;
+
+    left: 3px;
+
+    bottom: 0;
+
+    width: 2px;
+
+    height: 62px;
+
+    background: #65736d;
+
+}
+
+
+.flag-cloth {
+
+    position: absolute;
+
+    left: 5px;
+
+    top: 2px;
+
+    width: 48px;
+
+    height: 28px;
+
+    clip-path:
+        polygon(
+            0 0,
+            100% 15%,
+            82% 50%,
+            100% 85%,
+            0 100%
+        );
+
+    background:
+        linear-gradient(
+            to bottom,
+            #e5b76d 0 33%,
+            #f5f1e8 33% 66%,
+            #5c8b70 66% 100%
+        );
+
+}
+
+
+.flag-one {
+    left: 55px;
     transform: rotate(-8deg);
 }
 
 
-.bg-ballot-header {
-    display: flex;
+.flag-two {
+    right: 55px;
+    transform: rotate(7deg);
+}
 
-    align-items: center;
 
-    gap: 8px;
+/* =========================================================
+   DEMOCRACY LABEL
+========================================================= */
 
-    margin-bottom: 12px;
+.democracy-label {
+
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 0;
+
+    transform: translateX(-50%);
+
+    padding: 6px 15px;
+
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.82);
+
+    border: 1px solid rgba(49,95,84,0.10);
 
     color: #315f54;
 
-    font-size: 11px;
+    font-size: 8px;
 
-    letter-spacing: 1.2px;
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    white-space: nowrap;
+
 }
 
 
-.bg-ballot-header span {
-    font-size: 18px;
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .democracy-scene {
+
+        transform:
+            translateX(-50%)
+            scale(0.75);
+
+        bottom: 1%;
+
+    }
+
 }
 
 
-.bg-ballot-line {
-    height: 4px;
+@media (max-width: 550px) {
+
+    .democracy-scene {
+
+        opacity: 0.18;
+
+        transform:
+            translateX(-50%)
+            scale(0.55);
+
+    }
+
+}
+/* =========================================================
+   REAL ELECTION IMAGE BACKGROUND
+   Uses images from: static/images/
+========================================================= */
+
+.auth-page {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 15% 25%,
+            rgba(194, 138, 77, 0.12),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 85% 75%,
+            rgba(49, 95, 84, 0.13),
+            transparent 30%
+        ),
+        #f7f3eb;
+}
+
+
+/* =========================================================
+   IMAGE BACKGROUND LAYER
+========================================================= */
+
+.auth-page::after {
+
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 0;
+
+    background-image:
+        url("../images/voting_booth.png"),
+        url("../images/evm.png"),
+        url("../images/inked_finger.png"),
+        url("../images/ballot_box.png"),
+        url("../images/india_map.png");
+
+    background-repeat:
+        no-repeat,
+        no-repeat,
+        no-repeat,
+        no-repeat,
+        no-repeat;
+
+    background-position:
+        4% 14%,
+        5% 72%,
+        94% 18%,
+        94% 72%,
+        50% 100%;
+
+    background-size:
+        150px,
+        165px,
+        135px,
+        155px,
+        330px;
+
+    opacity: 0.18;
+
+    filter: saturate(0.75);
+}
+
+
+/* =========================================================
+   KEEP ALL ACTUAL PAGE CONTENT ABOVE IMAGES
+========================================================= */
+
+.auth-container {
+    position: relative;
+
+    z-index: 5;
+}
+
+
+/* =========================================================
+   KEEP FLOATING DECORATIONS ABOVE IMAGE BACKGROUND
+========================================================= */
+
+.outer-election-decoration {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 2;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   SOFT LIGHT BEHIND MAIN LOGIN / REGISTER CARD
+========================================================= */
+
+.auth-container::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 760px;
+    height: 520px;
+
+    transform:
+        translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(255,255,255,0.88),
+            rgba(255,255,255,0.35),
+            transparent 70%
+        );
+
+    pointer-events: none;
+
+    z-index: -1;
+}
+
+
+/* =========================================================
+   IMAGE FLOATING EFFECTS
+========================================================= */
+
+@keyframes backgroundElectionFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+
+}
+
+
+/* =========================================================
+   DESKTOP IMAGE VISIBILITY
+========================================================= */
+
+@media (min-width: 1101px) {
+
+    .auth-page::after {
+
+        opacity: 0.20;
+
+        background-size:
+            165px,
+            175px,
+            145px,
+            165px,
+            360px;
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .auth-page::after {
+
+        opacity: 0.14;
+
+        background-position:
+            1% 12%,
+            1% 75%,
+            99% 15%,
+            99% 75%,
+            50% 100%;
+
+        background-size:
+            125px,
+            140px,
+            110px,
+            125px,
+            280px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .auth-page::after {
+
+        opacity: 0.09;
+
+        background-position:
+            -20px 8%,
+            -20px 88%,
+            calc(100% + 20px) 10%,
+            calc(100% + 20px) 88%,
+            50% 100%;
+
+        background-size:
+            95px,
+            105px,
+            90px,
+            100px,
+            220px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 550px) {
+
+    .auth-page::after {
+
+        opacity: 0.055;
+
+        background-size:
+            75px,
+            85px,
+            70px,
+            80px,
+            180px;
+    }
+
+}
+/* =========================================================
+   REAL ELECTION IMAGES
+   Reference-style balanced background
+========================================================= */
+
+.real-election-background {
+    position: fixed;
+    inset: 0;
 
     width: 100%;
+    height: 100%;
 
-    margin-bottom: 7px;
+    pointer-events: none;
 
-    border-radius: 5px;
+    z-index: 1;
 
-    background: rgba(49, 95, 84, 0.09);
+    overflow: hidden;
 }
 
 
-.bg-ballot-option {
-    display: flex;
+/* =========================================================
+   COMMON IMAGE STYLE
+========================================================= */
 
-    align-items: center;
+.real-election-background .election-art {
+    position: absolute;
 
-    gap: 9px;
+    display: block;
 
-    margin-top: 9px;
+    object-fit: contain;
+
+    pointer-events: none;
+
+    user-select: none;
+
+    opacity: 0.42;
+
+    filter:
+        saturate(0.72)
+        contrast(0.92);
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 12px 30px rgba(48, 69, 62, 0.06);
 }
 
 
-.bg-ballot-option > span:last-child {
-    width: 70px;
-    height: 5px;
+/* =========================================================
+   VOTING BOOTH
+   TOP LEFT
+========================================================= */
 
-    border-radius: 5px;
+.voting-booth-art {
 
-    background: rgba(194, 138, 77, 0.10);
-}
+    top: 7%;
 
-
-.bg-check {
-    width: 13px;
-    height: 13px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border: 1px solid rgba(49, 95, 84, 0.18);
-
-    border-radius: 3px;
-
-    color: transparent;
-
-    font-size: 9px;
-}
-
-
-.bg-check.checked {
-    border-color: #c28a4d;
-
-    background: rgba(194, 138, 77, 0.75);
-
-    color: white;
-}
-
-
-/* LEFT SIDE */
-
-.ballot-card-one {
     left: 4%;
 
-    top: 12%;
+    width: 155px;
 
-    animation:
-        ballotFloatOne 7s ease-in-out infinite;
+    height: 155px;
+
+    transform: rotate(-3deg);
 }
 
 
-/* RIGHT SIDE */
+/* =========================================================
+   EVM
+   TOP RIGHT
+========================================================= */
 
-.ballot-card-two {
+.evm-art {
+
+    top: 9%;
+
+    right: 5%;
+
+    width: 125px;
+
+    height: 125px;
+
+    transform: rotate(4deg);
+}
+
+
+/* =========================================================
+   INKED FINGER
+   BOTTOM LEFT
+========================================================= */
+
+.inked-finger-art {
+
+    left: 5%;
+
+    bottom: 9%;
+
+    width: 125px;
+
+    height: 125px;
+
+    transform: rotate(-4deg);
+}
+
+
+/* =========================================================
+   BALLOT BOX
+   BOTTOM RIGHT
+========================================================= */
+
+.ballot-box-art {
+
+    right: 5%;
+
+    bottom: 9%;
+
+    width: 135px;
+
+    height: 135px;
+
+    transform: rotate(3deg);
+}
+
+
+/* =========================================================
+   INDIA MAP
+   LOWER / BACKGROUND
+========================================================= */
+
+.india-map-art {
+
+    left: 50%;
+
+    bottom: 2%;
+
+    width: 230px;
+
+    height: 180px;
+
+    transform:
+        translateX(-50%)
+        rotate(-2deg);
+
+    opacity: 0.13 !important;
+
+    filter:
+        grayscale(0.2)
+        saturate(0.5);
+}
+
+
+/* =========================================================
+   PROTECT THE MAIN LOGIN / REGISTER CARD
+========================================================= */
+
+.auth-container {
+
+    position: relative;
+
+    z-index: 10;
+}
+
+
+/* =========================================================
+   KEEP FORM CONTENT ABOVE EVERYTHING
+========================================================= */
+
+.auth-container * {
+
+    position: relative;
+
+    z-index: 11;
+}
+
+
+/* =========================================================
+   LARGE SCREEN
+========================================================= */
+
+@media (min-width: 1400px) {
+
+    .voting-booth-art {
+        left: 5%;
+        top: 8%;
+        width: 170px;
+        height: 170px;
+    }
+
+    .evm-art {
+        right: 6%;
+        top: 10%;
+        width: 135px;
+        height: 135px;
+    }
+
+    .inked-finger-art {
+        left: 6%;
+        bottom: 10%;
+        width: 135px;
+        height: 135px;
+    }
+
+    .ballot-box-art {
+        right: 6%;
+        bottom: 10%;
+        width: 145px;
+        height: 145px;
+    }
+
+    .india-map-art {
+        width: 250px;
+        height: 190px;
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .real-election-background .election-art {
+
+        opacity: 0.25;
+
+    }
+
+    .voting-booth-art {
+
+        left: 1.5%;
+
+        top: 8%;
+
+        width: 120px;
+
+        height: 120px;
+
+    }
+
+    .evm-art {
+
+        right: 2%;
+
+        top: 10%;
+
+        width: 105px;
+
+        height: 105px;
+
+    }
+
+    .inked-finger-art {
+
+        left: 2%;
+
+        bottom: 8%;
+
+        width: 100px;
+
+        height: 100px;
+
+    }
+
+    .ballot-box-art {
+
+        right: 2%;
+
+        bottom: 8%;
+
+        width: 110px;
+
+        height: 110px;
+
+    }
+
+    .india-map-art {
+
+        width: 180px;
+
+        height: 140px;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .real-election-background .election-art {
+
+        opacity: 0.16;
+
+    }
+
+    .voting-booth-art {
+
+        left: -25px;
+
+        top: 7%;
+
+        width: 95px;
+
+        height: 95px;
+
+    }
+
+    .evm-art {
+
+        right: -20px;
+
+        top: 8%;
+
+        width: 85px;
+
+        height: 85px;
+
+    }
+
+    .inked-finger-art {
+
+        left: -20px;
+
+        bottom: 6%;
+
+        width: 85px;
+
+        height: 85px;
+
+    }
+
+    .ballot-box-art {
+
+        right: -20px;
+
+        bottom: 6%;
+
+        width: 90px;
+
+        height: 90px;
+
+    }
+
+    .india-map-art {
+
+        width: 150px;
+
+        height: 120px;
+
+        opacity: 0.08 !important;
+
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 550px) {
+
+    .real-election-background .election-art {
+
+        opacity: 0.10;
+
+    }
+
+    .india-map-art {
+
+        display: none;
+
+    }
+
+}
+/* =========================================================
+   FINAL IMAGE SIZE + VISIBILITY ADJUSTMENT
+   Large election visuals around the center card
+========================================================= */
+
+.real-election-background .election-art {
+    opacity: 0.78;
+    filter:
+        saturate(0.90)
+        contrast(0.95);
+
+    box-shadow:
+        0 14px 35px rgba(48, 69, 62, 0.10);
+}
+
+
+/* =========================
+   VOTING BOOTH — LARGE
+========================= */
+
+.voting-booth-art {
+    top: 6%;
+    left: 3%;
+
+    width: 250px;
+    height: 250px;
+
+    transform: rotate(-3deg);
+}
+
+
+/* =========================
+   EVM — LARGE
+========================= */
+
+.evm-art {
+    top: 8%;
+    right: 3%;
+
+    width: 220px;
+    height: 220px;
+
+    transform: rotate(4deg);
+}
+
+
+/* =========================
+   INKED FINGER — LARGE
+========================= */
+
+.inked-finger-art {
+    left: 4%;
+    bottom: 5%;
+
+    width: 210px;
+    height: 210px;
+
+    transform: rotate(-4deg);
+}
+
+
+/* =========================
+   BALLOT BOX — LARGE
+========================= */
+
+.ballot-box-art {
     right: 4%;
+    bottom: 6%;
 
-    bottom: 16%;
+    width: 220px;
+    height: 220px;
 
-    transform: rotate(7deg);
-
-    animation:
-        ballotFloatTwo 8s ease-in-out infinite;
+    transform: rotate(3deg);
 }
 
 
-@keyframes ballotFloatOne {
+/* =========================
+   INDIA MAP
+========================= */
 
-    0%, 100% {
-        transform: translateY(0) rotate(-8deg);
+.india-map-art {
+    left: 50%;
+    bottom: 1%;
+
+    width: 260px;
+    height: 200px;
+
+    transform:
+        translateX(-50%)
+        rotate(-2deg);
+
+    opacity: 0.20 !important;
+}
+
+
+/* =========================================================
+   KEEP THE CENTRAL LOGIN CARD CLEAR
+========================================================= */
+
+.auth-container {
+    position: relative;
+    z-index: 20;
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+========================================================= */
+
+@media (min-width: 1500px) {
+
+    .voting-booth-art {
+        width: 280px;
+        height: 280px;
+        left: 3%;
+        top: 5%;
     }
 
-    50% {
-        transform: translateY(-12px) rotate(-6deg);
+    .evm-art {
+        width: 250px;
+        height: 250px;
+        right: 3%;
+        top: 7%;
+    }
+
+    .inked-finger-art {
+        width: 240px;
+        height: 240px;
+        left: 4%;
+        bottom: 4%;
+    }
+
+    .ballot-box-art {
+        width: 250px;
+        height: 250px;
+        right: 4%;
+        bottom: 5%;
     }
 
 }
 
 
-@keyframes ballotFloatTwo {
+/* =========================================================
+   TABLET
+========================================================= */
 
-    0%, 100% {
-        transform: translateY(0) rotate(7deg);
+@media (max-width: 1100px) {
+
+    .real-election-background .election-art {
+        opacity: 0.55;
     }
 
-    50% {
-        transform: translateY(12px) rotate(9deg);
+    .voting-booth-art {
+        width: 170px;
+        height: 170px;
+        left: 1%;
+    }
+
+    .evm-art {
+        width: 155px;
+        height: 155px;
+        right: 1%;
+    }
+
+    .inked-finger-art {
+        width: 150px;
+        height: 150px;
+        left: 1%;
+    }
+
+    .ballot-box-art {
+        width: 160px;
+        height: 160px;
+        right: 1%;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .real-election-background .election-art {
+        opacity: 0.25;
+    }
+
+    .voting-booth-art {
+        width: 110px;
+        height: 110px;
+        left: -15px;
+    }
+
+    .evm-art {
+        width: 100px;
+        height: 100px;
+        right: -15px;
+    }
+
+    .inked-finger-art {
+        width: 100px;
+        height: 100px;
+        left: -15px;
+    }
+
+    .ballot-box-art {
+        width: 105px;
+        height: 105px;
+        right: -15px;
+    }
+
+    .india-map-art {
+        width: 150px;
+        height: 120px;
+        opacity: 0.10 !important;
     }
 
 }

@@ -31,6 +31,92 @@
 
 
 <body class="auth-page login-page">
+<body>
+  <div class="container">
+
+    <!-- Left Section -->
+    <div class="left-panel">
+      <!-- Voting booth, EVM, Inked finger -->
+    </div>
+
+    <!-- Center Section -->
+    <div class="center-panel">
+      <!-- Login form -->
+    </div>
+
+    <!-- Right Section -->
+    <div class="right-panel">
+      <!-- Ballot box, Map, Values -->
+    </div>
+
+  </div>
+  
+  <div class="auth-page">
+    <!-- =========================================================
+     REAL ELECTION BACKGROUND ELEMENTS
+========================================================= -->
+
+<div class="real-election-background">
+
+    <!-- Voting Booth -->
+    <img
+        src="{{ url_for('static', filename='images/voting_booth.png') }}"
+        class="election-art voting-booth-art"
+        alt=""
+    >
+
+    <!-- EVM -->
+    <img
+        src="{{ url_for('static', filename='images/evm.png') }}"
+        class="election-art evm-art"
+        alt=""
+    >
+
+    <!-- Inked Finger -->
+    <img
+        src="{{ url_for('static', filename='images/inked_finger.png') }}"
+        class="election-art inked-finger-art"
+        alt=""
+    >
+
+    <!-- Ballot Box -->
+    <img
+        src="{{ url_for('static', filename='images/ballot_box.png') }}"
+        class="election-art ballot-box-art"
+        alt=""
+    >
+
+    <!-- India Map -->
+    <img
+        src="{{ url_for('static', filename='images/india_map.png') }}"
+        class="election-art india-map-art"
+        alt=""
+    >
+
+</div>
+    <div class="container">
+
+      <!-- Left Section -->
+      <div class="left-panel">
+        <!-- Green panel content -->
+      </div>
+
+      <!-- Center Section -->
+      <div class="center-panel">
+        <!-- Login form -->
+      </div>
+
+      <!-- Right Section -->
+      <div class="right-panel">
+        <!-- Supporting content -->
+      </div>
+
+    </div>
+  </div>
+
+
+</body>
+
 
 
     <!-- =====================================================
@@ -38,37 +124,139 @@
     ====================================================== -->
 
     <div class="outer-election-decoration">
+       
+
+    <div class="outer-ballot-paper"></div>
+
+    <!-- your existing polling scene -->
+    <div class="outer-polling-scene">
+        ...
+    </div>
+
+    <!-- your existing ink card -->
+    <div class="outer-ink-card">
+        ...
+    </div>
+
+    <!-- your existing EVM -->
+    <div class="outer-evm">
+        ...
+    </div>
+
+    <!-- your existing symbols -->
+    <div class="outer-symbols">
+        ...
+    </div>
+
+    <!-- your existing VVPAT -->
+    <div class="outer-ballot-slip">
+        ...
+    </div>
+    <!-- =================================================
+     DEMOCRACY / VOTING SCENE
+================================================= -->
+
+<div class="democracy-scene">
+
+    <div class="democracy-building">
+
+        <div class="building-columns">
+
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </div>
+
+    </div>
+
+
+    <div class="voter-crowd">
+
+        <div class="voter voter-one">
+            <span class="voter-hand"></span>
+        </div>
+
+        <div class="voter voter-two"></div>
+
+        <div class="voter voter-three"></div>
+
+        <div class="voter voter-four">
+            <span class="voter-hand"></span>
+        </div>
+
+        <div class="voter voter-five"></div>
+
+        <div class="voter voter-six"></div>
+
+    </div>
+
+
+    <div class="election-flag flag-one">
+
+        <span class="flag-pole"></span>
+
+        <span class="flag-cloth"></span>
+
+    </div>
+
+
+    <div class="election-flag flag-two">
+
+        <span class="flag-pole"></span>
+
+        <span class="flag-cloth"></span>
+
+    </div>
+
+
+    <div class="democracy-label">
+        YOUR VOICE • YOUR VOTE • DEMOCRACY
+    </div>
+
+</div>
+
+    <!-- your existing vote count -->
+    <div class="outer-results">
+        ...
+    </div>
+
+</div>
+        <!-- =====================================================
+     BACKGROUND EVM
+====================================================== -->
+
+<div class="bg-evm bg-evm-one">
+
+    
+
+</div>
+
+
+<!-- =====================================================
+     BACKGROUND VVPAT
+====================================================== -->
+
+<div class="bg-vvpat bg-vvpat-one">
+
+
+    
+
+</div>
 
 
         <!-- =================================================
              FLOATING BALLOT CARD - LEFT
         ================================================== -->
 
-        <div class="bg-ballot-card ballot-card-one">
+        
 
-            <div class="bg-ballot-header">
-
-                <span>🗳️</span>
-
-                <strong>BALLOT</strong>
-
-            </div>
-
-
-            <div class="bg-ballot-line"></div>
-
-            <div class="bg-ballot-line"></div>
-
-
-            <div class="bg-ballot-option">
-
-                <span class="bg-check checked">
-                    ✓
-                </span>
-
-                <span></span>
-
-            </div>
+           
 
 
             <div class="bg-ballot-option">
@@ -98,28 +286,9 @@
 
         <div class="bg-ballot-card ballot-card-two">
 
-            <div class="bg-ballot-header">
+           
 
-                <span>✓</span>
-
-                <strong>VOTE</strong>
-
-            </div>
-
-
-            <div class="bg-ballot-line"></div>
-
-
-            <div class="bg-ballot-option">
-
-                <span class="bg-check checked">
-                    ✓
-                </span>
-
-                <span></span>
-
-            </div>
-
+                
 
             <div class="bg-ballot-option">
 
